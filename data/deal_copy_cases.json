@@ -568,5 +568,385 @@
       "format_compliant": true,
       "channel_char_limit": 50
     }
+  },
+  {
+    "id": "dc_031",
+    "channel": "push",
+    "merchant": "Flipkart",
+    "category": "Electronics",
+    "source_data": {
+      "discount_percent": 35,
+      "type": "percentage",
+      "min_order": 2999,
+      "expiry": "2026-06-10",
+      "coupon_code": "FKELEC35"
+    },
+    "reference_output": "Flipkart: 35% OFF Electronics",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_032",
+    "channel": "email",
+    "merchant": "Nykaa",
+    "category": "Beauty",
+    "source_data": {
+      "discount_percent": 30,
+      "type": "flat",
+      "min_order": 699,
+      "expiry": "2026-06-15",
+      "coupon_code": "NYKBEAUTY30"
+    },
+    "reference_output": "Flat 30% OFF on Nykaa Beauty! Use code NYKBEAUTY30 on orders above ₹699. Discover the best in skincare, makeup and haircare. Valid till 15th June 2026.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_033",
+    "channel": "whatsapp",
+    "merchant": "CRED",
+    "category": "Finance",
+    "source_data": {
+      "discount_percent": 15,
+      "type": "cashback",
+      "min_order": 1500,
+      "expiry": "2026-06-20",
+      "coupon_code": "CREDCASH15"
+    },
+    "reference_output": "💳 15% cashback on CRED! Code: CREDCASH15. Min ₹1500. Valid till 20 Jun.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_034",
+    "channel": "glance",
+    "merchant": "Boat",
+    "category": "Electronics",
+    "source_data": {
+      "discount_percent": 40,
+      "type": "flat",
+      "min_order": 999,
+      "expiry": "2026-06-05",
+      "coupon_code": "BOATGLANCE40"
+    },
+    "reference_output": "boAt: Flat 40% OFF on Earphones! Code BOATGLANCE40. Min ₹999.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 80
+    }
+  },
+  {
+    "id": "dc_035",
+    "channel": "push",
+    "merchant": "BookMyShow",
+    "category": "Entertainment",
+    "source_data": {
+      "discount_percent": 20,
+      "type": "flat",
+      "min_order": 300,
+      "expiry": "2026-06-30",
+      "coupon_code": "BMS20"
+    },
+    "reference_output": "BookMyShow: 20% OFF Movies",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_036",
+    "channel": "email",
+    "merchant": "MakeMyTrip",
+    "category": "Travel",
+    "source_data": {
+      "discount_percent": 20,
+      "type": "flat",
+      "min_order": 6000,
+      "expiry": "2026-07-15",
+      "coupon_code": "MMTTRAVEL20"
+    },
+    "reference_output": "Flat 20% OFF on MakeMyTrip flights & hotels! Use code MMTTRAVEL20 on bookings above ₹6000. Plan your dream vacation today. Valid till 15th July 2026.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_037",
+    "channel": "whatsapp",
+    "merchant": "Lenskart",
+    "category": "Eyewear",
+    "source_data": {
+      "discount_percent": 25,
+      "type": "percentage",
+      "min_order": 0,
+      "expiry": "2026-06-25",
+      "coupon_code": "LKEYE25"
+    },
+    "reference_output": "👓 25% OFF at Lenskart! Code: LKEYE25. No min order. Ends 25 Jun.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_038",
+    "channel": "glance",
+    "merchant": "Mamaearth",
+    "category": "Health",
+    "source_data": {
+      "discount_percent": 28,
+      "type": "percentage",
+      "min_order": 499,
+      "expiry": "2026-06-08",
+      "coupon_code": "MAMA28"
+    },
+    "reference_output": "Mamaearth: 28% OFF Natural Skincare! Code MAMA28. Min ₹499.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 80
+    }
+  },
+  {
+    "id": "dc_039",
+    "channel": "email",
+    "merchant": "Ajio",
+    "category": "Fashion",
+    "source_data": {
+      "discount_percent": 60,
+      "type": "flat",
+      "min_order": 1999,
+      "expiry": "2026-06-18",
+      "coupon_code": "AJIO60BIG"
+    },
+    "reference_output": "Flat 60% OFF at Ajio! Use code AJIO60BIG on orders above ₹1999. Shop top brands in fashion, footwear and accessories. Valid till 18th June 2026.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_040",
+    "channel": "push",
+    "merchant": "Puma",
+    "category": "Sports",
+    "source_data": {
+      "discount_percent": 45,
+      "type": "flat",
+      "min_order": 2500,
+      "expiry": "2026-06-12",
+      "coupon_code": "PUMASPORT45"
+    },
+    "reference_output": "Puma: 45% OFF Sports Gear",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_041",
+    "channel": "whatsapp",
+    "merchant": "Decathlon",
+    "category": "Sports",
+    "source_data": {
+      "discount_percent": 30,
+      "type": "flat",
+      "min_order": 1000,
+      "expiry": "2026-06-22",
+      "coupon_code": "DEC30SPORT"
+    },
+    "reference_output": "🏃 Flat 30% OFF at Decathlon! Code: DEC30SPORT. Min ₹1000. Ends 22 Jun.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_042",
+    "channel": "email",
+    "merchant": "Netmeds",
+    "category": "Health",
+    "source_data": {
+      "discount_percent": 22,
+      "type": "percentage",
+      "min_order": 400,
+      "expiry": "2026-06-30",
+      "coupon_code": "NETMED22"
+    },
+    "reference_output": "22% OFF on medicines at Netmeds! Use code NETMED22 on orders above ₹400. Prescription and OTC medicines delivered fast. Valid till 30th June 2026.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_043",
+    "channel": "glance",
+    "merchant": "Dominos",
+    "category": "Food",
+    "source_data": {
+      "discount_percent": 50,
+      "type": "flat",
+      "min_order": 299,
+      "expiry": "2026-06-05",
+      "coupon_code": "DOM50PIZZA"
+    },
+    "reference_output": "Dominos: Flat 50% OFF on Pizzas! Code DOM50PIZZA. Min ₹299.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 80
+    }
+  },
+  {
+    "id": "dc_044",
+    "channel": "push",
+    "merchant": "Cleartrip",
+    "category": "Travel",
+    "source_data": {
+      "discount_percent": 18,
+      "type": "cashback",
+      "min_order": 4000,
+      "expiry": "2026-06-28",
+      "coupon_code": "CTCASH18"
+    },
+    "reference_output": "Cleartrip: 18% Cashback on Flights",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_045",
+    "channel": "whatsapp",
+    "merchant": "Lifestyle",
+    "category": "Fashion",
+    "source_data": {
+      "discount_percent": 35,
+      "type": "flat",
+      "min_order": 1299,
+      "expiry": "2026-07-01",
+      "coupon_code": "LIFE35FASH"
+    },
+    "reference_output": "👔 Flat 35% OFF at Lifestyle! Code: LIFE35FASH. Min ₹1299. Valid till 1 Jul.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_046",
+    "channel": "email",
+    "merchant": "HomeTown",
+    "category": "Home",
+    "source_data": {
+      "discount_percent": 25,
+      "type": "flat",
+      "min_order": 2999,
+      "expiry": "2026-07-10",
+      "coupon_code": "HTOWN25HOME"
+    },
+    "reference_output": "Flat 25% OFF on HomeTown furniture & decor! Use code HTOWN25HOME on orders above ₹2999. Transform your living space with quality home essentials. Valid till 10th July 2026.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_047",
+    "channel": "glance",
+    "merchant": "UrbanClap",
+    "category": "Services",
+    "source_data": {
+      "discount_percent": 20,
+      "type": "flat",
+      "min_order": 500,
+      "expiry": "2026-06-15",
+      "coupon_code": "UC20SERVICE"
+    },
+    "reference_output": "UrbanClap: 20% OFF Home Services! Code UC20SERVICE. Min ₹500.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 80
+    }
+  },
+  {
+    "id": "dc_048",
+    "channel": "push",
+    "merchant": "Fastrack",
+    "category": "Accessories",
+    "source_data": {
+      "discount_percent": 30,
+      "type": "percentage",
+      "min_order": 799,
+      "expiry": "2026-06-20",
+      "coupon_code": "FAST30ACC"
+    },
+    "reference_output": "Fastrack: 30% OFF Watches",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_049",
+    "channel": "whatsapp",
+    "merchant": "1mg",
+    "category": "Health",
+    "source_data": {
+      "discount_percent": 20,
+      "type": "percentage",
+      "min_order": 350,
+      "expiry": "2026-07-05",
+      "coupon_code": "1MG20HEALTH"
+    },
+    "reference_output": "💊 20% OFF on 1mg! Code: 1MG20HEALTH. Min ₹350. Valid till 5 Jul. Order meds now!",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_050",
+    "channel": "email",
+    "merchant": "FabIndia",
+    "category": "Fashion",
+    "source_data": {
+      "discount_percent": 30,
+      "type": "flat",
+      "min_order": 1499,
+      "expiry": "2026-07-15",
+      "coupon_code": "FABINDIA30"
+    },
+    "reference_output": "Flat 30% OFF on FabIndia! Use code FABINDIA30 on orders above ₹1499. Shop handcrafted ethnic wear, home decor and organic products. Valid till 15th July 2026.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
   }
 ]

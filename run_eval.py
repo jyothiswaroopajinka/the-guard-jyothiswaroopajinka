@@ -233,7 +233,7 @@ def main():
     parser.add_argument("--baseline-prompt", default="v1.txt", help="Prompt file in prompts/deal_copy/")
 
     # Candidate args
-    parser.add_argument("--candidate-provider", default="openai", choices=["anthropic", "openai", "google"])
+    parser.add_argument("--candidate-provider", default="google", choices=["anthropic", "openai", "google"])
     parser.add_argument("--candidate-model", default=None, help="e.g. gpt-4o-mini")
     parser.add_argument("--candidate-prompt", default="v1.txt", help="Prompt file")
 
@@ -263,7 +263,7 @@ def main():
             candidate_provider="anthropic",
             candidate_model=None,
             candidate_prompt="v2.txt",
-            max_cases=10,
+            max_cases=5,
             use_judge=True,
         )
     else:
@@ -274,7 +274,7 @@ def main():
             candidate_provider=args.candidate_provider,
             candidate_model=args.candidate_model,
             candidate_prompt=args.candidate_prompt,
-            max_cases=10 if args.quick else None,
+            max_cases=5 if args.quick else None,
             use_judge=not args.quick,
         )
 

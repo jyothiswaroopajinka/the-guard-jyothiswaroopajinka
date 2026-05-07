@@ -16,7 +16,8 @@ from typing import Optional
 
 import anthropic
 import openai
-import google.generativeai as genai
+from google import genai
+from google.genai import types as genai_types
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -25,7 +26,7 @@ load_dotenv()
 
 _anthropic = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 _openai = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+_gemini = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # ── Model constants ────────────────────────────────────────────────────────────
 
@@ -34,8 +35,9 @@ CLAUDE_OPUS   = "claude-opus-4-7"
 CLAUDE_HAIKU  = "claude-haiku-4-5-20251001"
 GPT4O         = "gpt-4o"
 GPT4O_MINI    = "gpt-4o-mini"
-GEMINI_FLASH  = "gemini-1.5-flash"
-GEMINI_PRO    = "gemini-1.5-pro"
+GEMINI_FLASH = "gemini-2.5-flash"
+GEMINI_PRO   = "gemini-2.5-pro"
+
 
 # Default judge model — Opus is most rigorous for LLM-as-judge
 JUDGE_MODEL = os.getenv("JUDGE_MODEL", CLAUDE_OPUS)
@@ -109,17 +111,18 @@ def call_gemini(
     max_tokens: int = 1024,
     temperature: float = 0.3,
 ) -> tuple[str, dict]:
-    """Returns (response_text, usage_dict). Gemini doesn't expose token counts on free tier."""
-    full_prompt = f"{system}\n\n{prompt}" if system else prompt
-    gmodel = genai.GenerativeModel(
-        model_name=model,
-        generation_config=genai.GenerationConfig(
-            max_output_tokens=max_tokens,
-            temperature=temperature,
-        ),
+    """Returns (response_text, usage_dict) using the new google-genai SDK."""
+    config = genai_types.GenerateContentConfig(
+        max_output_tokens=max_tokens,
+        temperature=temperature,
+        system_instruction=system if system else None,
     )
-    response = gmodel.generate_content(full_prompt)
-    text = response.text
+    response = _gemini.models.generate_content(
+        model=model,
+        contents=prompt,
+        config=config,
+    )
+    text = response.text or ""
     usage = {
         "input_tokens": getattr(response.usage_metadata, "prompt_token_count", 0),
         "output_tokens": getattr(response.usage_metadata, "candidates_token_count", 0),

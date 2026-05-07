@@ -42,7 +42,7 @@ class InsuranceResult:
 
 def run_single(
     case: dict,
-    provider: str = "openai",
+    provider: str = "google",
     model: str | None = None,
     prompt_file: str = "v1.txt",
 ) -> InsuranceResult:
@@ -97,7 +97,7 @@ def run_single(
 
 
 def run_all(
-    provider: str = "openai",
+    provider: str = "google",
     model: str | None = None,
     prompt_file: str = "v1.txt",
     max_cases: int | None = None,

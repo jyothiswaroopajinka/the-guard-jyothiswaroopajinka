@@ -26,6 +26,9 @@ Decision = Literal["GO", "NO-GO", "INCONCLUSIVE"]
 
 SIGNIFICANCE_THRESHOLD = float(os.getenv("SIGNIFICANCE_THRESHOLD", "0.05"))
 REGRESSION_THRESHOLD = float(os.getenv("REGRESSION_THRESHOLD", "0.05"))
+# If the drop exceeds this, flag NO-GO even without statistical significance.
+# An 18% quality drop is never acceptable regardless of p-value.
+PRACTICAL_THRESHOLD = float(os.getenv("PRACTICAL_THRESHOLD", "0.10"))
 
 
 @dataclass
@@ -49,15 +52,15 @@ class GateDecision:
 
 def _format_regression(tv: TaskVerdicts) -> str:
     r = tv.result
+    confidence = (1 - r.p_value) * 100
     if isinstance(r, McNemarResult):
         b = r.baseline_correct
         c = r.candidate_correct
-        # n_samples = correct + discordant cases
         n = b + r.discordant_b  # total cases baseline saw
         return (
             f"  - [{tv.task_name} / {tv.scorer_name}]: "
             f"baseline correct on {b}/{n} cases, candidate correct on {c}/{n} cases "
-            f"(dropped {b - c} cases, p={r.p_value:.4f})\n"
+            f"(dropped {b - c} cases, confidence={confidence:.1f}%, p={r.p_value:.4f})\n"
             f"    Reason: candidate got wrong answers on cases that baseline passed"
         )
     else:
@@ -70,7 +73,7 @@ def _format_regression(tv: TaskVerdicts) -> str:
         return (
             f"  - [{tv.task_name} / {tv.scorer_name}]: "
             f"{b_mean:.4f} → {c_mean:.4f} "
-            f"(drop of {abs(diff):.4f} = {abs(pct):.1f}%, p={r.p_value:.4f})\n"
+            f"(drop of {abs(diff):.4f} = {abs(pct):.1f}%, confidence={confidence:.1f}%, p={r.p_value:.4f})\n"
             f"    95% CI of drop: [{ci_low:.4f}, {ci_high:.4f}]\n"
             f"    Reason: candidate scored lower than baseline on average across all cases"
         )
@@ -80,12 +83,17 @@ def evaluate(
     verdicts: list[TaskVerdicts],
     alpha: float = SIGNIFICANCE_THRESHOLD,
     regression_threshold: float = REGRESSION_THRESHOLD,
+    practical_threshold: float = PRACTICAL_THRESHOLD,
 ) -> GateDecision:
     """
     Aggregate all task verdicts into a single deployment decision.
 
+    Two ways to trigger NO-GO:
+    1. Statistically significant regression: p < alpha AND drop > regression_threshold
+    2. Practically significant regression: drop > practical_threshold (regardless of p-value)
+       — catches large regressions that are real but noisy across cases
+
     A regression in ANY task type blocks deployment (conservative by default).
-    This can be changed to require ALL tasks to regress for stricter review.
     """
     regressions = []
     improvements = []
@@ -95,18 +103,25 @@ def evaluate(
         r = tv.result
         verdict = r.verdict
 
-        # Get p_value from either type
-        p_value = getattr(r, "p_value", 1.0)
         significant = getattr(r, "significant", False)
 
-        # For ComparisonResult, also check absolute diff
         abs_diff = 0.0
         if isinstance(r, ComparisonResult):
             abs_diff = r.absolute_diff
 
-        if verdict == "REGRESSED" and significant and (
-            isinstance(r, McNemarResult) or abs_diff < -regression_threshold
-        ):
+        # Statistically confirmed regression
+        stat_regression = (
+            verdict == "REGRESSED"
+            and significant
+            and (isinstance(r, McNemarResult) or abs_diff < -regression_threshold)
+        )
+        # Practically significant regression — too large to ignore even without stats
+        practical_regression = (
+            isinstance(r, ComparisonResult)
+            and abs_diff < -practical_threshold
+        )
+
+        if stat_regression or practical_regression:
             regressions.append(tv)
         elif verdict == "IMPROVED" and significant:
             improvements.append(tv)
@@ -117,8 +132,21 @@ def evaluate(
         reg_details = "\n".join(
             _format_regression(tv) for tv in regressions
         )
+        # Explain whether it was stats-driven, practically-driven, or both
+        stat_count = sum(
+            1 for tv in regressions
+            if getattr(tv.result, "significant", False)
+        )
+        practical_count = len(regressions) - stat_count
+        if stat_count and practical_count:
+            trigger = f"{stat_count} statistically significant + {practical_count} practically significant (drop > {practical_threshold*100:.0f}%)"
+        elif practical_count:
+            trigger = f"drop exceeded {practical_threshold*100:.0f}% practical threshold (too large to ignore even without statistical significance)"
+        else:
+            trigger = "statistically significant regression detected"
+
         summary = (
-            f"NO-GO: {len(regressions)} regression(s) detected.\n"
+            f"NO-GO: {len(regressions)} regression(s) detected — {trigger}.\n"
             f"Regressed tasks:\n{reg_details}\n"
             f"Candidate version blocked from deployment."
         )

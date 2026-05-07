@@ -41,7 +41,7 @@ jobs:
           python run_eval.py \
             --baseline-provider anthropic \
             --baseline-prompt v1.txt \
-            --candidate-provider openai \
+            --candidate-provider google \
             --candidate-prompt v1.txt \
             --quick
         # Exit code 0 = GO (PR passes)

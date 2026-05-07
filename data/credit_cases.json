@@ -658,5 +658,225 @@
       "credit_limit_inr": 38000,
       "all_claims_grounded": true
     }
+  },
+  {
+    "id": "cr_031",
+    "persona": {
+      "user_id": "U1031",
+      "name": "Kiran Rao",
+      "gmv_last_year": 340000,
+      "gmv_prev_year": 200000,
+      "gmv_growth_pct": 70.0,
+      "avg_order_value": 2267,
+      "order_count_last_year": 150,
+      "category_mix": {"Fashion": 0.45, "Electronics": 0.35, "Health": 0.2},
+      "payment_method": "credit_card",
+      "returns_rate_pct": 6.5,
+      "account_age_months": 30
+    },
+    "reference_narrative": "Kiran Rao qualifies for GrabCredit with an impressive 70.0% GMV growth YoY (₹2,00,000 to ₹3,40,000), 150 orders at an average of ₹2,267, and a 6.5% returns rate over 30 months. High growth trajectory and diversified category mix support approval.",
+    "label": {
+      "eligible": true,
+      "credit_limit_inr": 75000,
+      "all_claims_grounded": true
+    }
+  },
+  {
+    "id": "cr_032",
+    "persona": {
+      "user_id": "U1032",
+      "name": "Meera Nair",
+      "gmv_last_year": 510000,
+      "gmv_prev_year": 500000,
+      "gmv_growth_pct": 2.0,
+      "avg_order_value": 3400,
+      "order_count_last_year": 150,
+      "category_mix": {"Electronics": 0.4, "Travel": 0.35, "Fashion": 0.25},
+      "payment_method": "credit_card",
+      "returns_rate_pct": 4.0,
+      "account_age_months": 48
+    },
+    "reference_narrative": "Meera Nair demonstrates stable GrabOn engagement with ₹5,10,000 GMV last year, reflecting a steady 2.0% YoY growth from ₹5,00,000. With 150 orders at ₹3,400 average value, a low 4.0% returns rate, and 48 months of account history, she qualifies for GrabCredit.",
+    "label": {
+      "eligible": true,
+      "credit_limit_inr": 100000,
+      "all_claims_grounded": true
+    }
+  },
+  {
+    "id": "cr_033",
+    "persona": {
+      "user_id": "U1033",
+      "name": "Suresh Reddy",
+      "gmv_last_year": 600000,
+      "gmv_prev_year": 800000,
+      "gmv_growth_pct": -25.0,
+      "avg_order_value": 3000,
+      "order_count_last_year": 200,
+      "category_mix": {"Electronics": 0.5, "Fashion": 0.3, "Travel": 0.2},
+      "payment_method": "credit_card",
+      "returns_rate_pct": 11.5,
+      "account_age_months": 40
+    },
+    "reference_narrative": "Suresh Reddy's GrabOn profile shows a significant -25.0% GMV decline YoY (₹8,00,000 to ₹6,00,000), with an elevated returns rate of 11.5% across 200 orders. Despite 40 months of account history, the declining spend trajectory and high returns rate make this profile ineligible for GrabCredit.",
+    "label": {
+      "eligible": false,
+      "credit_limit_inr": 0,
+      "all_claims_grounded": true
+    }
+  },
+  {
+    "id": "cr_034",
+    "persona": {
+      "user_id": "U1034",
+      "name": "Ananya Das",
+      "gmv_last_year": 80000,
+      "gmv_prev_year": 0,
+      "gmv_growth_pct": 100.0,
+      "avg_order_value": 1600,
+      "order_count_last_year": 50,
+      "category_mix": {"Fashion": 0.6, "Health": 0.4},
+      "payment_method": "upi",
+      "returns_rate_pct": 5.0,
+      "account_age_months": 8
+    },
+    "reference_narrative": "Ananya Das is a new GrabOn user with 8 months of account history and ₹80,000 GMV in her first year of activity. While her 50 orders at ₹1,600 average and a 5.0% returns rate are encouraging, the 8-month account age falls below the minimum tenure threshold for GrabCredit eligibility.",
+    "label": {
+      "eligible": false,
+      "credit_limit_inr": 0,
+      "all_claims_grounded": true
+    }
+  },
+  {
+    "id": "cr_035",
+    "persona": {
+      "user_id": "U1035",
+      "name": "Vikram Singh",
+      "gmv_last_year": 1800000,
+      "gmv_prev_year": 1500000,
+      "gmv_growth_pct": 20.0,
+      "avg_order_value": 7500,
+      "order_count_last_year": 240,
+      "category_mix": {"Travel": 0.5, "Electronics": 0.35, "Fashion": 0.15},
+      "payment_method": "credit_card",
+      "returns_rate_pct": 2.0,
+      "account_age_months": 72
+    },
+    "reference_narrative": "Vikram Singh is an ultra-high-value GrabOn customer with ₹18,00,000 GMV last year, representing 20.0% YoY growth from ₹15,00,000. His 240 orders at ₹7,500 average value, an exceptional 2.0% returns rate, and 72 months of loyalty place him in the top credit tier.",
+    "label": {
+      "eligible": true,
+      "credit_limit_inr": 150000,
+      "all_claims_grounded": true
+    }
+  },
+  {
+    "id": "cr_036",
+    "persona": {
+      "user_id": "U1036",
+      "name": "Lakshmi Iyer",
+      "gmv_last_year": 360000,
+      "gmv_prev_year": 300000,
+      "gmv_growth_pct": 20.0,
+      "avg_order_value": 2400,
+      "order_count_last_year": 150,
+      "category_mix": {"Health": 0.5, "Grocery": 0.3, "Fashion": 0.2},
+      "payment_method": "upi",
+      "returns_rate_pct": 5.5,
+      "account_age_months": 33
+    },
+    "reference_narrative": "Lakshmi Iyer qualifies for GrabCredit with ₹3,60,000 GMV (20.0% YoY growth from ₹3,00,000), 150 orders at ₹2,400 average, and a 5.5% returns rate over 33 months. Consistent health and grocery spending reflects reliable purchase behavior.",
+    "label": {
+      "eligible": true,
+      "credit_limit_inr": 50000,
+      "all_claims_grounded": true
+    }
+  },
+  {
+    "id": "cr_037",
+    "persona": {
+      "user_id": "U1037",
+      "name": "Ravi Patel",
+      "gmv_last_year": 420000,
+      "gmv_prev_year": 380000,
+      "gmv_growth_pct": 10.53,
+      "avg_order_value": 2100,
+      "order_count_last_year": 200,
+      "category_mix": {"Fashion": 0.7, "Electronics": 0.3},
+      "payment_method": "credit_card",
+      "returns_rate_pct": 22.0,
+      "account_age_months": 36
+    },
+    "reference_narrative": "Ravi Patel's GrabOn profile shows 10.53% YoY GMV growth (₹3,80,000 to ₹4,20,000) with 200 orders at ₹2,100 average over 36 months. However, a returns rate of 22.0% significantly exceeds acceptable thresholds, indicating poor purchase quality and making this profile ineligible for GrabCredit.",
+    "label": {
+      "eligible": false,
+      "credit_limit_inr": 0,
+      "all_claims_grounded": true
+    }
+  },
+  {
+    "id": "cr_038",
+    "persona": {
+      "user_id": "U1038",
+      "name": "Deepa Menon",
+      "gmv_last_year": 1400000,
+      "gmv_prev_year": 1000000,
+      "gmv_growth_pct": 40.0,
+      "avg_order_value": 5600,
+      "order_count_last_year": 250,
+      "category_mix": {"Travel": 0.45, "Electronics": 0.35, "Fashion": 0.2},
+      "payment_method": "credit_card",
+      "returns_rate_pct": 3.2,
+      "account_age_months": 60
+    },
+    "reference_narrative": "Deepa Menon presents an excellent GrabOn profile: ₹14,00,000 GMV last year with 40.0% YoY growth from ₹10,00,000. Her 250 orders at ₹5,600 average, a low 3.2% returns rate, and 60 months of account tenure demonstrate consistent premium engagement across Travel and Electronics.",
+    "label": {
+      "eligible": true,
+      "credit_limit_inr": 125000,
+      "all_claims_grounded": true
+    }
+  },
+  {
+    "id": "cr_039",
+    "persona": {
+      "user_id": "U1039",
+      "name": "Arjun Nair",
+      "gmv_last_year": 280000,
+      "gmv_prev_year": 250000,
+      "gmv_growth_pct": 12.0,
+      "avg_order_value": 1867,
+      "order_count_last_year": 150,
+      "category_mix": {"Food": 0.4, "Fashion": 0.35, "Health": 0.25},
+      "payment_method": "upi",
+      "returns_rate_pct": 7.0,
+      "account_age_months": 26
+    },
+    "reference_narrative": "Arjun Nair demonstrates moderate GrabOn activity with ₹2,80,000 GMV (12.0% YoY growth from ₹2,50,000), 150 orders at ₹1,867 average, and a 7.0% returns rate over 26 months. Consistent multi-category spending supports entry-level GrabCredit eligibility.",
+    "label": {
+      "eligible": true,
+      "credit_limit_inr": 40000,
+      "all_claims_grounded": true
+    }
+  },
+  {
+    "id": "cr_040",
+    "persona": {
+      "user_id": "U1040",
+      "name": "Sunita Joshi",
+      "gmv_last_year": 45000,
+      "gmv_prev_year": 50000,
+      "gmv_growth_pct": -10.0,
+      "avg_order_value": 750,
+      "order_count_last_year": 60,
+      "category_mix": {"Grocery": 0.6, "Food": 0.4},
+      "payment_method": "debit_card",
+      "returns_rate_pct": 9.0,
+      "account_age_months": 14
+    },
+    "reference_narrative": "Sunita Joshi's GrabOn profile reflects very low and declining activity: GMV dropped -10.0% YoY from ₹50,000 to ₹45,000, with only 60 orders at ₹750 average. Combined with a 9.0% returns rate and a 14-month account history, this profile does not meet the minimum criteria for GrabCredit.",
+    "label": {
+      "eligible": false,
+      "credit_limit_inr": 0,
+      "all_claims_grounded": true
+    }
   }
 ]

@@ -399,5 +399,145 @@
     "confidence_threshold": 0.65,
     "edge_case": true,
     "edge_case_note": "Clinical hair treatment — borderline health insurance case"
+  },
+  {
+    "id": "ins_031",
+    "deal_object": {
+      "merchant": "Swiggy",
+      "category": "Grocery",
+      "deal_type": "grocery_delivery",
+      "amount": 750
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.65,
+    "edge_case": true,
+    "edge_case_note": "Grocery delivery via food platform — ambiguous; perishable goods don't typically qualify for insurance"
+  },
+  {
+    "id": "ins_032",
+    "deal_object": {
+      "merchant": "Samsung",
+      "category": "Electronics",
+      "deal_type": "mobile_phone",
+      "amount": 74999,
+      "brand": "Samsung",
+      "model": "Galaxy S24"
+    },
+    "ground_truth_label": "device_protection",
+    "confidence_threshold": 0.9,
+    "edge_case": false
+  },
+  {
+    "id": "ins_033",
+    "deal_object": {
+      "merchant": "Bajaj Finance",
+      "category": "Finance",
+      "deal_type": "personal_loan",
+      "amount": 150000,
+      "emi_months": 24,
+      "lender": "Bajaj Finance"
+    },
+    "ground_truth_label": "loan_protection",
+    "confidence_threshold": 0.9,
+    "edge_case": false
+  },
+  {
+    "id": "ins_034",
+    "deal_object": {
+      "merchant": "Zomato",
+      "category": "Food",
+      "deal_type": "subscription",
+      "amount": 149,
+      "duration_months": 1,
+      "subscription_name": "Zomato Gold"
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.95,
+    "edge_case": false
+  },
+  {
+    "id": "ins_035",
+    "deal_object": {
+      "merchant": "MakeMyTrip",
+      "category": "Travel",
+      "deal_type": "hotel",
+      "amount": 22000,
+      "destination": "international",
+      "duration_days": 5
+    },
+    "ground_truth_label": "travel_insurance",
+    "confidence_threshold": 0.85,
+    "edge_case": false
+  },
+  {
+    "id": "ins_036",
+    "deal_object": {
+      "merchant": "Apollo",
+      "category": "Health",
+      "deal_type": "dental_treatment",
+      "amount": 8500,
+      "clinical": true,
+      "treatment_type": "root_canal"
+    },
+    "ground_truth_label": "health_insurance",
+    "confidence_threshold": 0.7,
+    "edge_case": true,
+    "edge_case_note": "Dental treatment — many standard health insurance plans exclude dental; coverage depends on policy specifics"
+  },
+  {
+    "id": "ins_037",
+    "deal_object": {
+      "merchant": "Flipkart",
+      "category": "Electronics",
+      "deal_type": "laptop",
+      "amount": 85000,
+      "brand": "HP",
+      "model": "HP Spectre"
+    },
+    "ground_truth_label": "device_protection",
+    "confidence_threshold": 0.9,
+    "edge_case": false
+  },
+  {
+    "id": "ins_038",
+    "deal_object": {
+      "merchant": "HDFC Bank",
+      "category": "Finance",
+      "deal_type": "home_loan_emi",
+      "amount": 35000,
+      "emi_months": 240,
+      "lender": "HDFC Bank"
+    },
+    "ground_truth_label": "loan_protection",
+    "confidence_threshold": 0.7,
+    "edge_case": true,
+    "edge_case_note": "Home loan EMI — home loan protection insurance exists but product classification may differ from standard loan_protection"
+  },
+  {
+    "id": "ins_039",
+    "deal_object": {
+      "merchant": "CultFit",
+      "category": "Health",
+      "deal_type": "gym_membership",
+      "amount": 4500,
+      "duration_months": 3
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.92,
+    "edge_case": false
+  },
+  {
+    "id": "ins_040",
+    "deal_object": {
+      "merchant": "IRCTC",
+      "category": "Travel",
+      "deal_type": "train_ticket",
+      "amount": 1200,
+      "destination": "domestic",
+      "duration_days": 1
+    },
+    "ground_truth_label": "travel_insurance",
+    "confidence_threshold": 0.8,
+    "edge_case": false
   }
 ]
