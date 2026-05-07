@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 The Guard — Main Eval Runner
 
@@ -272,7 +274,7 @@ def main():
             candidate_provider=args.candidate_provider,
             candidate_model=args.candidate_model,
             candidate_prompt=args.candidate_prompt,
-            max_cases=5 if args.quick else None,
+            max_cases=10 if args.quick else None,
             use_judge=not args.quick,
         )
 

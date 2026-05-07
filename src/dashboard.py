@@ -164,6 +164,116 @@ def print_run_report(
 
     console.print(table)
 
+    # ── Per-case breakdown (shown when any task REGRESSED) ─────────────────────
+    regressed_tasks = {
+        task: data
+        for task, comp_data in comparison.items()
+        for scorer, data in comp_data.items()
+        if data.get("verdict") == "REGRESSED"
+    }
+
+    if regressed_tasks or gate.decision == "NO-GO":
+        console.print("\n[bold red]── Regression Detail: Which Cases Failed ──[/]")
+
+        task_map = {
+            "deal_copy": ("composite_score", "deal_copy"),
+            "insurance": ("intent_score", "insurance"),
+            "credit":    ("composite_score", "credit"),
+        }
+
+        for task_name, (score_field, res_key) in task_map.items():
+            b_list = baseline_results.get(res_key, [])
+            c_list = candidate_results.get(res_key, [])
+            if not b_list or not c_list:
+                continue
+
+            # Check if this task has any REGRESSED scorer
+            task_comp = comparison.get(task_name, {})
+            task_has_regression = any(
+                v.get("verdict") == "REGRESSED" for v in task_comp.values()
+            )
+            if not task_has_regression:
+                continue
+
+            console.print(f"\n[bold cyan]{task_name.upper()} — case-by-case comparison:[/]")
+
+            case_table = Table(box=box.SIMPLE, show_header=True)
+            case_table.add_column("Case ID", style="dim", width=14)
+            case_table.add_column("Description", width=28)
+            case_table.add_column("Baseline", justify="right", width=10)
+            case_table.add_column("Candidate", justify="right", width=10)
+            case_table.add_column("Δ", justify="right", width=8)
+            case_table.add_column("Winner", width=12)
+
+            worse_cases = []
+            better_cases = []
+            same_cases = []
+
+            for b, c in zip(b_list, c_list):
+                b_score = getattr(b, score_field, None)
+                c_score = getattr(c, score_field, None)
+                if b_score is None or c_score is None:
+                    continue
+
+                case_id = getattr(b, "case_id", "?")
+
+                # Build a human-readable description per task
+                if task_name == "deal_copy":
+                    desc = f"{getattr(b, 'merchant', '?')} ({getattr(b, 'channel', '?')})"
+                elif task_name == "insurance":
+                    truth = getattr(b, "ground_truth", "?")
+                    b_pred = getattr(b, "predicted_label", "?")
+                    c_pred = getattr(c, "predicted_label", "?")
+                    desc = f"truth={truth}"
+                elif task_name == "credit":
+                    uid = getattr(b, "user_id", "?")
+                    eligible = getattr(b, "ground_truth_eligible", "?")
+                    desc = f"user={uid} eligible={eligible}"
+                else:
+                    desc = ""
+
+                diff = c_score - b_score
+                if diff < -0.02:
+                    color = "red"
+                    winner = "[red]BASELINE[/]"
+                    worse_cases.append(case_id)
+                elif diff > 0.02:
+                    color = "green"
+                    winner = "[green]CANDIDATE[/]"
+                    better_cases.append(case_id)
+                else:
+                    color = "white"
+                    winner = "[dim]TIED[/]"
+                    same_cases.append(case_id)
+
+                # For insurance, show label prediction details too
+                if task_name == "insurance":
+                    b_pred = getattr(b, "predicted_label", "?")
+                    c_pred = getattr(c, "predicted_label", "?")
+                    desc = f"{desc} | B={b_pred} C={c_pred}"
+
+                case_table.add_row(
+                    case_id,
+                    desc,
+                    f"{b_score:.3f}",
+                    f"[{color}]{c_score:.3f}[/]",
+                    f"[{color}]{diff:+.3f}[/]",
+                    winner,
+                )
+
+            console.print(case_table)
+            console.print(
+                f"  [red]Candidate worse on {len(worse_cases)} case(s):[/] {', '.join(worse_cases) or 'none'}"
+            )
+            console.print(
+                f"  [green]Candidate better on {len(better_cases)} case(s):[/] {', '.join(better_cases) or 'none'}"
+            )
+            console.print(
+                f"  [dim]Tied on {len(same_cases)} case(s)[/]"
+            )
+
+        console.print()
+
     # ── Cost summary ────────────────────────────────────────────────────────────
     all_costs = []
     for res_dict in [baseline_results, candidate_results]:

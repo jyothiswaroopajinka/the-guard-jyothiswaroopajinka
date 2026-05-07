@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 GO / NO-GO Gate
 
@@ -45,6 +47,35 @@ class GateDecision:
     exit_code: int = 0   # 0 = GO, 1 = NO-GO, 2 = INCONCLUSIVE
 
 
+def _format_regression(tv: TaskVerdicts) -> str:
+    r = tv.result
+    if isinstance(r, McNemarResult):
+        b = r.baseline_correct
+        c = r.candidate_correct
+        # n_samples = correct + discordant cases
+        n = b + r.discordant_b  # total cases baseline saw
+        return (
+            f"  - [{tv.task_name} / {tv.scorer_name}]: "
+            f"baseline correct on {b}/{n} cases, candidate correct on {c}/{n} cases "
+            f"(dropped {b - c} cases, p={r.p_value:.4f})\n"
+            f"    Reason: candidate got wrong answers on cases that baseline passed"
+        )
+    else:
+        b_mean = getattr(r, "baseline_mean", "?")
+        c_mean = getattr(r, "candidate_mean", "?")
+        diff = getattr(r, "absolute_diff", 0)
+        pct = getattr(r, "relative_diff_pct", 0)
+        ci_low = getattr(r, "ci_low", "?")
+        ci_high = getattr(r, "ci_high", "?")
+        return (
+            f"  - [{tv.task_name} / {tv.scorer_name}]: "
+            f"{b_mean:.4f} → {c_mean:.4f} "
+            f"(drop of {abs(diff):.4f} = {abs(pct):.1f}%, p={r.p_value:.4f})\n"
+            f"    95% CI of drop: [{ci_low:.4f}, {ci_high:.4f}]\n"
+            f"    Reason: candidate scored lower than baseline on average across all cases"
+        )
+
+
 def evaluate(
     verdicts: list[TaskVerdicts],
     alpha: float = SIGNIFICANCE_THRESHOLD,
@@ -84,11 +115,7 @@ def evaluate(
 
     if regressions:
         reg_details = "\n".join(
-            f"  - [{tv.task_name} / {tv.scorer_name}]: "
-            f"{tv.result.baseline_correct if hasattr(tv.result, 'baseline_correct') else getattr(tv.result, 'baseline_mean', '?')}"
-            f" → {tv.result.candidate_correct if hasattr(tv.result, 'candidate_correct') else getattr(tv.result, 'candidate_mean', '?')}"
-            f" (p={tv.result.p_value:.4f})"
-            for tv in regressions
+            _format_regression(tv) for tv in regressions
         )
         summary = (
             f"NO-GO: {len(regressions)} regression(s) detected.\n"

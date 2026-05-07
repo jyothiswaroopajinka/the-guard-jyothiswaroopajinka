@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 Eval Task 3: Credit Narrative Faithfulness
 
@@ -131,7 +133,7 @@ def run_single(
                 prompt=judge_prompt,
                 system=CREDIT_JUDGE_SYSTEM,
                 provider="anthropic",
-                model="claude-opus-4-7",
+                model="claude-haiku-4-5-20251001",
                 max_tokens=200,
                 temperature=0.1,
             )

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 Eval Task 1: Deal Copy Quality
 

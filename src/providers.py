@@ -44,7 +44,7 @@ JUDGE_MODEL = os.getenv("JUDGE_MODEL", CLAUDE_OPUS)
 def call_claude(
     prompt: str,
     system: str = "",
-    model: str = CLAUDE_SONNET,
+    model: str = CLAUDE_HAIKU,
     max_tokens: int = 1024,
     temperature: float = 0.3,
 ) -> tuple[str, dict]:
@@ -146,7 +146,7 @@ def call_model(
     """
     if provider == "anthropic":
         fn = call_claude
-        default_model = CLAUDE_SONNET
+        default_model = CLAUDE_HAIKU
     elif provider == "openai":
         fn = call_openai
         default_model = GPT4O_MINI

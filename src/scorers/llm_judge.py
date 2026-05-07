@@ -14,7 +14,7 @@ import json
 import re
 from dataclasses import dataclass
 
-from src.providers import call_claude, CLAUDE_OPUS, estimate_cost_usd
+from src.providers import call_claude, CLAUDE_OPUS, CLAUDE_HAIKU, estimate_cost_usd
 
 
 JUDGE_SYSTEM = """You are a senior marketing quality reviewer for GrabOn, India's largest coupon platform.
@@ -61,7 +61,7 @@ def score(
     reference_text: str,
     source_data: dict,
     channel: str,
-    judge_model: str = CLAUDE_OPUS,
+    judge_model: str = CLAUDE_HAIKU,
 ) -> JudgeResult:
     """
     Ask Claude Opus to judge the generated copy.
