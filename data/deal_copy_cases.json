@@ -1,0 +1,572 @@
+[
+  {
+    "id": "dc_001",
+    "channel": "email",
+    "merchant": "Myntra",
+    "category": "Fashion",
+    "source_data": {
+      "discount_percent": 40,
+      "type": "flat",
+      "min_order": 999,
+      "expiry": "2026-05-31",
+      "coupon_code": "MYNTRA40"
+    },
+    "reference_output": "Flat 40% OFF on Myntra! Use code MYNTRA40 on orders above ₹999. Valid till 31st May 2026. Shop top fashion brands now.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_002",
+    "channel": "whatsapp",
+    "merchant": "Zomato",
+    "category": "Food",
+    "source_data": {
+      "discount_percent": 50,
+      "type": "flat",
+      "min_order": 149,
+      "expiry": "2026-05-15",
+      "coupon_code": "ZOMATO50"
+    },
+    "reference_output": "🍕 Flat 50% OFF on Zomato! Code: ZOMATO50. Min ₹149. Expires 15 May. Order now!",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_003",
+    "channel": "push",
+    "merchant": "Amazon",
+    "category": "Electronics",
+    "source_data": {
+      "discount_percent": 30,
+      "type": "percentage",
+      "min_order": 0,
+      "expiry": "2026-05-10",
+      "coupon_code": null
+    },
+    "reference_output": "Amazon: 30% OFF Electronics",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_004",
+    "channel": "email",
+    "merchant": "Swiggy",
+    "category": "Food",
+    "source_data": {
+      "discount_percent": 60,
+      "type": "flat",
+      "min_order": 199,
+      "expiry": "2026-05-20",
+      "coupon_code": "SWIGGY60"
+    },
+    "reference_output": "Flat 60% OFF on Swiggy! Use code SWIGGY60 on orders above ₹199. Offer valid till 20th May 2026. Hungry? Order now!",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_005",
+    "channel": "whatsapp",
+    "merchant": "MakeMyTrip",
+    "category": "Travel",
+    "source_data": {
+      "discount_percent": 15,
+      "type": "cashback",
+      "min_order": 5000,
+      "expiry": "2026-06-30",
+      "coupon_code": "MMTFLY15"
+    },
+    "reference_output": "✈️ 15% cashback on MakeMyTrip! Code: MMTFLY15. Min ₹5000. Book by 30 Jun.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_006",
+    "channel": "push",
+    "merchant": "Nykaa",
+    "category": "Health",
+    "source_data": {
+      "discount_percent": 25,
+      "type": "percentage",
+      "min_order": 500,
+      "expiry": "2026-05-08",
+      "coupon_code": "NYK25"
+    },
+    "reference_output": "Nykaa: 25% OFF Beauty",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_007",
+    "channel": "email",
+    "merchant": "Flipkart",
+    "category": "Electronics",
+    "source_data": {
+      "discount_percent": 70,
+      "type": "flat",
+      "min_order": 1999,
+      "expiry": "2026-05-12",
+      "coupon_code": "FLIPBIG70"
+    },
+    "reference_output": "Flat 70% OFF on Flipkart! Use code FLIPBIG70 on orders above ₹1999. Valid till 12th May 2026. Shop mobiles, laptops and more!",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_008",
+    "channel": "whatsapp",
+    "merchant": "CRED",
+    "category": "Finance",
+    "source_data": {
+      "discount_percent": 20,
+      "type": "cashback",
+      "min_order": 1000,
+      "expiry": "2026-05-25",
+      "coupon_code": "CRED20CB"
+    },
+    "reference_output": "💳 20% cashback with CRED! Code: CRED20CB. Min ₹1000. Offer till 25 May.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_009",
+    "channel": "push",
+    "merchant": "Puma",
+    "category": "Fashion",
+    "source_data": {
+      "discount_percent": 50,
+      "type": "flat",
+      "min_order": 2000,
+      "expiry": "2026-05-18",
+      "coupon_code": "PUMA50"
+    },
+    "reference_output": "Puma: Flat 50% OFF Footwear",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_010",
+    "channel": "email",
+    "merchant": "BigBasket",
+    "category": "Grocery",
+    "source_data": {
+      "discount_percent": 20,
+      "type": "percentage",
+      "min_order": 500,
+      "expiry": "2026-05-30",
+      "coupon_code": "BB20FRESH"
+    },
+    "reference_output": "20% OFF on BigBasket! Use code BB20FRESH on orders above ₹500. Fresh groceries delivered to your door. Valid till 30th May 2026.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_011",
+    "channel": "whatsapp",
+    "merchant": "Ajio",
+    "category": "Fashion",
+    "source_data": {
+      "discount_percent": 45,
+      "type": "flat",
+      "min_order": 1500,
+      "expiry": "2026-05-22",
+      "coupon_code": "AJIO45"
+    },
+    "reference_output": "👗 Flat 45% OFF at Ajio! Code: AJIO45. Min ₹1500. Ends 22 May. Shop now!",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_012",
+    "channel": "push",
+    "merchant": "PharmEasy",
+    "category": "Health",
+    "source_data": {
+      "discount_percent": 18,
+      "type": "percentage",
+      "min_order": 300,
+      "expiry": "2026-05-15",
+      "coupon_code": "PE18MED"
+    },
+    "reference_output": "PharmEasy: 18% OFF Medicines",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_013",
+    "channel": "email",
+    "merchant": "Boat",
+    "category": "Electronics",
+    "source_data": {
+      "discount_percent": 35,
+      "type": "flat",
+      "min_order": 999,
+      "expiry": "2026-06-05",
+      "coupon_code": "BOAT35"
+    },
+    "reference_output": "Flat 35% OFF on boAt Earphones & Speakers! Use code BOAT35 on orders above ₹999. Valid till 5th June 2026. Power your audio!",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_014",
+    "channel": "whatsapp",
+    "merchant": "Lenskart",
+    "category": "Health",
+    "source_data": {
+      "discount_percent": 30,
+      "type": "flat",
+      "min_order": 0,
+      "expiry": "2026-05-31",
+      "coupon_code": "LK30EYE"
+    },
+    "reference_output": "👓 30% OFF at Lenskart! Code: LK30EYE. No min order. Valid till 31 May.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_015",
+    "channel": "push",
+    "merchant": "Mamaearth",
+    "category": "Health",
+    "source_data": {
+      "discount_percent": 22,
+      "type": "percentage",
+      "min_order": 400,
+      "expiry": "2026-05-20",
+      "coupon_code": "MAMA22"
+    },
+    "reference_output": "Mamaearth: 22% OFF Skincare",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_016",
+    "channel": "email",
+    "merchant": "Myntra",
+    "category": "Fashion",
+    "source_data": {
+      "discount_percent": 55,
+      "type": "flat",
+      "min_order": 1299,
+      "expiry": "2026-05-28",
+      "coupon_code": "MYNEND55"
+    },
+    "reference_output": "EORS is here! Flat 55% OFF on Myntra — use code MYNEND55 on orders above ₹1299. Shop 1000+ brands. Valid till 28th May 2026.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_017",
+    "channel": "whatsapp",
+    "merchant": "Zomato",
+    "category": "Food",
+    "source_data": {
+      "discount_percent": 30,
+      "type": "bogo",
+      "min_order": 299,
+      "expiry": "2026-05-10",
+      "coupon_code": "ZMBOGO"
+    },
+    "reference_output": "🍔 Buy 1 Get 1 on Zomato! Code: ZMBOGO. Min ₹299. Today only!",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_018",
+    "channel": "push",
+    "merchant": "Amazon",
+    "category": "Grocery",
+    "source_data": {
+      "discount_percent": 15,
+      "type": "cashback",
+      "min_order": 599,
+      "expiry": "2026-05-12",
+      "coupon_code": "AMZFRESH15"
+    },
+    "reference_output": "Amazon Fresh: 15% Cashback",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_019",
+    "channel": "email",
+    "merchant": "Swiggy",
+    "category": "Food",
+    "source_data": {
+      "discount_percent": 40,
+      "type": "flat",
+      "min_order": 249,
+      "expiry": "2026-05-16",
+      "coupon_code": "INSTAMART40"
+    },
+    "reference_output": "Flat 40% OFF on Swiggy Instamart! Code INSTAMART40 on orders above ₹249. Get groceries in 10 minutes. Valid till 16th May 2026.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_020",
+    "channel": "whatsapp",
+    "merchant": "MakeMyTrip",
+    "category": "Travel",
+    "source_data": {
+      "discount_percent": 25,
+      "type": "flat",
+      "min_order": 8000,
+      "expiry": "2026-06-15",
+      "coupon_code": "MMTHOTEL25"
+    },
+    "reference_output": "🏨 Flat 25% OFF hotels on MMT! Code: MMTHOTEL25. Min ₹8000. Book by 15 Jun.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_021",
+    "channel": "push",
+    "merchant": "Flipkart",
+    "category": "Fashion",
+    "source_data": {
+      "discount_percent": 60,
+      "type": "flat",
+      "min_order": 799,
+      "expiry": "2026-05-14",
+      "coupon_code": "FKFASH60"
+    },
+    "reference_output": "Flipkart: Flat 60% OFF Fashion",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_022",
+    "channel": "email",
+    "merchant": "Nykaa",
+    "category": "Health",
+    "source_data": {
+      "discount_percent": 35,
+      "type": "flat",
+      "min_order": 799,
+      "expiry": "2026-05-25",
+      "coupon_code": "NYKGLAM35"
+    },
+    "reference_output": "35% OFF on Nykaa Beauty & Skincare! Use code NYKGLAM35 on orders above ₹799. Explore 2000+ brands. Valid till 25th May 2026.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_023",
+    "channel": "whatsapp",
+    "merchant": "CRED",
+    "category": "Finance",
+    "source_data": {
+      "discount_percent": 10,
+      "type": "cashback",
+      "min_order": 2000,
+      "expiry": "2026-05-31",
+      "coupon_code": "CREDPAY10"
+    },
+    "reference_output": "💰 10% cashback on CRED Pay! Code: CREDPAY10. Min ₹2000. Till 31 May.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_024",
+    "channel": "push",
+    "merchant": "Puma",
+    "category": "Fashion",
+    "source_data": {
+      "discount_percent": 40,
+      "type": "percentage",
+      "min_order": 1500,
+      "expiry": "2026-05-20",
+      "coupon_code": "PUMARUN40"
+    },
+    "reference_output": "Puma: 40% OFF Sportswear",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_025",
+    "channel": "email",
+    "merchant": "BigBasket",
+    "category": "Grocery",
+    "source_data": {
+      "discount_percent": 30,
+      "type": "flat",
+      "min_order": 800,
+      "expiry": "2026-05-18",
+      "coupon_code": "BBSAVER30"
+    },
+    "reference_output": "Flat 30% OFF on BigBasket! Use code BBSAVER30 on grocery orders above ₹800. Fresh fruits, veggies, dairy and more. Valid till 18th May 2026.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_026",
+    "channel": "whatsapp",
+    "merchant": "Boat",
+    "category": "Electronics",
+    "source_data": {
+      "discount_percent": 45,
+      "type": "flat",
+      "min_order": 1299,
+      "expiry": "2026-05-22",
+      "coupon_code": "BOATBASS45"
+    },
+    "reference_output": "🎧 Flat 45% OFF boAt! Code: BOATBASS45. Min ₹1299. Expires 22 May.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_027",
+    "channel": "push",
+    "merchant": "Ajio",
+    "category": "Fashion",
+    "source_data": {
+      "discount_percent": 50,
+      "type": "flat",
+      "min_order": 1000,
+      "expiry": "2026-05-19",
+      "coupon_code": "AJBIG50"
+    },
+    "reference_output": "Ajio: 50% OFF Branded Apparel",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  },
+  {
+    "id": "dc_028",
+    "channel": "email",
+    "merchant": "PharmEasy",
+    "category": "Health",
+    "source_data": {
+      "discount_percent": 25,
+      "type": "percentage",
+      "min_order": 500,
+      "expiry": "2026-06-01",
+      "coupon_code": "PE25HEALTH"
+    },
+    "reference_output": "25% OFF on medicines & health products at PharmEasy! Use code PE25HEALTH on orders above ₹500. Free delivery included. Valid till 1st June 2026.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": null
+    }
+  },
+  {
+    "id": "dc_029",
+    "channel": "whatsapp",
+    "merchant": "Mamaearth",
+    "category": "Health",
+    "source_data": {
+      "discount_percent": 30,
+      "type": "flat",
+      "min_order": 599,
+      "expiry": "2026-05-28",
+      "coupon_code": "MAMA30GLOW"
+    },
+    "reference_output": "🌿 Flat 30% OFF Mamaearth! Code: MAMA30GLOW. Min ₹599. Till 28 May.",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 160
+    }
+  },
+  {
+    "id": "dc_030",
+    "channel": "push",
+    "merchant": "Lenskart",
+    "category": "Health",
+    "source_data": {
+      "discount_percent": 40,
+      "type": "flat",
+      "min_order": 0,
+      "expiry": "2026-05-31",
+      "coupon_code": "LK40SPEC"
+    },
+    "reference_output": "Lenskart: 40% OFF Eyeglasses",
+    "label": {
+      "factually_grounded": true,
+      "format_compliant": true,
+      "channel_char_limit": 50
+    }
+  }
+]

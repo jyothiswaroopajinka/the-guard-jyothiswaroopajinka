@@ -1,0 +1,403 @@
+[
+  {
+    "id": "ins_001",
+    "deal_object": {
+      "merchant": "MakeMyTrip",
+      "category": "Travel",
+      "deal_type": "flight",
+      "amount": 12000,
+      "destination": "international",
+      "duration_days": 10
+    },
+    "ground_truth_label": "travel_insurance",
+    "confidence_threshold": 0.85,
+    "edge_case": false
+  },
+  {
+    "id": "ins_002",
+    "deal_object": {
+      "merchant": "Myntra",
+      "category": "Fashion",
+      "deal_type": "apparel",
+      "amount": 2500,
+      "return_policy_days": 30
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.9,
+    "edge_case": false
+  },
+  {
+    "id": "ins_003",
+    "deal_object": {
+      "merchant": "PharmEasy",
+      "category": "Health",
+      "deal_type": "prescription_medicine",
+      "amount": 1500,
+      "chronic_condition": true
+    },
+    "ground_truth_label": "health_insurance",
+    "confidence_threshold": 0.8,
+    "edge_case": false
+  },
+  {
+    "id": "ins_004",
+    "deal_object": {
+      "merchant": "Amazon",
+      "category": "Electronics",
+      "deal_type": "mobile_phone",
+      "amount": 45000,
+      "brand": "Apple"
+    },
+    "ground_truth_label": "device_protection",
+    "confidence_threshold": 0.85,
+    "edge_case": false
+  },
+  {
+    "id": "ins_005",
+    "deal_object": {
+      "merchant": "BigBasket",
+      "category": "Grocery",
+      "deal_type": "fresh_produce",
+      "amount": 600
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.95,
+    "edge_case": false
+  },
+  {
+    "id": "ins_006",
+    "deal_object": {
+      "merchant": "MakeMyTrip",
+      "category": "Travel",
+      "deal_type": "hotel",
+      "amount": 8000,
+      "destination": "domestic",
+      "duration_days": 3
+    },
+    "ground_truth_label": "travel_insurance",
+    "confidence_threshold": 0.75,
+    "edge_case": false
+  },
+  {
+    "id": "ins_007",
+    "deal_object": {
+      "merchant": "Flipkart",
+      "category": "Electronics",
+      "deal_type": "laptop",
+      "amount": 65000,
+      "brand": "Dell"
+    },
+    "ground_truth_label": "device_protection",
+    "confidence_threshold": 0.9,
+    "edge_case": false
+  },
+  {
+    "id": "ins_008",
+    "deal_object": {
+      "merchant": "Nykaa",
+      "category": "Health",
+      "deal_type": "skincare",
+      "amount": 1200
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.9,
+    "edge_case": false
+  },
+  {
+    "id": "ins_009",
+    "deal_object": {
+      "merchant": "CRED",
+      "category": "Finance",
+      "deal_type": "loan_payment",
+      "amount": 25000,
+      "emi_months": 12
+    },
+    "ground_truth_label": "loan_protection",
+    "confidence_threshold": 0.85,
+    "edge_case": false
+  },
+  {
+    "id": "ins_010",
+    "deal_object": {
+      "merchant": "Swiggy",
+      "category": "Food",
+      "deal_type": "restaurant_order",
+      "amount": 450
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.95,
+    "edge_case": false
+  },
+  {
+    "id": "ins_011",
+    "deal_object": {
+      "merchant": "MakeMyTrip",
+      "category": "Travel",
+      "deal_type": "flight",
+      "amount": 35000,
+      "destination": "international",
+      "duration_days": 21,
+      "adventure_activity": true
+    },
+    "ground_truth_label": "travel_insurance",
+    "confidence_threshold": 0.9,
+    "edge_case": true,
+    "edge_case_note": "Adventure travel — needs specialized coverage"
+  },
+  {
+    "id": "ins_012",
+    "deal_object": {
+      "merchant": "Amazon",
+      "category": "Electronics",
+      "deal_type": "smart_tv",
+      "amount": 55000,
+      "screen_size_inches": 65
+    },
+    "ground_truth_label": "device_protection",
+    "confidence_threshold": 0.85,
+    "edge_case": false
+  },
+  {
+    "id": "ins_013",
+    "deal_object": {
+      "merchant": "PharmEasy",
+      "category": "Health",
+      "deal_type": "lab_test",
+      "amount": 3000,
+      "test_type": "full_body_checkup"
+    },
+    "ground_truth_label": "health_insurance",
+    "confidence_threshold": 0.8,
+    "edge_case": false
+  },
+  {
+    "id": "ins_014",
+    "deal_object": {
+      "merchant": "Puma",
+      "category": "Fashion",
+      "deal_type": "sports_shoes",
+      "amount": 4500
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.9,
+    "edge_case": false
+  },
+  {
+    "id": "ins_015",
+    "deal_object": {
+      "merchant": "Flipkart",
+      "category": "Electronics",
+      "deal_type": "refrigerator",
+      "amount": 38000,
+      "brand": "Samsung"
+    },
+    "ground_truth_label": "device_protection",
+    "confidence_threshold": 0.85,
+    "edge_case": false
+  },
+  {
+    "id": "ins_016",
+    "deal_object": {
+      "merchant": "MakeMyTrip",
+      "category": "Travel",
+      "deal_type": "bus",
+      "amount": 800,
+      "destination": "domestic",
+      "duration_days": 1
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.7,
+    "edge_case": true,
+    "edge_case_note": "Low-value domestic bus — borderline travel insurance case"
+  },
+  {
+    "id": "ins_017",
+    "deal_object": {
+      "merchant": "Amazon",
+      "category": "Electronics",
+      "deal_type": "earphones",
+      "amount": 1200,
+      "brand": "boAt"
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.8,
+    "edge_case": false
+  },
+  {
+    "id": "ins_018",
+    "deal_object": {
+      "merchant": "CRED",
+      "category": "Finance",
+      "deal_type": "credit_card_payment",
+      "amount": 50000,
+      "missed_payment_history": true
+    },
+    "ground_truth_label": "loan_protection",
+    "confidence_threshold": 0.9,
+    "edge_case": true,
+    "edge_case_note": "High balance + missed payment history — elevated risk"
+  },
+  {
+    "id": "ins_019",
+    "deal_object": {
+      "merchant": "Zomato",
+      "category": "Food",
+      "deal_type": "subscription",
+      "amount": 299,
+      "duration_months": 3
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.95,
+    "edge_case": false
+  },
+  {
+    "id": "ins_020",
+    "deal_object": {
+      "merchant": "Lenskart",
+      "category": "Health",
+      "deal_type": "prescription_glasses",
+      "amount": 3500,
+      "power": -4.5
+    },
+    "ground_truth_label": "health_insurance",
+    "confidence_threshold": 0.75,
+    "edge_case": true,
+    "edge_case_note": "Vision correction — may qualify under health insurance"
+  },
+  {
+    "id": "ins_021",
+    "deal_object": {
+      "merchant": "MakeMyTrip",
+      "category": "Travel",
+      "deal_type": "package",
+      "amount": 85000,
+      "destination": "international",
+      "duration_days": 14,
+      "group_size": 4
+    },
+    "ground_truth_label": "travel_insurance",
+    "confidence_threshold": 0.95,
+    "edge_case": false
+  },
+  {
+    "id": "ins_022",
+    "deal_object": {
+      "merchant": "Myntra",
+      "category": "Fashion",
+      "deal_type": "jewellery",
+      "amount": 15000,
+      "material": "gold"
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.6,
+    "edge_case": true,
+    "edge_case_note": "High-value jewellery — could qualify for purchase protection"
+  },
+  {
+    "id": "ins_023",
+    "deal_object": {
+      "merchant": "Amazon",
+      "category": "Electronics",
+      "deal_type": "gaming_console",
+      "amount": 52000,
+      "brand": "PlayStation"
+    },
+    "ground_truth_label": "device_protection",
+    "confidence_threshold": 0.85,
+    "edge_case": false
+  },
+  {
+    "id": "ins_024",
+    "deal_object": {
+      "merchant": "Mamaearth",
+      "category": "Health",
+      "deal_type": "baby_products",
+      "amount": 800
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.9,
+    "edge_case": false
+  },
+  {
+    "id": "ins_025",
+    "deal_object": {
+      "merchant": "PharmEasy",
+      "category": "Health",
+      "deal_type": "diabetes_supplies",
+      "amount": 2500,
+      "chronic_condition": true,
+      "monthly_recurring": true
+    },
+    "ground_truth_label": "health_insurance",
+    "confidence_threshold": 0.9,
+    "edge_case": false
+  },
+  {
+    "id": "ins_026",
+    "deal_object": {
+      "merchant": "Flipkart",
+      "category": "Electronics",
+      "deal_type": "washing_machine",
+      "amount": 28000,
+      "brand": "LG"
+    },
+    "ground_truth_label": "device_protection",
+    "confidence_threshold": 0.8,
+    "edge_case": false
+  },
+  {
+    "id": "ins_027",
+    "deal_object": {
+      "merchant": "CRED",
+      "category": "Finance",
+      "deal_type": "personal_loan",
+      "amount": 200000,
+      "emi_months": 36
+    },
+    "ground_truth_label": "loan_protection",
+    "confidence_threshold": 0.95,
+    "edge_case": false
+  },
+  {
+    "id": "ins_028",
+    "deal_object": {
+      "merchant": "Swiggy",
+      "category": "Food",
+      "deal_type": "catering",
+      "amount": 12000,
+      "event_size": 50
+    },
+    "ground_truth_label": "no_insurance",
+    "confidence_threshold": 0.7,
+    "edge_case": true,
+    "edge_case_note": "Large catering order — ambiguous insurance relevance"
+  },
+  {
+    "id": "ins_029",
+    "deal_object": {
+      "merchant": "Amazon",
+      "category": "Electronics",
+      "deal_type": "camera",
+      "amount": 78000,
+      "brand": "Sony",
+      "professional_use": true
+    },
+    "ground_truth_label": "device_protection",
+    "confidence_threshold": 0.9,
+    "edge_case": false
+  },
+  {
+    "id": "ins_030",
+    "deal_object": {
+      "merchant": "Nykaa",
+      "category": "Health",
+      "deal_type": "hair_treatment",
+      "amount": 5500,
+      "clinical": true
+    },
+    "ground_truth_label": "health_insurance",
+    "confidence_threshold": 0.65,
+    "edge_case": true,
+    "edge_case_note": "Clinical hair treatment — borderline health insurance case"
+  }
+]
