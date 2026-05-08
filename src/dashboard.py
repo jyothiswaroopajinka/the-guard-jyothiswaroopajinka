@@ -119,6 +119,7 @@ def save_run(
         "metadata": metadata,
         "gate_decision": gate_decision_obj.decision if gate_decision_obj else "UNKNOWN",
         "gate_summary": gate_summary,
+        "failure_reasons": getattr(gate_decision_obj, "failure_reasons", []),
         "baseline_results": {k: _serialize_list(v) for k, v in baseline_results.items()},
         "candidate_results": {k: _serialize_list(v) for k, v in candidate_results.items()},
         "comparison_results": comparison_results,
@@ -164,6 +165,20 @@ def print_run_report(
     panel_body = f"[bold {decision_color}]  {gate.decision}[/]\n\n{gate.summary}"
     if gate.decision == "NO-GO" and worst_cases_text:
         panel_body += f"\n\nWorst performing cases (candidate lost):\n{worst_cases_text}"
+    if gate.decision == "NO-GO":
+        failed = [tv.task_name for tv in gate.regressions]
+        passed = [t for t in ["deal_copy", "insurance", "credit"] if t not in failed]
+        failed_str = ", ".join(failed)
+        passed_str = ", ".join(passed) if passed else "none"
+        panel_body += (
+            f"\n\n[bold red]{'─' * 50}[/]"
+            f"\n[bold red]DEPLOYMENT BLOCKED[/]"
+            f"\n  Failed task(s)  : {failed_str}"
+            f"\n  Passed task(s)  : {passed_str}"
+            f"\n  Even though {passed_str} passed, the entire deployment"
+            f"\n  is blocked because {failed_str} failed."
+            f"\n  You cannot deploy a partial fix — it's all or nothing."
+        )
     console.print(
         Panel(
             panel_body,
@@ -171,6 +186,76 @@ def print_run_report(
             border_style=decision_color,
         )
     )
+
+    # ── Per-task deployment readiness (always shown) ───────────────────────────
+    console.print()
+    failure_reasons = getattr(gate, "failure_reasons", [])
+    failed_tasks = {fr["task"] for fr in failure_reasons}
+    regressed_tasks = {tv.task_name for tv in getattr(gate, "regressions", [])}
+    improved_tasks  = {tv.task_name for tv in getattr(gate, "improvements", [])}
+
+    task_order = ["deal_copy", "insurance", "credit"]
+    task_labels = {"deal_copy": "Deal Copy", "insurance": "Insurance", "credit": "Credit Narrative"}
+
+    console.print("[bold cyan]── Deployment Readiness — Per Task ──[/]")
+    for task_name in task_order:
+        task_comp = comparison.get(task_name, {})
+        if not task_comp:
+            continue
+
+        if task_name in regressed_tasks:
+            status = "[bold red]BLOCKED — DO NOT DEPLOY[/]"
+            border = "red"
+            fr = next((f for f in failure_reasons if f["task"] == task_name), None)
+            if fr:
+                trigger_label = (
+                    "Practical threshold breached (drop too large)"
+                    if fr["trigger"] == "practical_threshold"
+                    else "Statistically significant regression"
+                )
+                detail = (
+                    f"[bold]Why blocked:[/] {trigger_label}\n"
+                    f"[bold]What happened:[/] {fr['reason']}\n"
+                    f"[bold]Score drop:[/] [red]{fr['score_drop']:+.4f}[/]  "
+                    f"[bold]Confidence:[/] {fr['confidence_pct']}%  "
+                    f"[bold]p-value:[/] {fr['p_value']:.4f}"
+                )
+            else:
+                detail = "Regression detected."
+        elif task_name in improved_tasks:
+            status = "[bold green]READY — IMPROVED[/]"
+            border = "green"
+            tv = next((t for t in gate.improvements if t.task_name == task_name), None)
+            r = tv.result if tv else None
+            b = getattr(r, "baseline_mean", "?")
+            c = getattr(r, "candidate_mean", "?")
+            detail = (
+                f"[bold]What happened:[/] Candidate improved over baseline\n"
+                f"[bold]Score:[/] {b:.4f} → [green]{c:.4f}[/]  "
+                f"[bold]p-value:[/] {getattr(r, 'p_value', '?'):.4f}"
+            ) if r else "Improvement detected."
+        else:
+            status = "[bold yellow]READY — NO SIGNIFICANT CHANGE[/]"
+            border = "yellow"
+            scorer_data = list(task_comp.values())[0]
+            b = scorer_data.get("baseline_mean", "?")
+            c = scorer_data.get("candidate_mean", "?")
+            diff = scorer_data.get("absolute_diff", 0)
+            p = scorer_data.get("p_value", "?")
+            detail = (
+                f"[bold]What happened:[/] Candidate performance is similar to baseline — no regression\n"
+                f"[bold]Score:[/] {b:.4f} → {c:.4f}  "
+                f"[bold]Change:[/] {diff:+.4f}  "
+                f"[bold]p-value:[/] {p:.4f}"
+            ) if isinstance(b, float) else "No significant change detected."
+
+        console.print(Panel(
+            f"{status}\n\n{detail}",
+            title=f"[bold]{task_labels.get(task_name, task_name)}[/]",
+            border_style=border,
+        ))
+
+    console.print()
 
     # ── API Error Summary (shown prominently if any calls failed) ──────────────
     all_errors = []

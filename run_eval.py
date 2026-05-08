@@ -240,6 +240,8 @@ def main():
     # Regression demo: compare bad prompt (v2) vs good (v1) to show gate catching it
     parser.add_argument("--demo-regression", action="store_true",
                         help="Demo: compare v1 vs v2 (bad prompt) to show NO-GO gate")
+    parser.add_argument("--max-cases", type=int, default=30,
+                        help="Max cases per task (default: 30)")
 
     args = parser.parse_args()
 
@@ -263,7 +265,7 @@ def main():
             candidate_provider="anthropic",
             candidate_model=None,
             candidate_prompt="v2.txt",
-            max_cases=5,
+            max_cases=args.max_cases,
             use_judge=True,
         )
     else:
@@ -274,7 +276,7 @@ def main():
             candidate_provider=args.candidate_provider,
             candidate_model=args.candidate_model,
             candidate_prompt=args.candidate_prompt,
-            max_cases=5 if args.quick else None,
+            max_cases=5 if args.quick else args.max_cases,
             use_judge=not args.quick,
         )
 

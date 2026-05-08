@@ -47,6 +47,7 @@ class GateDecision:
     improvements: list[TaskVerdicts] = field(default_factory=list)
     inconclusive: list[TaskVerdicts] = field(default_factory=list)
     summary: str = ""
+    failure_reasons: list[dict] = field(default_factory=list)  # structured per-task reasons
     exit_code: int = 0   # 0 = GO, 1 = NO-GO, 2 = INCONCLUSIVE
 
 
@@ -150,12 +151,48 @@ def evaluate(
             f"Regressed tasks:\n{reg_details}\n"
             f"Candidate version blocked from deployment."
         )
+
+        # Build structured per-task failure reasons for JSON storage
+        failure_reasons = []
+        for tv in regressions:
+            r = tv.result
+            is_practical = (
+                isinstance(r, ComparisonResult) and r.absolute_diff < -practical_threshold
+                and not getattr(r, "significant", False)
+            )
+            if isinstance(r, McNemarResult):
+                reason = (
+                    f"Candidate correctly classified {r.candidate_correct} cases, "
+                    f"baseline correctly classified {r.baseline_correct} cases — "
+                    f"candidate got wrong answers on {r.baseline_correct - r.candidate_correct} "
+                    f"cases that baseline passed (p={r.p_value:.4f})"
+                )
+            else:
+                drop_pct = abs(r.absolute_diff / r.baseline_mean * 100) if r.baseline_mean else 0
+                reason = (
+                    f"Score dropped from {r.baseline_mean:.4f} to {r.candidate_mean:.4f} "
+                    f"(drop of {abs(r.absolute_diff):.4f} = {drop_pct:.1f}%). "
+                    f"{'Triggered by practical threshold — drop too large to ignore.' if is_practical else f'Statistically significant at p={r.p_value:.4f}.'}"
+                )
+            failure_reasons.append({
+                "task": tv.task_name,
+                "scorer": tv.scorer_name,
+                "baseline_version": tv.baseline_version,
+                "candidate_version": tv.candidate_version,
+                "reason": reason,
+                "trigger": "practical_threshold" if is_practical else "statistical",
+                "p_value": getattr(r, "p_value", None),
+                "confidence_pct": round((1 - getattr(r, "p_value", 1.0)) * 100, 1),
+                "score_drop": round(getattr(r, "absolute_diff", 0), 4),
+            })
+
         return GateDecision(
             decision="NO-GO",
             regressions=regressions,
             improvements=improvements,
             inconclusive=inconclusive_list,
             summary=summary,
+            failure_reasons=failure_reasons,
             exit_code=1,
         )
 
