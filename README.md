@@ -50,7 +50,7 @@ the-guard/
 ├── run_eval.py                      ← Entry point (CLI + agent loop)
 ├── analyze_coverage.py              ← Dataset diversity report
 ├── requirements.txt
-├── .env.example
+├── .env
 │
 ├── src/                             ← All application code
 │   ├── providers.py                 ← ACT: Anthropic / OpenAI / Google clients
