@@ -295,6 +295,76 @@ def _save_regression_detail(
         reg_file.write_text(json.dumps(regression_detail, indent=2))
 
 
+def _print_recommendation(gate, metadata: dict, baseline_results: dict, candidate_results: dict) -> None:
+    """
+    Print a recommendation panel based on what changed and what the gate decided.
+    - Model swap + GO  → cost comparison + switch recommendation
+    - Prompt change + NO-GO → clear "unsafe prompt" warning with reason
+    """
+    b_provider = metadata.get("baseline_provider", "")
+    c_provider = metadata.get("candidate_provider", "")
+    b_prompt   = metadata.get("baseline_prompt", "v1.txt")
+    c_prompt   = metadata.get("candidate_prompt", "v1.txt")
+
+    is_model_change  = b_provider != c_provider
+    is_prompt_change = b_prompt != c_prompt
+
+    if is_model_change and gate.decision == "GO":
+        # Compute actual per-case cost from run data
+        def _total_cost(res_dict):
+            return sum(
+                getattr(r, "cost_usd", 0)
+                for res_list in res_dict.values()
+                for r in res_list
+            )
+        b_cost = _total_cost(baseline_results)
+        c_cost = _total_cost(candidate_results)
+        total_cases = sum(len(v) for v in baseline_results.values())
+
+        b_per_case = b_cost / total_cases if total_cases else 0
+        c_per_case = c_cost / total_cases if total_cases else 0
+
+        if c_per_case < b_per_case and b_per_case > 0:
+            savings_pct = (b_per_case - c_per_case) / b_per_case * 100
+            savings_line = (
+                f"Cost per case: [green]{b_provider}[/] ${b_per_case:.5f} → "
+                f"[green]{c_provider}[/] ${c_per_case:.5f}  "
+                f"([bold green]{savings_pct:.0f}% cheaper[/])"
+            )
+            body = (
+                f"[bold green]RECOMMENDATION: Switch to {c_provider}[/]\n\n"
+                f"The eval found no quality regression — {c_provider} performs at least as well as "
+                f"{b_provider} across all 3 tasks.\n"
+                f"Since {c_provider} is also cheaper, switching is a clear win.\n\n"
+                f"{savings_line}\n"
+                f"[dim]Estimated savings scale linearly with production volume.[/]"
+            )
+        else:
+            body = (
+                f"[bold green]RECOMMENDATION: Switch to {c_provider}[/]\n\n"
+                f"The eval found no quality regression — {c_provider} performs at least as well as "
+                f"{b_provider} across all 3 tasks. Safe to switch."
+            )
+        console.print(Panel(body, title="[bold green]Cost & Model Recommendation[/]", border_style="green"))
+
+    elif is_prompt_change and gate.decision == "NO-GO":
+        failed_tasks = [tv.task_name for tv in gate.regressions]
+        reasons = []
+        for fr in getattr(gate, "failure_reasons", []):
+            reasons.append(f"  • [{fr['task']}] {fr['reason']}")
+        reason_text = "\n".join(reasons) if reasons else "  • Score regression detected across tasks."
+
+        body = (
+            f"[bold red]DO NOT USE PROMPT: {c_prompt}[/]\n\n"
+            f"This prompt caused a measurable quality regression compared to {b_prompt}.\n"
+            f"Deploying it would hurt real users.\n\n"
+            f"[bold]Why it failed:[/]\n{reason_text}\n\n"
+            f"[bold]Failed tasks:[/] {', '.join(failed_tasks)}\n"
+            f"[bold]Action:[/] Revert to [green]{b_prompt}[/] or fix the prompt and re-eval."
+        )
+        console.print(Panel(body, title="[bold red]Prompt Safety Warning[/]", border_style="red"))
+
+
 def print_run_report(
     run_id: str,
     baseline_results: dict,
@@ -406,6 +476,9 @@ def print_run_report(
         ))
 
     console.print()
+
+    # ── Recommendation panel ───────────────────────────────────────────────────
+    _print_recommendation(gate, metadata, baseline_results, candidate_results)
 
     # ── API Error Summary (shown prominently if any calls failed) ──────────────
     all_errors = []

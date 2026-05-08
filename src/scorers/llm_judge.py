@@ -1,13 +1,12 @@
 """
 Scorer (d): LLM-as-Judge
 
-Uses Claude Opus to rate another model's deal copy on a 0-10 scale across
+Uses Claude Haiku to rate another model's deal copy on a 0-10 scale across
 three dimensions: persuasiveness, factual accuracy, and channel fit.
 Normalized to [0, 1].
 
-Why Opus as judge? It's our most capable model — using it to evaluate outputs
-from Sonnet/GPT-4o-mini gives us a principled quality signal.
-We do NOT use Opus for the generation step (cost reason), only for judging.
+Why Haiku as judge? Cheap, fast, sufficient for structured scoring tasks.
+We do NOT use the same model for generation and judging — judge is always Haiku.
 """
 
 import json
@@ -54,11 +53,11 @@ def score(
     Ask Claude Opus to judge the generated copy.
     Returns scores normalized to [0, 1] with confidence interval.
     """
-    prompt = JUDGE_PROMPT_TEMPLATE.format(
-        channel=channel,
-        source_data=json.dumps(source_data, ensure_ascii=False),
-        generated_text=generated_text,
-        reference_text=reference_text,
+    prompt = (JUDGE_PROMPT_TEMPLATE
+        .replace("{channel}", channel)
+        .replace("{source_data}", json.dumps(source_data, ensure_ascii=False))
+        .replace("{generated_text}", generated_text)
+        .replace("{reference_text}", reference_text)
     )
 
     try:

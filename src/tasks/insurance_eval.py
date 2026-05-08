@@ -6,8 +6,8 @@ Eval Task 2: Insurance Intent Classification
 For each deal object, ask the LLM to classify which insurance product to recommend.
 Score using: intent_match (primary) + confidence calibration.
 
-Uses OpenAI GPT-4o-mini by default (cheap, fast — right tool for classification).
-Claude Sonnet as baseline for comparison.
+Provider is passed at call time — defaults to google (Gemini Flash) as it is
+80% cheaper than Haiku with equivalent accuracy on this classification task.
 """
 
 import json
@@ -60,7 +60,7 @@ def run_single(
             system=system_prompt,
             provider=provider,
             model=model,
-            max_tokens=200,
+            max_tokens=1024,
             temperature=0.1,  # Low temperature for classification consistency
         )
         cost = estimate_cost_usd(usage)

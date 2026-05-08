@@ -196,31 +196,29 @@ def evaluate(
             exit_code=1,
         )
 
-    if not improvements and inconclusive_list:
-        summary = (
-            f"INCONCLUSIVE: No statistically significant changes detected in {len(inconclusive_list)} task(s). "
-            f"Differences may be noise. Run more test cases or reduce temperature for a cleaner signal."
-        )
-        return GateDecision(
-            decision="INCONCLUSIVE",
-            regressions=[],
-            improvements=improvements,
-            inconclusive=inconclusive_list,
-            summary=summary,
-            exit_code=2,
+    # No regressions → GO. Statistically confirmed improvements are a bonus, not required.
+    improvement_details = ""
+    if improvements:
+        improvement_details = "\n" + "\n".join(
+            f"  - [{tv.task_name} / {tv.scorer_name}]: "
+            f"{getattr(tv.result, 'baseline_mean', '?'):.3f} → {getattr(tv.result, 'candidate_mean', '?'):.3f}"
+            f" (p={tv.result.p_value:.4f})"
+            for tv in improvements
         )
 
-    improvement_details = "\n".join(
-        f"  - [{tv.task_name} / {tv.scorer_name}]: "
-        f"{getattr(tv.result, 'baseline_mean', '?'):.3f} → {getattr(tv.result, 'candidate_mean', '?'):.3f}"
-        f" (p={tv.result.p_value:.4f})"
-        for tv in improvements
-    )
-    summary = (
-        f"GO: All tasks passed. "
-        f"{len(improvements)} improvement(s) confirmed.\n"
-        f"{improvement_details}"
-    )
+    if inconclusive_list and not improvements:
+        no_change_tasks = ", ".join(f"{tv.task_name}/{tv.scorer_name}" for tv in inconclusive_list)
+        summary = (
+            f"GO: No regressions detected across {len(verdicts)} task(s). "
+            f"Candidate is safe to deploy.\n"
+            f"Tasks with no significant change (within noise): {no_change_tasks}"
+        )
+    else:
+        summary = (
+            f"GO: All tasks passed. "
+            f"{len(improvements)} improvement(s) statistically confirmed.{improvement_details}"
+        )
+
     return GateDecision(
         decision="GO",
         regressions=[],

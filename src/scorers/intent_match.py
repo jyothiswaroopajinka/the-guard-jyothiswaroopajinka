@@ -25,13 +25,22 @@ class IntentResult:
 
 
 def _parse_llm_json(text: str) -> dict:
-    """Extract JSON from LLM output, handling markdown code blocks."""
+    """Extract JSON from LLM output, handling markdown code blocks and extra text."""
     text = text.strip()
     # Strip ```json ... ``` if present
     match = re.search(r"```(?:json)?\s*([\s\S]+?)\s*```", text)
     if match:
-        text = match.group(1)
-    return json.loads(text)
+        return json.loads(match.group(1))
+    # Try parsing the whole thing as JSON
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+    # Find the first { ... } block in the text (handles models that add preamble text)
+    match = re.search(r"\{[\s\S]+\}", text)
+    if match:
+        return json.loads(match.group(0))
+    raise json.JSONDecodeError("No JSON found", text, 0)
 
 
 def score(

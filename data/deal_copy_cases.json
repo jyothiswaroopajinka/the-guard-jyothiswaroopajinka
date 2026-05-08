@@ -11,7 +11,7 @@
       "expiry": "2026-05-31",
       "coupon_code": "MYNTRA40"
     },
-    "reference_output": "Flat 40% OFF on Myntra! Use code MYNTRA40 on orders above ₹999. Valid till 31st May 2026. Shop top fashion brands now.",
+    "reference_output": "Flat 40% OFF on Myntra! Use code MYNTRA40 on orders above \u20b9999. Valid till 31st May 2026. Shop top fashion brands now.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -30,7 +30,7 @@
       "expiry": "2026-05-15",
       "coupon_code": "ZOMATO50"
     },
-    "reference_output": "🍕 Flat 50% OFF on Zomato! Code: ZOMATO50. Min ₹149. Expires 15 May. Order now!",
+    "reference_output": "\ud83c\udf55 Flat 50% OFF on Zomato! Code: ZOMATO50. Min \u20b9149. Expires 15 May. Order now!",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -68,7 +68,7 @@
       "expiry": "2026-05-20",
       "coupon_code": "SWIGGY60"
     },
-    "reference_output": "Flat 60% OFF on Swiggy! Use code SWIGGY60 on orders above ₹199. Offer valid till 20th May 2026. Hungry? Order now!",
+    "reference_output": "Flat 60% OFF on Swiggy! Use code SWIGGY60 on orders above \u20b9199. Offer valid till 20th May 2026. Hungry? Order now!",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -87,7 +87,7 @@
       "expiry": "2026-06-30",
       "coupon_code": "MMTFLY15"
     },
-    "reference_output": "✈️ 15% cashback on MakeMyTrip! Code: MMTFLY15. Min ₹5000. Book by 30 Jun.",
+    "reference_output": "\u2708\ufe0f 15% cashback on MakeMyTrip! Code: MMTFLY15. Min \u20b95000. Book by 30 Jun.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -125,7 +125,7 @@
       "expiry": "2026-05-12",
       "coupon_code": "FLIPBIG70"
     },
-    "reference_output": "Flat 70% OFF on Flipkart! Use code FLIPBIG70 on orders above ₹1999. Valid till 12th May 2026. Shop mobiles, laptops and more!",
+    "reference_output": "Flat 70% OFF on Flipkart! Use code FLIPBIG70 on orders above \u20b91999. Valid till 12th May 2026. Shop mobiles, laptops and more!",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -144,7 +144,7 @@
       "expiry": "2026-05-25",
       "coupon_code": "CRED20CB"
     },
-    "reference_output": "💳 20% cashback with CRED! Code: CRED20CB. Min ₹1000. Offer till 25 May.",
+    "reference_output": "\ud83d\udcb3 20% cashback with CRED! Code: CRED20CB. Min \u20b91000. Offer till 25 May.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -182,7 +182,7 @@
       "expiry": "2026-05-30",
       "coupon_code": "BB20FRESH"
     },
-    "reference_output": "20% OFF on BigBasket! Use code BB20FRESH on orders above ₹500. Fresh groceries delivered to your door. Valid till 30th May 2026.",
+    "reference_output": "20% OFF on BigBasket! Use code BB20FRESH on orders above \u20b9500. Fresh groceries delivered to your door. Valid till 30th May 2026.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -201,7 +201,7 @@
       "expiry": "2026-05-22",
       "coupon_code": "AJIO45"
     },
-    "reference_output": "👗 Flat 45% OFF at Ajio! Code: AJIO45. Min ₹1500. Ends 22 May. Shop now!",
+    "reference_output": "\ud83d\udc57 Flat 45% OFF at Ajio! Code: AJIO45. Min \u20b91500. Ends 22 May. Shop now!",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -239,7 +239,7 @@
       "expiry": "2026-06-05",
       "coupon_code": "BOAT35"
     },
-    "reference_output": "Flat 35% OFF on boAt Earphones & Speakers! Use code BOAT35 on orders above ₹999. Valid till 5th June 2026. Power your audio!",
+    "reference_output": "Flat 35% OFF on boAt Earphones & Speakers! Use code BOAT35 on orders above \u20b9999. Valid till 5th June 2026. Power your audio!",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -258,7 +258,7 @@
       "expiry": "2026-05-31",
       "coupon_code": "LK30EYE"
     },
-    "reference_output": "👓 30% OFF at Lenskart! Code: LK30EYE. No min order. Valid till 31 May.",
+    "reference_output": "\ud83d\udc53 30% OFF at Lenskart! Code: LK30EYE. No min order. Valid till 31 May.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -296,7 +296,7 @@
       "expiry": "2026-05-28",
       "coupon_code": "MYNEND55"
     },
-    "reference_output": "EORS is here! Flat 55% OFF on Myntra — use code MYNEND55 on orders above ₹1299. Shop 1000+ brands. Valid till 28th May 2026.",
+    "reference_output": "EORS is here! Flat 55% OFF on Myntra \u2014 use code MYNEND55 on orders above \u20b91299. Shop 1000+ brands. Valid till 28th May 2026.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -315,7 +315,7 @@
       "expiry": "2026-05-10",
       "coupon_code": "ZMBOGO"
     },
-    "reference_output": "🍔 Buy 1 Get 1 on Zomato! Code: ZMBOGO. Min ₹299. Today only!",
+    "reference_output": "\ud83c\udf54 Buy 1 Get 1 on Zomato! Code: ZMBOGO. Min \u20b9299. Today only!",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -353,7 +353,7 @@
       "expiry": "2026-05-16",
       "coupon_code": "INSTAMART40"
     },
-    "reference_output": "Flat 40% OFF on Swiggy Instamart! Code INSTAMART40 on orders above ₹249. Get groceries in 10 minutes. Valid till 16th May 2026.",
+    "reference_output": "Flat 40% OFF on Swiggy Instamart! Code INSTAMART40 on orders above \u20b9249. Get groceries in 10 minutes. Valid till 16th May 2026.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -372,7 +372,7 @@
       "expiry": "2026-06-15",
       "coupon_code": "MMTHOTEL25"
     },
-    "reference_output": "🏨 Flat 25% OFF hotels on MMT! Code: MMTHOTEL25. Min ₹8000. Book by 15 Jun.",
+    "reference_output": "\ud83c\udfe8 Flat 25% OFF hotels on MMT! Code: MMTHOTEL25. Min \u20b98000. Book by 15 Jun.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -410,7 +410,7 @@
       "expiry": "2026-05-25",
       "coupon_code": "NYKGLAM35"
     },
-    "reference_output": "35% OFF on Nykaa Beauty & Skincare! Use code NYKGLAM35 on orders above ₹799. Explore 2000+ brands. Valid till 25th May 2026.",
+    "reference_output": "35% OFF on Nykaa Beauty & Skincare! Use code NYKGLAM35 on orders above \u20b9799. Explore 2000+ brands. Valid till 25th May 2026.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -429,7 +429,7 @@
       "expiry": "2026-05-31",
       "coupon_code": "CREDPAY10"
     },
-    "reference_output": "💰 10% cashback on CRED Pay! Code: CREDPAY10. Min ₹2000. Till 31 May.",
+    "reference_output": "\ud83d\udcb0 10% cashback on CRED Pay! Code: CREDPAY10. Min \u20b92000. Till 31 May.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -467,7 +467,7 @@
       "expiry": "2026-05-18",
       "coupon_code": "BBSAVER30"
     },
-    "reference_output": "Flat 30% OFF on BigBasket! Use code BBSAVER30 on grocery orders above ₹800. Fresh fruits, veggies, dairy and more. Valid till 18th May 2026.",
+    "reference_output": "Flat 30% OFF on BigBasket! Use code BBSAVER30 on grocery orders above \u20b9800. Fresh fruits, veggies, dairy and more. Valid till 18th May 2026.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -486,7 +486,7 @@
       "expiry": "2026-05-22",
       "coupon_code": "BOATBASS45"
     },
-    "reference_output": "🎧 Flat 45% OFF boAt! Code: BOATBASS45. Min ₹1299. Expires 22 May.",
+    "reference_output": "\ud83c\udfa7 Flat 45% OFF boAt! Code: BOATBASS45. Min \u20b91299. Expires 22 May.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -524,7 +524,7 @@
       "expiry": "2026-06-01",
       "coupon_code": "PE25HEALTH"
     },
-    "reference_output": "25% OFF on medicines & health products at PharmEasy! Use code PE25HEALTH on orders above ₹500. Free delivery included. Valid till 1st June 2026.",
+    "reference_output": "25% OFF on medicines & health products at PharmEasy! Use code PE25HEALTH on orders above \u20b9500. Free delivery included. Valid till 1st June 2026.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -543,7 +543,7 @@
       "expiry": "2026-05-28",
       "coupon_code": "MAMA30GLOW"
     },
-    "reference_output": "🌿 Flat 30% OFF Mamaearth! Code: MAMA30GLOW. Min ₹599. Till 28 May.",
+    "reference_output": "\ud83c\udf3f Flat 30% OFF Mamaearth! Code: MAMA30GLOW. Min \u20b9599. Till 28 May.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -600,7 +600,7 @@
       "expiry": "2026-06-15",
       "coupon_code": "NYKBEAUTY30"
     },
-    "reference_output": "Flat 30% OFF on Nykaa Beauty! Use code NYKBEAUTY30 on orders above ₹699. Discover the best in skincare, makeup and haircare. Valid till 15th June 2026.",
+    "reference_output": "Flat 30% OFF on Nykaa Beauty! Use code NYKBEAUTY30 on orders above \u20b9699. Discover the best in skincare, makeup and haircare. Valid till 15th June 2026.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -619,7 +619,7 @@
       "expiry": "2026-06-20",
       "coupon_code": "CREDCASH15"
     },
-    "reference_output": "💳 15% cashback on CRED! Code: CREDCASH15. Min ₹1500. Valid till 20 Jun.",
+    "reference_output": "\ud83d\udcb3 15% cashback on CRED! Code: CREDCASH15. Min \u20b91500. Valid till 20 Jun.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -638,7 +638,7 @@
       "expiry": "2026-06-05",
       "coupon_code": "BOATGLANCE40"
     },
-    "reference_output": "boAt: Flat 40% OFF on Earphones! Code BOATGLANCE40. Min ₹999.",
+    "reference_output": "boAt: Flat 40% OFF on Earphones! Code BOATGLANCE40. Min \u20b9999.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -676,7 +676,7 @@
       "expiry": "2026-07-15",
       "coupon_code": "MMTTRAVEL20"
     },
-    "reference_output": "Flat 20% OFF on MakeMyTrip flights & hotels! Use code MMTTRAVEL20 on bookings above ₹6000. Plan your dream vacation today. Valid till 15th July 2026.",
+    "reference_output": "Flat 20% OFF on MakeMyTrip flights & hotels! Use code MMTTRAVEL20 on bookings above \u20b96000. Plan your dream vacation today. Valid till 15th July 2026.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -695,7 +695,7 @@
       "expiry": "2026-06-25",
       "coupon_code": "LKEYE25"
     },
-    "reference_output": "👓 25% OFF at Lenskart! Code: LKEYE25. No min order. Ends 25 Jun.",
+    "reference_output": "\ud83d\udc53 25% OFF at Lenskart! Code: LKEYE25. No min order. Ends 25 Jun.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -714,7 +714,7 @@
       "expiry": "2026-06-08",
       "coupon_code": "MAMA28"
     },
-    "reference_output": "Mamaearth: 28% OFF Natural Skincare! Code MAMA28. Min ₹499.",
+    "reference_output": "Mamaearth: 28% OFF Natural Skincare! Code MAMA28. Min \u20b9499.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -733,7 +733,7 @@
       "expiry": "2026-06-18",
       "coupon_code": "AJIO60BIG"
     },
-    "reference_output": "Flat 60% OFF at Ajio! Use code AJIO60BIG on orders above ₹1999. Shop top brands in fashion, footwear and accessories. Valid till 18th June 2026.",
+    "reference_output": "Flat 60% OFF at Ajio! Use code AJIO60BIG on orders above \u20b91999. Shop top brands in fashion, footwear and accessories. Valid till 18th June 2026.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -771,7 +771,7 @@
       "expiry": "2026-06-22",
       "coupon_code": "DEC30SPORT"
     },
-    "reference_output": "🏃 Flat 30% OFF at Decathlon! Code: DEC30SPORT. Min ₹1000. Ends 22 Jun.",
+    "reference_output": "\ud83c\udfc3 Flat 30% OFF at Decathlon! Code: DEC30SPORT. Min \u20b91000. Ends 22 Jun.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -790,7 +790,7 @@
       "expiry": "2026-06-30",
       "coupon_code": "NETMED22"
     },
-    "reference_output": "22% OFF on medicines at Netmeds! Use code NETMED22 on orders above ₹400. Prescription and OTC medicines delivered fast. Valid till 30th June 2026.",
+    "reference_output": "22% OFF on medicines at Netmeds! Use code NETMED22 on orders above \u20b9400. Prescription and OTC medicines delivered fast. Valid till 30th June 2026.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -809,7 +809,7 @@
       "expiry": "2026-06-05",
       "coupon_code": "DOM50PIZZA"
     },
-    "reference_output": "Dominos: Flat 50% OFF on Pizzas! Code DOM50PIZZA. Min ₹299.",
+    "reference_output": "Dominos: Flat 50% OFF on Pizzas! Code DOM50PIZZA. Min \u20b9299.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -847,7 +847,7 @@
       "expiry": "2026-07-01",
       "coupon_code": "LIFE35FASH"
     },
-    "reference_output": "👔 Flat 35% OFF at Lifestyle! Code: LIFE35FASH. Min ₹1299. Valid till 1 Jul.",
+    "reference_output": "\ud83d\udc54 Flat 35% OFF at Lifestyle! Code: LIFE35FASH. Min \u20b91299. Valid till 1 Jul.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -866,7 +866,7 @@
       "expiry": "2026-07-10",
       "coupon_code": "HTOWN25HOME"
     },
-    "reference_output": "Flat 25% OFF on HomeTown furniture & decor! Use code HTOWN25HOME on orders above ₹2999. Transform your living space with quality home essentials. Valid till 10th July 2026.",
+    "reference_output": "Flat 25% OFF on HomeTown furniture & decor! Use code HTOWN25HOME on orders above \u20b92999. Transform your living space with quality home essentials. Valid till 10th July 2026.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -885,7 +885,7 @@
       "expiry": "2026-06-15",
       "coupon_code": "UC20SERVICE"
     },
-    "reference_output": "UrbanClap: 20% OFF Home Services! Code UC20SERVICE. Min ₹500.",
+    "reference_output": "UrbanClap: 20% OFF Home Services! Code UC20SERVICE. Min \u20b9500.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -923,7 +923,7 @@
       "expiry": "2026-07-05",
       "coupon_code": "1MG20HEALTH"
     },
-    "reference_output": "💊 20% OFF on 1mg! Code: 1MG20HEALTH. Min ₹350. Valid till 5 Jul. Order meds now!",
+    "reference_output": "\ud83d\udc8a 20% OFF on 1mg! Code: 1MG20HEALTH. Min \u20b9350. Valid till 5 Jul. Order meds now!",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
@@ -942,11 +942,132 @@
       "expiry": "2026-07-15",
       "coupon_code": "FABINDIA30"
     },
-    "reference_output": "Flat 30% OFF on FabIndia! Use code FABINDIA30 on orders above ₹1499. Shop handcrafted ethnic wear, home decor and organic products. Valid till 15th July 2026.",
+    "reference_output": "Flat 30% OFF on FabIndia! Use code FABINDIA30 on orders above \u20b91499. Shop handcrafted ethnic wear, home decor and organic products. Valid till 15th July 2026.",
     "label": {
       "factually_grounded": true,
       "format_compliant": true,
       "channel_char_limit": null
     }
+  },
+  {
+    "id": "dc_051",
+    "channel": "whatsapp",
+    "merchant": "Zomato",
+    "category": "Food",
+    "source_data": {
+      "discount_percent": 30,
+      "type": "flat",
+      "min_order": 0,
+      "expiry": "2026-05-31",
+      "coupon_code": "ZFREE30"
+    },
+    "reference_output": "\ud83c\udf55 30% OFF on Zomato! No min order needed. Use ZFREE30. Valid till 31 May!",
+    "edge_case_type": "zero_min_order"
+  },
+  {
+    "id": "dc_052",
+    "channel": "push",
+    "merchant": "Flipkart",
+    "category": "Electronics",
+    "source_data": {
+      "discount_percent": 20,
+      "type": "percentage",
+      "min_order": 0,
+      "expiry": "2026-05-20",
+      "coupon_code": null
+    },
+    "reference_output": "Flipkart: 20% OFF\nNo code needed \u2014 discount applied automatically at checkout.",
+    "edge_case_type": "no_coupon_code"
+  },
+  {
+    "id": "dc_053",
+    "channel": "email",
+    "merchant": "Dominos",
+    "category": "Food",
+    "source_data": {
+      "discount_percent": 100,
+      "type": "bogo",
+      "min_order": 299,
+      "expiry": "2026-05-25",
+      "coupon_code": "BOGO1"
+    },
+    "reference_output": "Buy 1 Get 1 FREE at Dominos! Order worth Rs.299+, use code BOGO1. Valid till 25 May 2026.",
+    "edge_case_type": "bogo_deal"
+  },
+  {
+    "id": "dc_054",
+    "channel": "glance",
+    "merchant": "Myntra",
+    "category": "Fashion",
+    "source_data": {
+      "discount_percent": 90,
+      "type": "flat",
+      "min_order": 1999,
+      "expiry": "2026-05-15",
+      "coupon_code": "MYNTRA90"
+    },
+    "reference_output": "90% OFF at Myntra on orders Rs.1999+! Code: MYNTRA90. Ends 15 May.",
+    "edge_case_type": "very_high_discount"
+  },
+  {
+    "id": "dc_055",
+    "channel": "whatsapp",
+    "merchant": "Amazon",
+    "category": "Electronics",
+    "source_data": {
+      "discount_percent": 50,
+      "type": "flat",
+      "min_order": 999,
+      "expiry": "2026-01-01",
+      "coupon_code": "DEAD50"
+    },
+    "reference_output": "50% OFF at Amazon! Use DEAD50 on orders Rs.999+.",
+    "edge_case_type": "past_expiry"
+  },
+  {
+    "id": "dc_056",
+    "channel": "push",
+    "merchant": "CRED",
+    "category": "Finance",
+    "source_data": {
+      "discount_percent": 10,
+      "type": "cashback",
+      "min_order": 5000,
+      "expiry": "2026-06-30",
+      "coupon_code": "CRED10CB"
+    },
+    "reference_output": "10% cashback with CRED!\nSpend Rs.5000+, code CRED10CB. Valid till June 2026.",
+    "edge_case_type": "cashback_not_discount"
+  },
+  {
+    "id": "dc_057",
+    "channel": "glance",
+    "merchant": "Pepperfry",
+    "category": "Furniture",
+    "source_data": {
+      "discount_percent": 35,
+      "type": "flat",
+      "min_order": 4999,
+      "expiry": "2026-06-10",
+      "coupon_code": "PEPPER35"
+    },
+    "reference_output": "35% OFF Pepperfry furniture! Rs.4999+ Code: PEPPER35",
+    "edge_case_type": "long_merchant_name"
+  },
+  {
+    "id": "dc_058",
+    "channel": "email",
+    "merchant": "Nykaa",
+    "category": "Beauty",
+    "source_data": {
+      "discount_percent": 25,
+      "type": "flat",
+      "min_order": 799,
+      "expiry": "2026-05-28",
+      "coupon_code": "NYK25",
+      "max_discount": 500
+    },
+    "reference_output": "Flat 25% OFF on Nykaa (max Rs.500 off)! Use NYK25 on orders above Rs.799. Valid till 28 May 2026.",
+    "edge_case_type": "discount_cap"
   }
 ]

@@ -116,6 +116,9 @@ def call_gemini(
         max_output_tokens=max_tokens,
         temperature=temperature,
         system_instruction=system if system else None,
+        # Disable thinking for Gemini 2.5 Flash — thinking tokens eat into
+        # max_output_tokens budget, causing truncated JSON responses on short limits.
+        thinking_config=genai_types.ThinkingConfig(thinking_budget=0),
     )
     response = _gemini.models.generate_content(
         model=model,

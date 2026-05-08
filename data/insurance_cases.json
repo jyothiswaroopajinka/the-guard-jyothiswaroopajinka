@@ -142,7 +142,7 @@
     "ground_truth_label": "travel_insurance",
     "confidence_threshold": 0.9,
     "edge_case": true,
-    "edge_case_note": "Adventure travel — needs specialized coverage"
+    "edge_case_note": "Adventure travel \u2014 needs specialized coverage"
   },
   {
     "id": "ins_012",
@@ -208,7 +208,7 @@
     "ground_truth_label": "no_insurance",
     "confidence_threshold": 0.7,
     "edge_case": true,
-    "edge_case_note": "Low-value domestic bus — borderline travel insurance case"
+    "edge_case_note": "Low-value domestic bus \u2014 borderline travel insurance case"
   },
   {
     "id": "ins_017",
@@ -235,7 +235,7 @@
     "ground_truth_label": "loan_protection",
     "confidence_threshold": 0.9,
     "edge_case": true,
-    "edge_case_note": "High balance + missed payment history — elevated risk"
+    "edge_case_note": "High balance + missed payment history \u2014 elevated risk"
   },
   {
     "id": "ins_019",
@@ -262,7 +262,7 @@
     "ground_truth_label": "health_insurance",
     "confidence_threshold": 0.75,
     "edge_case": true,
-    "edge_case_note": "Vision correction — may qualify under health insurance"
+    "edge_case_note": "Vision correction \u2014 may qualify under health insurance"
   },
   {
     "id": "ins_021",
@@ -291,7 +291,7 @@
     "ground_truth_label": "no_insurance",
     "confidence_threshold": 0.6,
     "edge_case": true,
-    "edge_case_note": "High-value jewellery — could qualify for purchase protection"
+    "edge_case_note": "High-value jewellery \u2014 could qualify for purchase protection"
   },
   {
     "id": "ins_023",
@@ -370,7 +370,7 @@
     "ground_truth_label": "no_insurance",
     "confidence_threshold": 0.7,
     "edge_case": true,
-    "edge_case_note": "Large catering order — ambiguous insurance relevance"
+    "edge_case_note": "Large catering order \u2014 ambiguous insurance relevance"
   },
   {
     "id": "ins_029",
@@ -398,7 +398,7 @@
     "ground_truth_label": "health_insurance",
     "confidence_threshold": 0.65,
     "edge_case": true,
-    "edge_case_note": "Clinical hair treatment — borderline health insurance case"
+    "edge_case_note": "Clinical hair treatment \u2014 borderline health insurance case"
   },
   {
     "id": "ins_031",
@@ -411,7 +411,7 @@
     "ground_truth_label": "no_insurance",
     "confidence_threshold": 0.65,
     "edge_case": true,
-    "edge_case_note": "Grocery delivery via food platform — ambiguous; perishable goods don't typically qualify for insurance"
+    "edge_case_note": "Grocery delivery via food platform \u2014 ambiguous; perishable goods don't typically qualify for insurance"
   },
   {
     "id": "ins_032",
@@ -482,7 +482,7 @@
     "ground_truth_label": "health_insurance",
     "confidence_threshold": 0.7,
     "edge_case": true,
-    "edge_case_note": "Dental treatment — many standard health insurance plans exclude dental; coverage depends on policy specifics"
+    "edge_case_note": "Dental treatment \u2014 many standard health insurance plans exclude dental; coverage depends on policy specifics"
   },
   {
     "id": "ins_037",
@@ -511,7 +511,7 @@
     "ground_truth_label": "loan_protection",
     "confidence_threshold": 0.7,
     "edge_case": true,
-    "edge_case_note": "Home loan EMI — home loan protection insurance exists but product classification may differ from standard loan_protection"
+    "edge_case_note": "Home loan EMI \u2014 home loan protection insurance exists but product classification may differ from standard loan_protection"
   },
   {
     "id": "ins_039",
@@ -539,5 +539,93 @@
     "ground_truth_label": "travel_insurance",
     "confidence_threshold": 0.8,
     "edge_case": false
+  },
+  {
+    "id": "ins_041",
+    "deal_object": {
+      "merchant": "BigBasket",
+      "category": "Grocery",
+      "deal_type": "bulk_order",
+      "amount": 8000,
+      "subscription": true
+    },
+    "ground_truth_label": "no_insurance",
+    "edge_case_type": "high_value_grocery_still_no_insurance",
+    "confidence_threshold": 0.7,
+    "edge_case": true
+  },
+  {
+    "id": "ins_042",
+    "deal_object": {
+      "merchant": "IndiGo",
+      "category": "Travel",
+      "deal_type": "flight",
+      "amount": 1500,
+      "destination": "domestic",
+      "duration_days": 1
+    },
+    "ground_truth_label": "no_insurance",
+    "edge_case_type": "cheap_domestic_flight_no_insurance",
+    "confidence_threshold": 0.7,
+    "edge_case": true
+  },
+  {
+    "id": "ins_043",
+    "deal_object": {
+      "merchant": "1mg",
+      "category": "Health",
+      "deal_type": "otc_medicine",
+      "amount": 300,
+      "chronic_condition": false
+    },
+    "ground_truth_label": "no_insurance",
+    "edge_case_type": "otc_medicine_no_chronic",
+    "confidence_threshold": 0.7,
+    "edge_case": true
+  },
+  {
+    "id": "ins_044",
+    "deal_object": {
+      "merchant": "Cashify",
+      "category": "Electronics",
+      "deal_type": "refurbished_phone",
+      "amount": 12000,
+      "brand": "Samsung",
+      "condition": "good"
+    },
+    "ground_truth_label": "device_protection",
+    "edge_case_type": "refurbished_device",
+    "confidence_threshold": 0.7,
+    "edge_case": true
+  },
+  {
+    "id": "ins_045",
+    "deal_object": {
+      "merchant": "Amazon",
+      "category": "Electronics",
+      "deal_type": "laptop",
+      "amount": 85000,
+      "brand": "Apple",
+      "travel_purchase": true
+    },
+    "ground_truth_label": "device_protection",
+    "edge_case_type": "travel_electronics_combo",
+    "confidence_threshold": 0.7,
+    "edge_case": true
+  },
+  {
+    "id": "ins_046",
+    "deal_object": {
+      "merchant": "KreditBee",
+      "category": "Finance",
+      "deal_type": "personal_loan",
+      "amount": 2000,
+      "tenure_months": 3,
+      "purpose": "emergency"
+    },
+    "ground_truth_label": "no_insurance",
+    "edge_case_type": "micro_loan_no_protection",
+    "confidence_threshold": 0.7,
+    "edge_case": true
   }
 ]

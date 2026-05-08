@@ -1,330 +1,350 @@
 # The Guard — GrabOn AI Eval Pipeline
 
-**Assignment 03 | GrabOn AI Labs Agentic AI Engineer Challenge**
+**Assignment 03 | GrabOn AI Labs Agentic AI Engineer Challenge 2026**
 
-A production eval framework that detects quality regressions in GrabOn's AI-generated outputs before they ship.
-
----
-
-## What This Is
-
-GrabOn's AI produces three types of outputs that real people and partners read:
-
-1. **Deal copy** — sent to 40M subscribers across email, WhatsApp, push, and Glance
-2. **Insurance intent classification** — determines which micro-policy a user sees at checkout
-3. **Credit narratives** — go to Poonawalla Fincorp's compliance team; hallucinated stats are a regulatory risk
-
-Every time someone changes a prompt, swaps a model, or updates a tool endpoint, quality can silently degrade. The Guard catches this **before deployment** using:
-
-- Statistical tests (paired bootstrap + McNemar's) that distinguish real regressions from noise
-- 5 scoring functions per task (factual grounding, intent match, format compliance, LLM-as-judge, semantic similarity)
-- A GO/NO-GO/INCONCLUSIVE gate that CI/CD checks on every PR
-- Prompt versioning integrated with git so you can trace regressions to a specific commit
+A production eval framework that detects quality regressions in GrabOn's AI-generated outputs before they ship to 40M users or a bank's compliance team.
 
 ---
 
-## Architecture
+## What I Built and Why This Assignment
+
+I chose Assignment 03 (Eval Engineering) because it's the hardest part of shipping AI in production that most engineers skip. Anyone can prompt an LLM and get output. The real question is: *how do you know if the output got worse after you changed something?*
+
+GrabOn's AI produces three types of outputs where quality failures have real consequences:
+
+1. **Deal copy** — sent to 40M subscribers across email, WhatsApp, push, and Glance. A hallucinated discount percentage destroys trust.
+2. **Insurance intent classification** — determines which micro-policy a user sees at checkout. A wrong label means wrong product, wrong user.
+3. **Credit narratives** — go to Poonawalla Fincorp's compliance team. A hallucinated stat is a regulatory violation.
+
+The Guard catches regressions in all three *before deployment*, using statistical tests that distinguish real drops from noise.
+
+---
+
+## Architecture Diagram
 
 ```
-run_eval.py                     ← Entry point (CLI)
-│
-├── src/versioning.py           ← Register + hash all prompt files before running
-│
-├── src/tasks/
-│   ├── deal_copy_eval.py       ← Task 1: Generate deal copy, score it
-│   ├── insurance_eval.py       ← Task 2: Classify insurance intent, score it
-│   └── credit_eval.py          ← Task 3: Generate credit narrative, score it
-│
-├── src/scorers/
-│   ├── factual_grounding.py    ← Scorer (a): Does text cite real numbers? (regex, no LLM)
-│   ├── intent_match.py         ← Scorer (b): Does prediction match label? (deterministic)
-│   ├── format_compliance.py    ← Scorer (c): Does text fit channel limits? (deterministic)
-│   ├── llm_judge.py            ← Scorer (d): Claude Opus grades another model's output
-│   └── semantic_similarity.py  ← Scorer (e): Cosine similarity via sentence-transformers (local)
-│
-├── src/statistical.py          ← Paired bootstrap test + McNemar's test + p-values
-├── src/gate.py                 ← GO / NO-GO / INCONCLUSIVE decision
-├── src/providers.py            ← Raw API clients: Anthropic, OpenAI, Google Gemini
-├── src/dashboard.py            ← Terminal report + JSON result persistence
-│
-├── prompts/
-│   ├── deal_copy/v1.txt        ← Good prompt (baseline)
-│   ├── deal_copy/v2.txt        ← Degraded prompt (demo regression)
-│   ├── insurance/v1.txt
-│   └── credit/v1.txt
-│
-├── data/
-│   ├── deal_copy_cases.json    ← 30 test cases with source data + reference outputs
-│   ├── insurance_cases.json    ← 30 test cases with ground-truth labels
-│   └── credit_cases.json       ← 30 test cases with user personas + reference narratives
-│
-└── .github/workflows/
-    └── eval-guard.yml          ← GitHub Action: runs eval on every PR, blocks on NO-GO
+┌─────────────────────────────────────────────────────────────────┐
+│                    The Guard — Eval Agent Loop                   │
+│                                                                  │
+│  PLAN          ACT             OBSERVE          DECIDE           │
+│  ─────         ────            ───────          ──────           │
+│  Load cases    Call LLM        Score output     GO / NO-GO       │
+│  Select model  (providers.py)  (5 scorers)      gate             │
+│  Hash prompts  Generate text   Grounding        ↓                │
+│  Register ver. Classify intent Format check     Exit code        │
+│  ↓             ↓               Judge quality    0 / 1            │
+│  30 cases ×    Baseline run    Semantic sim.    ↓                │
+│  2 runs        Candidate run   ↓                CI blocks PR     │
+│  (baseline +   Sequential,     Per-case scores  or passes it     │
+│   candidate)   with retry +    aggregated       ↓                │
+│                fallback        ↓                Save JSON +      │
+│                                Paired bootstrap print report     │
+│                                McNemar's test                    │
+│                                p-values + CIs                    │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-**Data flow for one eval run:**
 ```
-[Load 30 cases] → [Call LLM to generate output] → [Score with 4-5 scorers]
-      ↓
-[Repeat for baseline model/prompt AND candidate model/prompt]
-      ↓
-[Paired bootstrap test per scorer per task]
-      ↓
-[GO / NO-GO / INCONCLUSIVE gate]
-      ↓
-[Save JSON + print terminal report + exit with code 0/1/2]
+the-guard/
+│
+├── run_eval.py                      ← Entry point (CLI + agent loop)
+├── analyze_coverage.py              ← Dataset diversity report
+├── requirements.txt
+├── .env.example
+│
+├── src/                             ← All application code
+│   ├── providers.py                 ← ACT: Anthropic / OpenAI / Google clients
+│   │                                    smart retry + provider fallback chain
+│   ├── versioning.py                ← PLAN: SHA-256 hash + git commit per prompt
+│   ├── statistical.py               ← OBSERVE: paired bootstrap + McNemar's test
+│   ├── gate.py                      ← DECIDE: GO / NO-GO + failure reasons
+│   ├── dashboard.py                 ← DECIDE: terminal report + JSON persistence
+│   │
+│   ├── tasks/                       ← ACT: one runner per eval task
+│   │   ├── deal_copy_eval.py
+│   │   ├── insurance_eval.py
+│   │   └── credit_eval.py
+│   │
+│   └── scorers/                     ← OBSERVE: 5 scoring functions
+│       ├── factual_grounding.py     (a) regex — are all numbers traceable to source?
+│       ├── intent_match.py          (b) deterministic — label match + calibration
+│       ├── format_compliance.py     (c) deterministic — channel character limits
+│       ├── llm_judge.py             (d) Claude Haiku grades output quality
+│       └── semantic_similarity.py   (e) cosine similarity via sentence-transformers
+│
+├── prompts/                         ← Versioned prompt files
+│   ├── deal_copy/
+│   │   ├── v1.txt                   baseline prompt
+│   │   └── v2.txt                   degraded prompt (for regression demo)
+│   ├── insurance/
+│   │   └── v1.txt
+│   ├── credit/
+│   │   └── v1.txt
+│   └── judges/                      LLM-as-judge templates (loaded at runtime)
+│       ├── deal_copy_system.txt
+│       ├── deal_copy_prompt.txt
+│       ├── credit_system.txt
+│       └── credit_prompt.txt
+│
+├── data/                            ← Test datasets (static, versioned in git)
+│   ├── deal_copy_cases.json         58 cases — 4 channels, 8 edge cases
+│   ├── insurance_cases.json         46 cases — 5 labels, 16 edge cases
+│   └── credit_cases.json            44 cases — eligible/ineligible, 4 edge cases
+│
+└── .github/
+    └── workflows/
+        └── eval-guard.yml           ← CI/CD: blocks PR on NO-GO
 ```
 
 ---
 
-## Model Routing Rationale
+## Per-Module Design Decisions and Tradeoffs
 
-| Task | Model Used | Why |
-|---|---|---|
-| Insurance classification | GPT-4o-mini | Simple classification, low latency needed, $0.15/1M tokens |
-| Deal copy generation | Claude Sonnet | Best instruction-following, respects format constraints |
-| Credit narrative generation | Claude Sonnet | Needs factual precision, strong instruction following |
-| LLM-as-judge | Claude Opus | Most capable evaluator — we only use it to grade, not generate |
-| Semantic similarity | sentence-transformers (local) | Free, fast, no API call — perfect for embedding comparison |
-| Format compliance | Deterministic Python | No LLM needed — character counting is exact |
-| Factual grounding | Deterministic Python (regex) | No LLM needed — number extraction is exact |
+### `src/providers.py` — Multi-LLM with smart retry
+Three providers, chosen deliberately per task type. The `call_model()` function has two layers of resilience:
+- **Smart retry**: Only retries transient errors (rate limit, 429, timeout, 500s). Never retries permanent failures (bad API key, billing not active) — those will fail on every attempt anyway.
+- **Fallback chain**: If the primary provider fails after retries, automatically tries Anthropic → Google in sequence. The fallback tags the usage dict so callers know a fallback was used.
 
-**The principle**: Use the cheapest model that can do the job correctly. Never use Opus to check if a number is in a string — that's what regex is for.
+Tradeoff: fallback means you might compare Claude vs Gemini output within the same run if the primary fails mid-way. Acceptable for eval (every case logs which model actually ran), unacceptable for production generation.
+
+### `src/scorers/` — Deterministic first, LLM last
+The scoring philosophy: use the cheapest tool that answers the question accurately.
+- Format compliance and factual grounding use **pure Python/regex** — no LLM, no network call, exact answer.
+- Semantic similarity uses **sentence-transformers locally** — free, fast, no API cost.
+- LLM-as-judge is last resort, only for things only an LLM can assess (persuasiveness, professional tone).
+
+This makes the eval cheap to run in CI. Only 2 of the 5 scorers make API calls.
+
+### `src/statistical.py` — Why paired bootstrap, not a t-test
+A t-test assumes Gaussian-distributed scores. Our scores are bounded [0,1] and skewed. Paired bootstrap makes no distribution assumptions — it just resamples the observed differences 10,000 times. Pairing matters because each test case has a difficulty level; pairing removes that variance so we only measure what the model/prompt change contributed.
+
+McNemar's test is used for insurance because the outcome is binary (correct/incorrect). Using a continuous test on binary data would be wrong.
+
+### `src/gate.py` — Two-trigger NO-GO
+A regression blocks deployment if EITHER:
+1. Statistically significant: p < 0.05 AND absolute drop > 0.05
+2. Practically significant: drop > 10% regardless of p-value (catches real regressions that are noisy across cases)
+
+The practical threshold exists because with 30 cases, a 15% drop might not reach p < 0.05 due to variance. But a 15% drop is never acceptable. Conservative by design — false negatives (missing a regression) cost more than false positives (blocking a good deploy).
+
+### `src/versioning.py` — Content hash, not filename
+Prompt files are SHA-256 hashed at the start of every eval run. The hash + git commit + timestamp are stored in `prompt_versions.json`. This means if someone edits `v1.txt` without renaming it, the system detects the change. On regression, the runner automatically diffs the two prompt files and shows exactly what changed.
+
+### `data/` — Edge cases are first-class citizens
+Each dataset has 6-8 edge cases: borderline amounts (flight just under insurance threshold), refurbished electronics, OTC medicine without chronic condition flag. These test whether the model understands the *rule*, not just the common pattern. Edge cases are flagged in results so you can track model performance on hard cases separately from easy ones.
 
 ---
 
-## Quick Start
+## Model Routing
 
-### 1. Setup
+The eval is **provider-agnostic**: all 3 tasks use whatever provider you pass via `--baseline-provider` and `--candidate-provider`. The default command compares:
+
+- **Baseline**: Anthropic (Claude Haiku) for all tasks
+- **Candidate**: Google (Gemini 2.5 Flash) for all tasks
+
+This lets you answer "can we swap Haiku → Gemini everywhere?" in one run.
+
+| Component | Model | Provider | Why |
+|---|---|---|---|
+| All generation tasks (baseline) | Claude Haiku | Anthropic | Default baseline — cheap, capable |
+| All generation tasks (candidate) | Gemini 2.5 Flash | Google | Default candidate — 80% cheaper than Haiku, equivalent quality on eval |
+| LLM-as-judge (deal copy + credit) | Claude Opus | Anthropic | Hardcoded — cheap judge, sufficient for structured 0-10 scoring |
+| Semantic similarity | all-MiniLM-L6-v2 | Local | Free, no API call, no network latency |
+| Format compliance | Python | None | Exact character counting — no LLM needed |
+| Factual grounding | Python + regex | None | Number extraction — no LLM needed |
+
+**Principle**: Use the cheapest tool that answers the question correctly. 3 of the 5 scorers make zero API calls.
+
+---
+
+## How to Run
+
+### 1. Clone and install
 
 ```bash
-git clone <your-repo>
-cd the-guard-jyothiswaroopa
+git clone git@github.com:jyothiswaroopajinka/the-guard-jyothiswaroopajinka.git
+cd the-guard-jyothiswaroopajinka
 python -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+```
+
+### 2. Set API keys
+
+```bash
 cp .env.example .env
-# Fill in your API keys in .env
+# Edit .env and fill in your keys:
+# ANTHROPIC_API_KEY  — console.anthropic.com
+# OPENAI_API_KEY     — platform.openai.com
+# GOOGLE_API_KEY     — aistudio.google.com (free, no card required)
 ```
 
-**API keys needed** (all have free tiers):
-- `ANTHROPIC_API_KEY` — console.anthropic.com
-- `OPENAI_API_KEY` — platform.openai.com (GPT-4o-mini costs ~$0 for this)
-- `GOOGLE_API_KEY` — aistudio.google.com (free, no card required)
-
-### 2. Run a quick eval (5 cases per task, no judge)
+### 3. Commands
 
 ```bash
+# Quick smoke test (5 cases per task, no judge — ~2 min, ~$0.01)
 python run_eval.py --quick
-```
 
-### 3. Run full eval (all 30 cases, all scorers)
+# Full eval: compare Claude Haiku (baseline) vs Gemini Flash (candidate)
+python run_eval.py --baseline-provider anthropic --candidate-provider google
 
-```bash
-python run_eval.py
-```
-
-### 4. Demo the regression detection (compare good prompt vs bad prompt)
-
-```bash
+# Demo regression detection: good prompt v1 vs degraded prompt v2
 python run_eval.py --demo-regression
-# Should produce NO-GO because v2 prompt allows hallucination
-```
+# Expected output: NO-GO — deal_copy regresses significantly
 
-### 5. Compare two models directly
-
-```bash
+# Compare specific models
 python run_eval.py \
-  --baseline-provider anthropic --baseline-model claude-sonnet-4-6 --baseline-prompt v1.txt \
-  --candidate-provider openai --candidate-model gpt-4o-mini --candidate-prompt v1.txt
-```
+  --baseline-provider anthropic \
+  --candidate-provider openai \
+  --baseline-prompt v1.txt \
+  --candidate-prompt v1.txt
 
-### 6. Show history of past runs
-
-```bash
+# View history of all past runs
 python run_eval.py --history
-```
 
-### 7. Diff two prompt versions
-
-```bash
+# Diff two prompt versions
 python run_eval.py --diff deal_copy v1.txt v2.txt
+
+# Analyze test case diversity
+python analyze_coverage.py
 ```
 
----
+### Environment variables (optional overrides)
 
-## Eval Tasks
-
-### Task 1: Deal Copy Quality (30 cases)
-
-Tests deal copy generation across 4 channels. Each case has source data (merchant, discount %, coupon code, expiry, min order) and a reference output.
-
-**Scorers used:**
-- Format compliance (deterministic): Does WhatsApp copy fit 160 chars? Push fit 50?
-- Factual grounding (regex): Are all numbers traceable to source data?
-- LLM-as-judge (Claude Opus): Persuasiveness, factual accuracy, channel fit (0-10 each)
-- Semantic similarity (sentence-transformers): Cosine distance from reference
-
-### Task 2: Insurance Intent Classification (30 cases)
-
-Tests classification of deal objects into 5 categories: travel_insurance, device_protection, health_insurance, loan_protection, no_insurance.
-
-**Scorers used:**
-- Intent match (deterministic): Predicted label vs ground truth
-- Confidence calibration: Penalizes overconfident wrong predictions
-- McNemar's test for statistical comparison of binary correct/incorrect
-
-### Task 3: Credit Narrative Faithfulness (30 cases)
-
-Tests narrative generation for mock user personas. Each narrative goes to a bank's compliance team — any hallucinated stat is a regulatory risk.
-
-**Scorers used:**
-- Factual grounding (regex, weighted 45%): Most critical — are all numbers real?
-- LLM-as-judge (Claude Opus, weighted 35%): Factual accuracy + professional tone + completeness
-- Semantic similarity (weighted 20%): How close is it to the reference narrative?
+| Variable | Default | Effect |
+|---|---|---|
+| `SIGNIFICANCE_THRESHOLD` | 0.05 | p-value cutoff for statistical significance |
+| `REGRESSION_THRESHOLD` | 0.05 | Minimum score drop to call it a regression |
+| `PRACTICAL_THRESHOLD` | 0.10 | Block if drop exceeds this regardless of p-value |
 
 ---
 
-## Statistical Testing
+## Eval Results (Actual Numbers)
 
-The eval uses **paired bootstrap testing** — the gold standard for comparing NLP systems.
+**Run: Claude Haiku (baseline) vs Gemini 2.5 Flash (candidate) — 30 cases per task**
 
-**Why paired?** Each test case has a difficulty level. Pairing removes per-case variance — we only measure the difference the model/prompt change makes.
+| Task | Scorer | Baseline | Candidate | Δ | p-value | Decision |
+|---|---|---|---|---|---|---|
+| Deal Copy | composite | 0.8285 | 0.8511 | +0.0226 | 0.473 | NO_CHANGE |
+| Insurance | intent_score | 0.9720 | 0.9965 | +0.0245 | 0.476 | NO_CHANGE |
+| Insurance | mcnemar | 29/30 correct | 30/30 correct | +1 case | 1.000 | NO_CHANGE |
+| Credit | composite | 0.8489 | 0.8623 | +0.0134 | 0.502 | NO_CHANGE |
 
-**Why bootstrap?** Doesn't assume Gaussian distribution of scores. Works for small n (30 cases).
+**Gate: GO — No regressions detected. Gemini Flash is safe to replace Haiku (and is 80% cheaper).**
 
-```python
-# The test in plain English:
-# 1. Compute score difference for each case: diff[i] = candidate[i] - baseline[i]
-# 2. Resample diffs with replacement 10,000 times
-# 3. p-value = fraction of samples where |mean_diff| >= |observed_mean_diff|
-# 4. If p < 0.05 AND absolute drop > 0.05: call it a regression
-```
+**Run: v1 prompt vs v2 degraded prompt — regression demo**
 
-**McNemar's test** is used for classification (insurance task) because the outcome is binary (correct/incorrect), not continuous.
+| Task | Scorer | Baseline | Candidate | Δ | Decision |
+|---|---|---|---|---|---|
+| Deal Copy | composite | 0.83 | ~0.55 | -0.28 | REGRESSED |
 
----
+**Gate: NO-GO — deal_copy dropped 28%, exceeding the 10% practical threshold. PR blocked.**
 
-## GO/NO-GO Gate
-
-```
-REGRESSION in ANY task + statistically significant (p < 0.05)
-+ absolute drop > 0.05 → NO-GO (exit code 1, PR blocked)
-
-All tasks NO_CHANGE or IMPROVED → GO (exit code 0, PR passes)
-
-Some improved, some regressed, none significant → INCONCLUSIVE (exit code 2, warning)
-```
-
-The gate is conservative by design: any regression in any task blocks deployment. This matches GrabOn's risk profile — a credit narrative sent to Poonawalla with hallucinated numbers is worse than blocking a deploy.
-
----
-
-## Prompt Versioning
-
-Each prompt file is SHA-256 hashed. On every eval run, all prompts in `prompts/` are registered in `prompt_versions.json` with their hash + git commit + timestamp.
-
-When a regression is detected and `--baseline-prompt != --candidate-prompt`, the runner automatically prints the unified diff showing exactly what changed.
-
-```bash
-# Manually diff any two prompt versions:
-python run_eval.py --diff deal_copy v1.txt v2.txt
-```
-
----
-
-## CI/CD Integration
-
-The GitHub Action at `.github/workflows/eval-guard.yml` runs on every PR that touches:
-- `prompts/**` (prompt changes)
-- `src/providers.py` (model config changes)
-- `data/**` (test data changes)
-- Task or scorer code
-
-**The action:**
-1. Runs eval in quick mode (5 cases per task, no judge) to save API cost in CI
-2. Exits with code 1 (fail) on NO-GO → PR is blocked
-3. Uploads eval results as a GitHub artifact (retained 30 days)
-4. Posts a comment on the PR with the GO/NO-GO verdict
-
-**To add secrets to your repo:**
-`Settings > Secrets > Actions` → Add `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GOOGLE_API_KEY`
-
----
-
-## Eval Results
-
-Results are saved to `eval_results/run_{timestamp}.json` (excluded from git via .gitignore).
-
-Each result file contains:
-- Raw scores per case per scorer
-- Statistical comparison results with p-values and CIs
-- Gate decision and summary
-- Total cost in USD
-
-The history dashboard (`python run_eval.py --history`) shows the last 20 runs with score deltas — this is how you answer "When did quality drop, and which commit caused it?"
+Raw eval output files (JSON) are in `eval_results/`. Each file contains per-case scores, p-values, cost, and latency.
 
 ---
 
 ## Cost Data
 
-| Operation | Model | Tokens | Est. Cost |
+**Per full eval run (30 cases per task, both baseline and candidate):**
+
+| Component | Calls | Model | Cost |
 |---|---|---|---|
-| Deal copy generation (30 cases) | Claude Sonnet | ~60K tokens | ~$0.18 |
-| Insurance classification (30 cases) | GPT-4o-mini | ~30K tokens | ~$0.005 |
-| Credit narrative generation (30 cases) | Claude Sonnet | ~90K tokens | ~$0.27 |
-| LLM-as-judge deal copy (30 cases) | Claude Opus | ~90K tokens | ~$2.25 |
-| LLM-as-judge credit (30 cases) | Claude Opus | ~90K tokens | ~$2.25 |
-| **Full eval run (baseline + candidate)** | — | — | **~$10** |
-| **Quick eval run (5 cases, no judge)** | — | — | **~$0.05** |
-| Semantic similarity | sentence-transformers | local | **$0** |
-| Format compliance | deterministic | no LLM | **$0** |
+| Deal copy generation × 2 runs | 60 | Claude Haiku | ~$0.004 |
+| Deal copy judge × 2 runs | 60 | Claude Haiku | ~$0.006 |
+| Insurance classification × 2 runs | 60 | Gemini Flash | ~$0.001 |
+| Credit generation × 2 runs | 60 | Claude Haiku | ~$0.006 |
+| Credit judge × 2 runs | 60 | Claude Haiku | ~$0.008 |
+| Semantic similarity | 120 | Local | $0.000 |
+| Format / grounding scoring | 120 | Python | $0.000 |
+| **Total per full run** | | | **~$0.05** |
 
-Opus is expensive — but it's only used as a judge (30 calls per task), not for generation. In CI, `--quick` mode skips the judge entirely, costing ~$0.05 per run.
+**Quick mode (5 cases, no judge — used in CI):** ~$0.01 per run.
 
-**My total development cost estimate:** ~$15 across all test runs.
+**One generation call cost:** ~$0.0003 (Haiku), ~$0.00005 (Gemini Flash).
 
----
-
-## Tradeoffs and Design Decisions
-
-**Why raw API calls instead of LangChain?**
-Every HTTP request is visible. During the deep-dive, I can explain exactly what happens between a function call and the API response. No hidden retry logic, no unexpected context injection.
-
-**Why sentence-transformers for embeddings instead of OpenAI embeddings?**
-Free, local, fast. The quality (all-MiniLM-L6-v2) is sufficient for catching semantic drift. OpenAI embeddings cost extra per call and add a network hop.
-
-**Why conservative gate (block on any regression)?**
-GrabOn's outputs go to 40M subscribers and a bank's compliance team. False negatives (missing a regression) cost more than false positives (blocking a good deploy). Engineers can always override with a manual review.
-
-**Why Wilson interval for per-case CI?**
-It handles edge cases (0/1 proportions) better than normal approximation. The Wald interval breaks at 0% or 100% accuracy.
+**Total development cost estimate:** ~$10 across all runs during development.
 
 ---
 
 ## What Broke First
 
-The trickiest bug: the factual grounding scorer initially failed to handle Indian number formatting (₹4,80,000 with the Indian comma convention). The regex `[\d,]+` matched ₹4, separately from 80,000. Fixed by treating the full token including Indian-style commas as a unit and normalizing before comparison.
+**Bug 1: Gemini 2.5 Flash returning 6-token truncated JSON**
+
+Insurance classification was failing with `<parse_error>` on 93% of Gemini cases. The raw output was `'{\n  "label": "travel'` — truncated mid-sentence. I assumed it was a prompt format issue and spent time tweaking the prompt. Then I added `repr()` logging of the raw output and saw the token count: 6 output tokens for a response that should be 50-60 tokens.
+
+Root cause: Gemini 2.5 Flash uses internal "thinking tokens" that are deducted from `max_output_tokens`. With `max_tokens=200`, thinking consumed ~194 tokens, leaving only 6 for actual output.
+
+Fix: `thinking_config=genai_types.ThinkingConfig(thinking_budget=0)` in `call_gemini()` disables thinking for simple classification tasks. Also increased `max_tokens` to 512 as a safety buffer.
+
+**Bug 2: Judge prompts broke when moved to text files**
+
+The LLM judge prompts were originally hardcoded strings. When I moved them to `.txt` files for cleanliness, the judge started returning garbled output. The text files contained JSON examples with `{` and `}` characters, which Python's `.format()` tried to interpret as variable placeholders.
+
+Fix: Switched from `.format()` to explicit `.replace("{variable}", value)` calls. Only substitutes the named variables, ignores all other braces.
+
+**Bug 3: Gemini looked like a bad model but it was actually an API error**
+
+After fixing the truncation issue, re-ran the eval and insurance showed Gemini at 0% accuracy — 28 out of 30 cases predicted `<parse_error>`. My first assumption was that Gemini genuinely couldn't do classification. I spent time comparing prompt formats between Anthropic and Google, thinking the instruction style was wrong for Gemini.
+
+Then I checked the raw eval JSON and saw that all 28 failures had `"errors": ["Classification failed: ..."]` — meaning the API call itself had failed silently, the model never ran, and the score defaulted to 0. The dashboard was showing these zeros as if they were real predictions.
+
+Root cause: The API errors were being caught and swallowed — the case scored 0 and the eval continued, but nothing in the terminal output made it obvious that 28 calls had failed. The zeros looked like wrong predictions, not missing predictions.
+
+Fix: Added a prominent API failure panel to the dashboard that shows up front when any cases failed due to API errors — with the error type (billing, rate limit, auth, etc.) clearly labeled so you don't mistake infrastructure failures for model quality issues.
+
+**Bug 4: History tracking silently never worked**
+
+The `--history` flag always showed an empty table despite multiple eval runs. The `update_history()` function was defined and worked correctly when called — but was never called anywhere. It was wired up in my mental model but not in the code.
+
+Fix: Added the call at the end of `save_run()`. History now persists correctly across runs.
 
 ---
 
-## What I Would Change With 2 More Weeks
+## What I Would Change with 2 More Weeks
 
-1. **Larger test dataset (100+ cases)** — 30 cases gives decent statistical power but more is better, especially for edge cases in insurance classification.
-2. **Historical trend dashboard** — A Streamlit app that plots accuracy over time per model per task, making it easy to visually spot when a regression started.
-3. **Telugu/Hindi test cases** — The credit and insurance tasks only test English. Adding 10 Telugu cases would test localization quality, which is a real GrabOn concern.
-4. **Shadow testing mode** — Run both models on every incoming request (not just eval cases) and log the comparison. After 500+ real requests, auto-update the routing recommendation.
-5. **Tighter confidence intervals** — Current CI uses empirical rules. Proper Bayesian credible intervals via MCMC would be more rigorous for small n.
+1. **100+ test cases per task** — 30 cases gives reasonable power but high p-values on small differences. At 100 cases, a 5% improvement becomes statistically confirmable.
+
+2. **Shadow testing mode** — Run baseline and candidate in parallel on every incoming real request, log both outputs, compute score drift on production traffic. Catches distribution shift that hand-crafted test cases miss.
+
+3. **Telugu/Hindi eval cases** — Current tasks are English only. GrabOn operates in multiple languages; 10-15 localized cases per task would test localization quality.
+
+4. **Historical trend dashboard** — A Streamlit app that plots accuracy per model per task over time, with git commits annotated. Currently `--history` is a terminal table; a visual makes regressions obvious at a glance.
+
+5. **Hard budget kill switch** — If a run is consuming more tokens than expected (runaway retries), halt mid-run rather than letting costs accumulate. Currently the eval runs to completion regardless of cost.
 
 ---
 
-## Live vs Mocked Calls
+## CI/CD Integration
 
-All API calls are live in this implementation. No mocking.
+The GitHub Action at `.github/workflows/eval-guard.yml` triggers on every PR touching `prompts/**`, `src/providers.py`, `data/**`, or task/scorer code.
 
-- **Anthropic** (Claude Sonnet + Claude Opus): Live
-- **OpenAI** (GPT-4o-mini): Live
-- **Google Gemini**: Live (used when `--baseline-provider google`)
-- **sentence-transformers**: Local (not a network call)
+**What it does:**
+1. Runs eval in `--quick` mode (5 cases, no judge) — ~$0.01, keeps CI fast
+2. Exits with code 1 on NO-GO → GitHub blocks the PR from merging
+3. Uploads eval result JSON as a build artifact (retained 30 days)
+4. Posts a GO/NO-GO comment on the PR with the gate summary
 
-If you hit rate limits during testing, the providers.py `call_model()` function retries with exponential backoff (max 3 attempts). After that it raises an error logged in the result's `errors` field — the eval continues on the next case.
+**Setup:** `Settings → Secrets → Actions` → Add `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GOOGLE_API_KEY`
+
+---
+
+## Failure Recovery
+
+`src/providers.py` distinguishes error types before retrying:
+
+- **Permanent failures** (bad API key, billing, 401): fail immediately, no retry. Retrying would waste time and money.
+- **Transient failures** (rate limit, 429, timeout, 500): retry with exponential backoff (1s, 2s, 4s).
+- **After max retries**: fall back to the next provider in the chain (Anthropic → Google).
+
+If an individual case fails, the error is logged in `result.errors` and the case scores 0. The eval continues to the next case — a partial outage shows up as lower accuracy, not a crashed run.
+
+---
+
+## Prompt Versioning
+
+Every eval run calls `versioning.register_all_prompts()` first. This scans all `.txt` files in `prompts/`, SHA-256 hashes each one, and records hash + git commit + timestamp in `prompt_versions.json`. If someone edits a prompt without renaming it, the hash changes and the system detects it. On NO-GO with a prompt change, the runner automatically diffs the two prompt files.
+
+```bash
+python run_eval.py --diff deal_copy v1.txt v2.txt
+```

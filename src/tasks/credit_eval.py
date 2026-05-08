@@ -8,7 +8,8 @@ For each user persona, generate a credit narrative and score it for:
 2. Semantic similarity to reference narrative
 3. LLM-as-judge on professional tone and completeness
 
-Uses Claude Sonnet (capable model needed for narrative generation quality).
+Provider is passed at call time — defaults to anthropic (Claude Haiku).
+Judge calls are also Claude Haiku (cheap, fast, sufficient for structured scoring).
 """
 
 import json
@@ -102,10 +103,10 @@ def run_single(
     if use_judge and generated_text:
         try:
             import re
-            judge_prompt = CREDIT_JUDGE_PROMPT.format(
-                persona=json.dumps(persona),
-                generated=generated_text,
-                reference=case["reference_narrative"],
+            judge_prompt = (CREDIT_JUDGE_PROMPT
+                .replace("{persona}", json.dumps(persona))
+                .replace("{generated}", generated_text)
+                .replace("{reference}", case["reference_narrative"])
             )
             judge_text, judge_usage = call_model(
                 prompt=judge_prompt,

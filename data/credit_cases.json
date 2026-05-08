@@ -9,12 +9,16 @@
       "gmv_growth_pct": 37.14,
       "avg_order_value": 2400,
       "order_count_last_year": 200,
-      "category_mix": {"Fashion": 0.4, "Electronics": 0.3, "Food": 0.3},
+      "category_mix": {
+        "Fashion": 0.4,
+        "Electronics": 0.3,
+        "Food": 0.3
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 5.2,
       "account_age_months": 36
     },
-    "reference_narrative": "Rajesh Kumar qualifies for GrabCredit based on strong purchase activity. His GMV grew 37.14% YoY (₹3,50,000 to ₹4,80,000), with 200 orders at an average value of ₹2,400. Low returns rate of 5.2% over 36 months indicates high-quality engagement.",
+    "reference_narrative": "Rajesh Kumar qualifies for GrabCredit based on strong purchase activity. His GMV grew 37.14% YoY (\u20b93,50,000 to \u20b94,80,000), with 200 orders at an average value of \u20b92,400. Low returns rate of 5.2% over 36 months indicates high-quality engagement.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 50000,
@@ -31,12 +35,15 @@
       "gmv_growth_pct": -33.33,
       "avg_order_value": 1200,
       "order_count_last_year": 100,
-      "category_mix": {"Food": 0.7, "Health": 0.3},
+      "category_mix": {
+        "Food": 0.7,
+        "Health": 0.3
+      },
       "payment_method": "upi",
       "returns_rate_pct": 15.0,
       "account_age_months": 12
     },
-    "reference_narrative": "Priya Sharma's GrabCredit assessment shows declining activity. GMV fell 33.33% YoY (₹1,80,000 to ₹1,20,000), with a high returns rate of 15.0% and a relatively short account history of 12 months. Credit limit set conservatively.",
+    "reference_narrative": "Priya Sharma's GrabCredit assessment shows declining activity. GMV fell 33.33% YoY (\u20b91,80,000 to \u20b91,20,000), with a high returns rate of 15.0% and a relatively short account history of 12 months. Credit limit set conservatively.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 5000,
@@ -53,12 +60,16 @@
       "gmv_growth_pct": 31.94,
       "avg_order_value": 4750,
       "order_count_last_year": 200,
-      "category_mix": {"Electronics": 0.6, "Travel": 0.25, "Fashion": 0.15},
+      "category_mix": {
+        "Electronics": 0.6,
+        "Travel": 0.25,
+        "Fashion": 0.15
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 3.1,
       "account_age_months": 60
     },
-    "reference_narrative": "Arjun Mehta is a premium GrabOn user with GMV of ₹9,50,000 last year, representing 31.94% YoY growth. With 200 orders at ₹4,750 average value and a low 3.1% returns rate across 60 months, he qualifies for our highest credit tier.",
+    "reference_narrative": "Arjun Mehta is a premium GrabOn user with GMV of \u20b99,50,000 last year, representing 31.94% YoY growth. With 200 orders at \u20b94,750 average value and a low 3.1% returns rate across 60 months, he qualifies for our highest credit tier.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 150000,
@@ -75,12 +86,15 @@
       "gmv_growth_pct": 12.5,
       "avg_order_value": 750,
       "order_count_last_year": 60,
-      "category_mix": {"Health": 0.5, "Grocery": 0.5},
+      "category_mix": {
+        "Health": 0.5,
+        "Grocery": 0.5
+      },
       "payment_method": "debit_card",
       "returns_rate_pct": 8.0,
       "account_age_months": 18
     },
-    "reference_narrative": "Sneha Patel shows moderate GrabOn engagement with ₹45,000 GMV (12.5% YoY growth) and 60 orders at ₹750 average. Her account is 18 months old with an 8.0% returns rate. Credit eligibility is borderline.",
+    "reference_narrative": "Sneha Patel shows moderate GrabOn engagement with \u20b945,000 GMV (12.5% YoY growth) and 60 orders at \u20b9750 average. Her account is 18 months old with an 8.0% returns rate. Credit eligibility is borderline.",
     "label": {
       "eligible": false,
       "credit_limit_inr": 0,
@@ -97,12 +111,16 @@
       "gmv_growth_pct": 33.33,
       "avg_order_value": 6000,
       "order_count_last_year": 200,
-      "category_mix": {"Travel": 0.5, "Electronics": 0.3, "Fashion": 0.2},
+      "category_mix": {
+        "Travel": 0.5,
+        "Electronics": 0.3,
+        "Fashion": 0.2
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 2.5,
       "account_age_months": 84
     },
-    "reference_narrative": "Vikram Singh is GrabOn's top tier user with ₹12,00,000 GMV last year — a 33.33% YoY increase from ₹9,00,000. 200 orders at ₹6,000 average, 2.5% returns rate over 84 months of loyalty qualify him for maximum GrabCredit.",
+    "reference_narrative": "Vikram Singh is GrabOn's top tier user with \u20b912,00,000 GMV last year \u2014 a 33.33% YoY increase from \u20b99,00,000. 200 orders at \u20b96,000 average, 2.5% returns rate over 84 months of loyalty qualify him for maximum GrabCredit.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 200000,
@@ -119,12 +137,15 @@
       "gmv_growth_pct": 33.33,
       "avg_order_value": 2800,
       "order_count_last_year": 100,
-      "category_mix": {"Fashion": 0.6, "Health": 0.4},
+      "category_mix": {
+        "Fashion": 0.6,
+        "Health": 0.4
+      },
       "payment_method": "upi",
       "returns_rate_pct": 6.5,
       "account_age_months": 30
     },
-    "reference_narrative": "Anita Desai demonstrates consistent GrabOn engagement with ₹2,80,000 GMV (33.33% YoY growth), 100 orders averaging ₹2,800, and a returns rate of 6.5% over 30 months. She qualifies for a mid-tier GrabCredit limit.",
+    "reference_narrative": "Anita Desai demonstrates consistent GrabOn engagement with \u20b92,80,000 GMV (33.33% YoY growth), 100 orders averaging \u20b92,800, and a returns rate of 6.5% over 30 months. She qualifies for a mid-tier GrabCredit limit.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 30000,
@@ -141,12 +162,15 @@
       "gmv_growth_pct": 87.5,
       "avg_order_value": 500,
       "order_count_last_year": 30,
-      "category_mix": {"Grocery": 0.8, "Food": 0.2},
+      "category_mix": {
+        "Grocery": 0.8,
+        "Food": 0.2
+      },
       "payment_method": "upi",
       "returns_rate_pct": 0.0,
       "account_age_months": 6
     },
-    "reference_narrative": "Rohit Gupta shows high GMV growth of 87.5% YoY (₹8,000 to ₹15,000) but with only 30 orders, ₹500 AOV, and a 6-month account history, the absolute volume is insufficient for GrabCredit at this time.",
+    "reference_narrative": "Rohit Gupta shows high GMV growth of 87.5% YoY (\u20b98,000 to \u20b915,000) but with only 30 orders, \u20b9500 AOV, and a 6-month account history, the absolute volume is insufficient for GrabCredit at this time.",
     "label": {
       "eligible": false,
       "credit_limit_inr": 0,
@@ -163,12 +187,16 @@
       "gmv_growth_pct": 16.67,
       "avg_order_value": 3500,
       "order_count_last_year": 160,
-      "category_mix": {"Electronics": 0.45, "Fashion": 0.35, "Health": 0.2},
+      "category_mix": {
+        "Electronics": 0.45,
+        "Fashion": 0.35,
+        "Health": 0.2
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 4.2,
       "account_age_months": 48
     },
-    "reference_narrative": "Kavya Reddy maintains strong GrabOn engagement: ₹5,60,000 GMV last year (16.67% YoY growth), 160 orders at ₹3,500 average, 4.2% returns rate, and 48 months of account history. She qualifies comfortably for GrabCredit.",
+    "reference_narrative": "Kavya Reddy maintains strong GrabOn engagement: \u20b95,60,000 GMV last year (16.67% YoY growth), 160 orders at \u20b93,500 average, 4.2% returns rate, and 48 months of account history. She qualifies comfortably for GrabCredit.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 80000,
@@ -185,12 +213,16 @@
       "gmv_growth_pct": 23.08,
       "avg_order_value": 2000,
       "order_count_last_year": 160,
-      "category_mix": {"Food": 0.4, "Travel": 0.35, "Fashion": 0.25},
+      "category_mix": {
+        "Food": 0.4,
+        "Travel": 0.35,
+        "Fashion": 0.25
+      },
       "payment_method": "upi",
       "returns_rate_pct": 7.5,
       "account_age_months": 24
     },
-    "reference_narrative": "Mohammed Hussain's GrabOn data shows ₹3,20,000 GMV (23.08% YoY growth from ₹2,60,000), 160 orders at ₹2,000 average value, and 7.5% returns rate over 24 months. Credit eligibility approved at standard tier.",
+    "reference_narrative": "Mohammed Hussain's GrabOn data shows \u20b93,20,000 GMV (23.08% YoY growth from \u20b92,60,000), 160 orders at \u20b92,000 average value, and 7.5% returns rate over 24 months. Credit eligibility approved at standard tier.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 20000,
@@ -207,12 +239,16 @@
       "gmv_growth_pct": 25.0,
       "avg_order_value": 5000,
       "order_count_last_year": 150,
-      "category_mix": {"Travel": 0.6, "Electronics": 0.25, "Fashion": 0.15},
+      "category_mix": {
+        "Travel": 0.6,
+        "Electronics": 0.25,
+        "Fashion": 0.15
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 3.8,
       "account_age_months": 54
     },
-    "reference_narrative": "Tanvi Joshi qualifies for GrabCredit with ₹7,50,000 GMV (25.0% YoY growth), 150 high-value orders at ₹5,000 average, and a low 3.8% returns rate over 54 months. Travel-heavy spending profile with strong consistency.",
+    "reference_narrative": "Tanvi Joshi qualifies for GrabCredit with \u20b97,50,000 GMV (25.0% YoY growth), 150 high-value orders at \u20b95,000 average, and a low 3.8% returns rate over 54 months. Travel-heavy spending profile with strong consistency.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 120000,
@@ -229,12 +265,15 @@
       "gmv_growth_pct": -18.18,
       "avg_order_value": 900,
       "order_count_last_year": 100,
-      "category_mix": {"Food": 0.6, "Grocery": 0.4},
+      "category_mix": {
+        "Food": 0.6,
+        "Grocery": 0.4
+      },
       "payment_method": "debit_card",
       "returns_rate_pct": 12.0,
       "account_age_months": 15
     },
-    "reference_narrative": "Deepak Nair's GrabOn activity shows a 18.18% GMV decline YoY (₹1,10,000 to ₹90,000), with a high 12.0% returns rate and a 15-month account. This profile does not qualify for GrabCredit at this time.",
+    "reference_narrative": "Deepak Nair's GrabOn activity shows a 18.18% GMV decline YoY (\u20b91,10,000 to \u20b990,000), with a high 12.0% returns rate and a 15-month account. This profile does not qualify for GrabCredit at this time.",
     "label": {
       "eligible": false,
       "credit_limit_inr": 0,
@@ -251,12 +290,16 @@
       "gmv_growth_pct": 32.26,
       "avg_order_value": 2050,
       "order_count_last_year": 200,
-      "category_mix": {"Fashion": 0.5, "Health": 0.3, "Grocery": 0.2},
+      "category_mix": {
+        "Fashion": 0.5,
+        "Health": 0.3,
+        "Grocery": 0.2
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 9.0,
       "account_age_months": 42
     },
-    "reference_narrative": "Ritu Agarwal shows strong growth of 32.26% YoY (₹3,10,000 to ₹4,10,000) with 200 orders at ₹2,050 average. Her 9.0% returns rate is elevated but offset by 42 months of account history. GrabCredit approved at standard tier.",
+    "reference_narrative": "Ritu Agarwal shows strong growth of 32.26% YoY (\u20b93,10,000 to \u20b94,10,000) with 200 orders at \u20b92,050 average. Her 9.0% returns rate is elevated but offset by 42 months of account history. GrabCredit approved at standard tier.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 35000,
@@ -273,12 +316,15 @@
       "gmv_growth_pct": 20.0,
       "avg_order_value": 1800,
       "order_count_last_year": 100,
-      "category_mix": {"Electronics": 0.55, "Fashion": 0.45},
+      "category_mix": {
+        "Electronics": 0.55,
+        "Fashion": 0.45
+      },
       "payment_method": "upi",
       "returns_rate_pct": 5.0,
       "account_age_months": 22
     },
-    "reference_narrative": "Suresh Babu has ₹1,80,000 GMV with 20.0% YoY growth, 100 orders at ₹1,800 average, and a 5.0% returns rate over 22 months. Moderate profile — eligible for entry-level GrabCredit.",
+    "reference_narrative": "Suresh Babu has \u20b91,80,000 GMV with 20.0% YoY growth, 100 orders at \u20b91,800 average, and a 5.0% returns rate over 22 months. Moderate profile \u2014 eligible for entry-level GrabCredit.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 15000,
@@ -295,12 +341,16 @@
       "gmv_growth_pct": 19.23,
       "avg_order_value": 3100,
       "order_count_last_year": 200,
-      "category_mix": {"Health": 0.4, "Fashion": 0.35, "Travel": 0.25},
+      "category_mix": {
+        "Health": 0.4,
+        "Fashion": 0.35,
+        "Travel": 0.25
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 4.5,
       "account_age_months": 66
     },
-    "reference_narrative": "Pooja Iyer qualifies for GrabCredit with ₹6,20,000 GMV (19.23% YoY growth), 200 orders averaging ₹3,100, a low 4.5% returns rate, and a 66-month account history demonstrating long-term loyalty.",
+    "reference_narrative": "Pooja Iyer qualifies for GrabCredit with \u20b96,20,000 GMV (19.23% YoY growth), 200 orders averaging \u20b93,100, a low 4.5% returns rate, and a 66-month account history demonstrating long-term loyalty.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 90000,
@@ -317,12 +367,14 @@
       "gmv_growth_pct": 66.67,
       "avg_order_value": 250,
       "order_count_last_year": 20,
-      "category_mix": {"Food": 1.0},
+      "category_mix": {
+        "Food": 1.0
+      },
       "payment_method": "cash_on_delivery",
       "returns_rate_pct": 0.0,
       "account_age_months": 3
     },
-    "reference_narrative": "Kiran Rao has a 3-month account with 20 orders totaling ₹5,000 GMV. Despite 66.67% growth, the absolute volume, single-category exposure, and cash-on-delivery payment method make this profile ineligible for GrabCredit currently.",
+    "reference_narrative": "Kiran Rao has a 3-month account with 20 orders totaling \u20b95,000 GMV. Despite 66.67% growth, the absolute volume, single-category exposure, and cash-on-delivery payment method make this profile ineligible for GrabCredit currently.",
     "label": {
       "eligible": false,
       "credit_limit_inr": 0,
@@ -339,12 +391,16 @@
       "gmv_growth_pct": 21.43,
       "avg_order_value": 4250,
       "order_count_last_year": 200,
-      "category_mix": {"Electronics": 0.5, "Travel": 0.3, "Fashion": 0.2},
+      "category_mix": {
+        "Electronics": 0.5,
+        "Travel": 0.3,
+        "Fashion": 0.2
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 3.0,
       "account_age_months": 72
     },
-    "reference_narrative": "Sanjay Verma is a high-value GrabOn user with ₹8,50,000 GMV (21.43% YoY growth from ₹7,00,000), 200 orders at ₹4,250 average, and an exemplary 3.0% returns rate over 72 months. Top-tier GrabCredit qualification.",
+    "reference_narrative": "Sanjay Verma is a high-value GrabOn user with \u20b98,50,000 GMV (21.43% YoY growth from \u20b97,00,000), 200 orders at \u20b94,250 average, and an exemplary 3.0% returns rate over 72 months. Top-tier GrabCredit qualification.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 175000,
@@ -361,12 +417,15 @@
       "gmv_growth_pct": 17.95,
       "avg_order_value": 1917,
       "order_count_last_year": 120,
-      "category_mix": {"Health": 0.55, "Grocery": 0.45},
+      "category_mix": {
+        "Health": 0.55,
+        "Grocery": 0.45
+      },
       "payment_method": "upi",
       "returns_rate_pct": 6.0,
       "account_age_months": 28
     },
-    "reference_narrative": "Meera Krishnan has ₹2,30,000 GMV (17.95% YoY growth), 120 orders at ₹1,917 average, and a 6.0% returns rate over 28 months. Health and Grocery focus indicates consistent essential spending. Standard tier approved.",
+    "reference_narrative": "Meera Krishnan has \u20b92,30,000 GMV (17.95% YoY growth), 120 orders at \u20b91,917 average, and a 6.0% returns rate over 28 months. Health and Grocery focus indicates consistent essential spending. Standard tier approved.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 18000,
@@ -383,12 +442,15 @@
       "gmv_growth_pct": -17.65,
       "avg_order_value": 875,
       "order_count_last_year": 80,
-      "category_mix": {"Fashion": 0.7, "Electronics": 0.3},
+      "category_mix": {
+        "Fashion": 0.7,
+        "Electronics": 0.3
+      },
       "payment_method": "debit_card",
       "returns_rate_pct": 18.0,
       "account_age_months": 20
     },
-    "reference_narrative": "Harish Pandey's profile shows declining GMV (₹85,000 to ₹70,000, -17.65% YoY), a high returns rate of 18.0%, and a 20-month account. The combination of volume decline and high returns makes this profile ineligible.",
+    "reference_narrative": "Harish Pandey's profile shows declining GMV (\u20b985,000 to \u20b970,000, -17.65% YoY), a high returns rate of 18.0%, and a 20-month account. The combination of volume decline and high returns makes this profile ineligible.",
     "label": {
       "eligible": false,
       "credit_limit_inr": 0,
@@ -405,12 +467,16 @@
       "gmv_growth_pct": 28.95,
       "avg_order_value": 2450,
       "order_count_last_year": 200,
-      "category_mix": {"Fashion": 0.45, "Travel": 0.35, "Health": 0.2},
+      "category_mix": {
+        "Fashion": 0.45,
+        "Travel": 0.35,
+        "Health": 0.2
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 5.5,
       "account_age_months": 38
     },
-    "reference_narrative": "Divya Saxena qualifies for GrabCredit based on ₹4,90,000 GMV (28.95% growth), 200 orders at ₹2,450 average, 5.5% returns rate, and 38 months of account history. Strong cross-category spending pattern.",
+    "reference_narrative": "Divya Saxena qualifies for GrabCredit based on \u20b94,90,000 GMV (28.95% growth), 200 orders at \u20b92,450 average, 5.5% returns rate, and 38 months of account history. Strong cross-category spending pattern.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 55000,
@@ -427,12 +493,16 @@
       "gmv_growth_pct": 28.05,
       "avg_order_value": 5250,
       "order_count_last_year": 200,
-      "category_mix": {"Travel": 0.55, "Electronics": 0.3, "Fashion": 0.15},
+      "category_mix": {
+        "Travel": 0.55,
+        "Electronics": 0.3,
+        "Fashion": 0.15
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 2.8,
       "account_age_months": 78
     },
-    "reference_narrative": "Aakash Tiwari presents an exceptional GrabOn profile: ₹10,50,000 GMV (28.05% YoY growth from ₹8,20,000), 200 orders at ₹5,250 average, 2.8% returns rate, and 78 months of tenure. Maximum GrabCredit tier recommended.",
+    "reference_narrative": "Aakash Tiwari presents an exceptional GrabOn profile: \u20b910,50,000 GMV (28.05% YoY growth from \u20b98,20,000), 200 orders at \u20b95,250 average, 2.8% returns rate, and 78 months of tenure. Maximum GrabCredit tier recommended.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 200000,
@@ -449,12 +519,16 @@
       "gmv_growth_pct": 12.5,
       "avg_order_value": 1125,
       "order_count_last_year": 120,
-      "category_mix": {"Grocery": 0.5, "Health": 0.3, "Food": 0.2},
+      "category_mix": {
+        "Grocery": 0.5,
+        "Health": 0.3,
+        "Food": 0.2
+      },
       "payment_method": "upi",
       "returns_rate_pct": 4.0,
       "account_age_months": 16
     },
-    "reference_narrative": "Shruti Bansal has ₹1,35,000 GMV (12.5% growth), 120 orders at ₹1,125 average, and a low 4.0% returns rate. However, at 16 months account age, the history is borderline. Minimal credit limit approved.",
+    "reference_narrative": "Shruti Bansal has \u20b91,35,000 GMV (12.5% growth), 120 orders at \u20b91,125 average, and a low 4.0% returns rate. However, at 16 months account age, the history is borderline. Minimal credit limit approved.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 8000,
@@ -471,12 +545,16 @@
       "gmv_growth_pct": 25.93,
       "avg_order_value": 3400,
       "order_count_last_year": 200,
-      "category_mix": {"Electronics": 0.6, "Fashion": 0.25, "Travel": 0.15},
+      "category_mix": {
+        "Electronics": 0.6,
+        "Fashion": 0.25,
+        "Travel": 0.15
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 5.8,
       "account_age_months": 52
     },
-    "reference_narrative": "Rahul Bose qualifies for GrabCredit with ₹6,80,000 GMV (25.93% YoY growth), 200 orders at ₹3,400 average, 5.8% returns rate, and a 52-month account. Electronics-heavy profile with consistent spending.",
+    "reference_narrative": "Rahul Bose qualifies for GrabCredit with \u20b96,80,000 GMV (25.93% YoY growth), 200 orders at \u20b93,400 average, 5.8% returns rate, and a 52-month account. Electronics-heavy profile with consistent spending.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 95000,
@@ -493,12 +571,15 @@
       "gmv_growth_pct": 14.58,
       "avg_order_value": 550,
       "order_count_last_year": 100,
-      "category_mix": {"Food": 0.5, "Grocery": 0.5},
+      "category_mix": {
+        "Food": 0.5,
+        "Grocery": 0.5
+      },
       "payment_method": "upi",
       "returns_rate_pct": 2.0,
       "account_age_months": 8
     },
-    "reference_narrative": "Alka Sharma has 14.58% GMV growth (₹48,000 to ₹55,000) with 100 orders at ₹550 average and a very low 2.0% returns rate. However, the 8-month account history is insufficient for GrabCredit approval.",
+    "reference_narrative": "Alka Sharma has 14.58% GMV growth (\u20b948,000 to \u20b955,000) with 100 orders at \u20b9550 average and a very low 2.0% returns rate. However, the 8-month account history is insufficient for GrabCredit approval.",
     "label": {
       "eligible": false,
       "credit_limit_inr": 0,
@@ -515,12 +596,16 @@
       "gmv_growth_pct": 23.44,
       "avg_order_value": 2633,
       "order_count_last_year": 150,
-      "category_mix": {"Travel": 0.4, "Fashion": 0.35, "Electronics": 0.25},
+      "category_mix": {
+        "Travel": 0.4,
+        "Fashion": 0.35,
+        "Electronics": 0.25
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 7.2,
       "account_age_months": 32
     },
-    "reference_narrative": "Nitesh Kumar's GrabOn profile shows ₹3,95,000 GMV (23.44% YoY growth), 150 orders averaging ₹2,633, a 7.2% returns rate, and 32 months of account history. Diverse category mix qualifies him for standard GrabCredit.",
+    "reference_narrative": "Nitesh Kumar's GrabOn profile shows \u20b93,95,000 GMV (23.44% YoY growth), 150 orders averaging \u20b92,633, a 7.2% returns rate, and 32 months of account history. Diverse category mix qualifies him for standard GrabCredit.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 40000,
@@ -537,12 +622,16 @@
       "gmv_growth_pct": 20.31,
       "avg_order_value": 3850,
       "order_count_last_year": 200,
-      "category_mix": {"Health": 0.4, "Travel": 0.35, "Electronics": 0.25},
+      "category_mix": {
+        "Health": 0.4,
+        "Travel": 0.35,
+        "Electronics": 0.25
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 4.0,
       "account_age_months": 60
     },
-    "reference_narrative": "Preethi Rajan qualifies for a high-tier GrabCredit with ₹7,70,000 GMV (20.31% YoY growth), 200 orders at ₹3,850 average, 4.0% returns rate, and 60 months of loyalty. Health and Travel dominance indicates premium spending behavior.",
+    "reference_narrative": "Preethi Rajan qualifies for a high-tier GrabCredit with \u20b97,70,000 GMV (20.31% YoY growth), 200 orders at \u20b93,850 average, 4.0% returns rate, and 60 months of loyalty. Health and Travel dominance indicates premium spending behavior.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 130000,
@@ -559,12 +648,15 @@
       "gmv_growth_pct": -16.67,
       "avg_order_value": 500,
       "order_count_last_year": 50,
-      "category_mix": {"Food": 0.8, "Grocery": 0.2},
+      "category_mix": {
+        "Food": 0.8,
+        "Grocery": 0.2
+      },
       "payment_method": "cash_on_delivery",
       "returns_rate_pct": 10.0,
       "account_age_months": 10
     },
-    "reference_narrative": "Amol Patil's profile shows GMV decline of 16.67% YoY (₹30,000 to ₹25,000), a 10.0% returns rate, cash-on-delivery preference, and only 10 months of account history. This profile does not qualify for GrabCredit.",
+    "reference_narrative": "Amol Patil's profile shows GMV decline of 16.67% YoY (\u20b930,000 to \u20b925,000), a 10.0% returns rate, cash-on-delivery preference, and only 10 months of account history. This profile does not qualify for GrabCredit.",
     "label": {
       "eligible": false,
       "credit_limit_inr": 0,
@@ -581,12 +673,16 @@
       "gmv_growth_pct": 19.05,
       "avg_order_value": 2500,
       "order_count_last_year": 200,
-      "category_mix": {"Fashion": 0.4, "Health": 0.3, "Grocery": 0.3},
+      "category_mix": {
+        "Fashion": 0.4,
+        "Health": 0.3,
+        "Grocery": 0.3
+      },
       "payment_method": "upi",
       "returns_rate_pct": 5.5,
       "account_age_months": 44
     },
-    "reference_narrative": "Lakshmi Venkat shows steady GrabOn engagement: ₹5,00,000 GMV (19.05% growth from ₹4,20,000), 200 orders at ₹2,500 average, 5.5% returns rate, and 44 months of account history. Standard-tier GrabCredit approved.",
+    "reference_narrative": "Lakshmi Venkat shows steady GrabOn engagement: \u20b95,00,000 GMV (19.05% growth from \u20b94,20,000), 200 orders at \u20b92,500 average, 5.5% returns rate, and 44 months of account history. Standard-tier GrabCredit approved.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 60000,
@@ -603,12 +699,16 @@
       "gmv_growth_pct": 22.67,
       "avg_order_value": 4600,
       "order_count_last_year": 200,
-      "category_mix": {"Electronics": 0.55, "Travel": 0.3, "Fashion": 0.15},
+      "category_mix": {
+        "Electronics": 0.55,
+        "Travel": 0.3,
+        "Fashion": 0.15
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 3.5,
       "account_age_months": 68
     },
-    "reference_narrative": "Gautam Sen qualifies for top-tier GrabCredit with ₹9,20,000 GMV (22.67% YoY growth), 200 orders at ₹4,600 average, a low 3.5% returns rate, and 68 months of account tenure. Electronics and Travel spending is consistent and high-value.",
+    "reference_narrative": "Gautam Sen qualifies for top-tier GrabCredit with \u20b99,20,000 GMV (22.67% YoY growth), 200 orders at \u20b94,600 average, a low 3.5% returns rate, and 68 months of account tenure. Electronics and Travel spending is consistent and high-value.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 160000,
@@ -625,12 +725,15 @@
       "gmv_growth_pct": 23.08,
       "avg_order_value": 1600,
       "order_count_last_year": 100,
-      "category_mix": {"Fashion": 0.6, "Health": 0.4},
+      "category_mix": {
+        "Fashion": 0.6,
+        "Health": 0.4
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 8.5,
       "account_age_months": 19
     },
-    "reference_narrative": "Nandini Kapoor shows 23.08% YoY GMV growth (₹1,30,000 to ₹1,60,000), 100 orders at ₹1,600 average. Her 8.5% returns rate and 19-month account history keep her at the entry-level credit tier.",
+    "reference_narrative": "Nandini Kapoor shows 23.08% YoY GMV growth (\u20b91,30,000 to \u20b91,60,000), 100 orders at \u20b91,600 average. Her 8.5% returns rate and 19-month account history keep her at the entry-level credit tier.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 10000,
@@ -647,12 +750,16 @@
       "gmv_growth_pct": 23.64,
       "avg_order_value": 2267,
       "order_count_last_year": 150,
-      "category_mix": {"Travel": 0.45, "Electronics": 0.3, "Fashion": 0.25},
+      "category_mix": {
+        "Travel": 0.45,
+        "Electronics": 0.3,
+        "Fashion": 0.25
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 6.0,
       "account_age_months": 35
     },
-    "reference_narrative": "Vijay Menon demonstrates solid GrabOn activity: ₹3,40,000 GMV (23.64% YoY growth from ₹2,75,000), 150 orders averaging ₹2,267, a 6.0% returns rate over 35 months. Diversified category mix qualifies for mid-tier GrabCredit.",
+    "reference_narrative": "Vijay Menon demonstrates solid GrabOn activity: \u20b93,40,000 GMV (23.64% YoY growth from \u20b92,75,000), 150 orders averaging \u20b92,267, a 6.0% returns rate over 35 months. Diversified category mix qualifies for mid-tier GrabCredit.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 38000,
@@ -669,12 +776,16 @@
       "gmv_growth_pct": 70.0,
       "avg_order_value": 2267,
       "order_count_last_year": 150,
-      "category_mix": {"Fashion": 0.45, "Electronics": 0.35, "Health": 0.2},
+      "category_mix": {
+        "Fashion": 0.45,
+        "Electronics": 0.35,
+        "Health": 0.2
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 6.5,
       "account_age_months": 30
     },
-    "reference_narrative": "Kiran Rao qualifies for GrabCredit with an impressive 70.0% GMV growth YoY (₹2,00,000 to ₹3,40,000), 150 orders at an average of ₹2,267, and a 6.5% returns rate over 30 months. High growth trajectory and diversified category mix support approval.",
+    "reference_narrative": "Kiran Rao qualifies for GrabCredit with an impressive 70.0% GMV growth YoY (\u20b92,00,000 to \u20b93,40,000), 150 orders at an average of \u20b92,267, and a 6.5% returns rate over 30 months. High growth trajectory and diversified category mix support approval.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 75000,
@@ -691,12 +802,16 @@
       "gmv_growth_pct": 2.0,
       "avg_order_value": 3400,
       "order_count_last_year": 150,
-      "category_mix": {"Electronics": 0.4, "Travel": 0.35, "Fashion": 0.25},
+      "category_mix": {
+        "Electronics": 0.4,
+        "Travel": 0.35,
+        "Fashion": 0.25
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 4.0,
       "account_age_months": 48
     },
-    "reference_narrative": "Meera Nair demonstrates stable GrabOn engagement with ₹5,10,000 GMV last year, reflecting a steady 2.0% YoY growth from ₹5,00,000. With 150 orders at ₹3,400 average value, a low 4.0% returns rate, and 48 months of account history, she qualifies for GrabCredit.",
+    "reference_narrative": "Meera Nair demonstrates stable GrabOn engagement with \u20b95,10,000 GMV last year, reflecting a steady 2.0% YoY growth from \u20b95,00,000. With 150 orders at \u20b93,400 average value, a low 4.0% returns rate, and 48 months of account history, she qualifies for GrabCredit.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 100000,
@@ -713,12 +828,16 @@
       "gmv_growth_pct": -25.0,
       "avg_order_value": 3000,
       "order_count_last_year": 200,
-      "category_mix": {"Electronics": 0.5, "Fashion": 0.3, "Travel": 0.2},
+      "category_mix": {
+        "Electronics": 0.5,
+        "Fashion": 0.3,
+        "Travel": 0.2
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 11.5,
       "account_age_months": 40
     },
-    "reference_narrative": "Suresh Reddy's GrabOn profile shows a significant -25.0% GMV decline YoY (₹8,00,000 to ₹6,00,000), with an elevated returns rate of 11.5% across 200 orders. Despite 40 months of account history, the declining spend trajectory and high returns rate make this profile ineligible for GrabCredit.",
+    "reference_narrative": "Suresh Reddy's GrabOn profile shows a significant -25.0% GMV decline YoY (\u20b98,00,000 to \u20b96,00,000), with an elevated returns rate of 11.5% across 200 orders. Despite 40 months of account history, the declining spend trajectory and high returns rate make this profile ineligible for GrabCredit.",
     "label": {
       "eligible": false,
       "credit_limit_inr": 0,
@@ -735,12 +854,15 @@
       "gmv_growth_pct": 100.0,
       "avg_order_value": 1600,
       "order_count_last_year": 50,
-      "category_mix": {"Fashion": 0.6, "Health": 0.4},
+      "category_mix": {
+        "Fashion": 0.6,
+        "Health": 0.4
+      },
       "payment_method": "upi",
       "returns_rate_pct": 5.0,
       "account_age_months": 8
     },
-    "reference_narrative": "Ananya Das is a new GrabOn user with 8 months of account history and ₹80,000 GMV in her first year of activity. While her 50 orders at ₹1,600 average and a 5.0% returns rate are encouraging, the 8-month account age falls below the minimum tenure threshold for GrabCredit eligibility.",
+    "reference_narrative": "Ananya Das is a new GrabOn user with 8 months of account history and \u20b980,000 GMV in her first year of activity. While her 50 orders at \u20b91,600 average and a 5.0% returns rate are encouraging, the 8-month account age falls below the minimum tenure threshold for GrabCredit eligibility.",
     "label": {
       "eligible": false,
       "credit_limit_inr": 0,
@@ -757,12 +879,16 @@
       "gmv_growth_pct": 20.0,
       "avg_order_value": 7500,
       "order_count_last_year": 240,
-      "category_mix": {"Travel": 0.5, "Electronics": 0.35, "Fashion": 0.15},
+      "category_mix": {
+        "Travel": 0.5,
+        "Electronics": 0.35,
+        "Fashion": 0.15
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 2.0,
       "account_age_months": 72
     },
-    "reference_narrative": "Vikram Singh is an ultra-high-value GrabOn customer with ₹18,00,000 GMV last year, representing 20.0% YoY growth from ₹15,00,000. His 240 orders at ₹7,500 average value, an exceptional 2.0% returns rate, and 72 months of loyalty place him in the top credit tier.",
+    "reference_narrative": "Vikram Singh is an ultra-high-value GrabOn customer with \u20b918,00,000 GMV last year, representing 20.0% YoY growth from \u20b915,00,000. His 240 orders at \u20b97,500 average value, an exceptional 2.0% returns rate, and 72 months of loyalty place him in the top credit tier.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 150000,
@@ -779,12 +905,16 @@
       "gmv_growth_pct": 20.0,
       "avg_order_value": 2400,
       "order_count_last_year": 150,
-      "category_mix": {"Health": 0.5, "Grocery": 0.3, "Fashion": 0.2},
+      "category_mix": {
+        "Health": 0.5,
+        "Grocery": 0.3,
+        "Fashion": 0.2
+      },
       "payment_method": "upi",
       "returns_rate_pct": 5.5,
       "account_age_months": 33
     },
-    "reference_narrative": "Lakshmi Iyer qualifies for GrabCredit with ₹3,60,000 GMV (20.0% YoY growth from ₹3,00,000), 150 orders at ₹2,400 average, and a 5.5% returns rate over 33 months. Consistent health and grocery spending reflects reliable purchase behavior.",
+    "reference_narrative": "Lakshmi Iyer qualifies for GrabCredit with \u20b93,60,000 GMV (20.0% YoY growth from \u20b93,00,000), 150 orders at \u20b92,400 average, and a 5.5% returns rate over 33 months. Consistent health and grocery spending reflects reliable purchase behavior.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 50000,
@@ -801,12 +931,15 @@
       "gmv_growth_pct": 10.53,
       "avg_order_value": 2100,
       "order_count_last_year": 200,
-      "category_mix": {"Fashion": 0.7, "Electronics": 0.3},
+      "category_mix": {
+        "Fashion": 0.7,
+        "Electronics": 0.3
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 22.0,
       "account_age_months": 36
     },
-    "reference_narrative": "Ravi Patel's GrabOn profile shows 10.53% YoY GMV growth (₹3,80,000 to ₹4,20,000) with 200 orders at ₹2,100 average over 36 months. However, a returns rate of 22.0% significantly exceeds acceptable thresholds, indicating poor purchase quality and making this profile ineligible for GrabCredit.",
+    "reference_narrative": "Ravi Patel's GrabOn profile shows 10.53% YoY GMV growth (\u20b93,80,000 to \u20b94,20,000) with 200 orders at \u20b92,100 average over 36 months. However, a returns rate of 22.0% significantly exceeds acceptable thresholds, indicating poor purchase quality and making this profile ineligible for GrabCredit.",
     "label": {
       "eligible": false,
       "credit_limit_inr": 0,
@@ -823,12 +956,16 @@
       "gmv_growth_pct": 40.0,
       "avg_order_value": 5600,
       "order_count_last_year": 250,
-      "category_mix": {"Travel": 0.45, "Electronics": 0.35, "Fashion": 0.2},
+      "category_mix": {
+        "Travel": 0.45,
+        "Electronics": 0.35,
+        "Fashion": 0.2
+      },
       "payment_method": "credit_card",
       "returns_rate_pct": 3.2,
       "account_age_months": 60
     },
-    "reference_narrative": "Deepa Menon presents an excellent GrabOn profile: ₹14,00,000 GMV last year with 40.0% YoY growth from ₹10,00,000. Her 250 orders at ₹5,600 average, a low 3.2% returns rate, and 60 months of account tenure demonstrate consistent premium engagement across Travel and Electronics.",
+    "reference_narrative": "Deepa Menon presents an excellent GrabOn profile: \u20b914,00,000 GMV last year with 40.0% YoY growth from \u20b910,00,000. Her 250 orders at \u20b95,600 average, a low 3.2% returns rate, and 60 months of account tenure demonstrate consistent premium engagement across Travel and Electronics.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 125000,
@@ -845,12 +982,16 @@
       "gmv_growth_pct": 12.0,
       "avg_order_value": 1867,
       "order_count_last_year": 150,
-      "category_mix": {"Food": 0.4, "Fashion": 0.35, "Health": 0.25},
+      "category_mix": {
+        "Food": 0.4,
+        "Fashion": 0.35,
+        "Health": 0.25
+      },
       "payment_method": "upi",
       "returns_rate_pct": 7.0,
       "account_age_months": 26
     },
-    "reference_narrative": "Arjun Nair demonstrates moderate GrabOn activity with ₹2,80,000 GMV (12.0% YoY growth from ₹2,50,000), 150 orders at ₹1,867 average, and a 7.0% returns rate over 26 months. Consistent multi-category spending supports entry-level GrabCredit eligibility.",
+    "reference_narrative": "Arjun Nair demonstrates moderate GrabOn activity with \u20b92,80,000 GMV (12.0% YoY growth from \u20b92,50,000), 150 orders at \u20b91,867 average, and a 7.0% returns rate over 26 months. Consistent multi-category spending supports entry-level GrabCredit eligibility.",
     "label": {
       "eligible": true,
       "credit_limit_inr": 40000,
@@ -867,16 +1008,117 @@
       "gmv_growth_pct": -10.0,
       "avg_order_value": 750,
       "order_count_last_year": 60,
-      "category_mix": {"Grocery": 0.6, "Food": 0.4},
+      "category_mix": {
+        "Grocery": 0.6,
+        "Food": 0.4
+      },
       "payment_method": "debit_card",
       "returns_rate_pct": 9.0,
       "account_age_months": 14
     },
-    "reference_narrative": "Sunita Joshi's GrabOn profile reflects very low and declining activity: GMV dropped -10.0% YoY from ₹50,000 to ₹45,000, with only 60 orders at ₹750 average. Combined with a 9.0% returns rate and a 14-month account history, this profile does not meet the minimum criteria for GrabCredit.",
+    "reference_narrative": "Sunita Joshi's GrabOn profile reflects very low and declining activity: GMV dropped -10.0% YoY from \u20b950,000 to \u20b945,000, with only 60 orders at \u20b9750 average. Combined with a 9.0% returns rate and a 14-month account history, this profile does not meet the minimum criteria for GrabCredit.",
     "label": {
       "eligible": false,
       "credit_limit_inr": 0,
       "all_claims_grounded": true
     }
+  },
+  {
+    "id": "cr_041",
+    "persona": {
+      "user_id": "U1041",
+      "name": "Kavya Reddy",
+      "gmv_last_year": 250000,
+      "gmv_prev_year": 180000,
+      "gmv_growth_pct": 38.9,
+      "avg_order_value": 4200,
+      "order_count_last_year": 60,
+      "category_mix": {
+        "fashion": 60,
+        "electronics": 30,
+        "beauty": 10
+      },
+      "payment_method": "upi",
+      "returns_rate_pct": 45,
+      "account_age_months": 18
+    },
+    "label": {
+      "eligible": false,
+      "credit_limit_inr": 0
+    },
+    "reference_narrative": "Despite strong GMV of Rs.2.5L and 38.9% YoY growth, Kavya Reddy is ineligible due to an exceptionally high returns rate of 45%, indicating potential misuse of return policies and unreliable purchase intent.",
+    "edge_case_type": "high_gmv_but_high_returns"
+  },
+  {
+    "id": "cr_042",
+    "persona": {
+      "user_id": "U1042",
+      "name": "Arjun Nair",
+      "gmv_last_year": 0,
+      "gmv_prev_year": 0,
+      "gmv_growth_pct": 0,
+      "avg_order_value": 0,
+      "order_count_last_year": 0,
+      "category_mix": {},
+      "payment_method": "cod",
+      "returns_rate_pct": 0,
+      "account_age_months": 1
+    },
+    "label": {
+      "eligible": false,
+      "credit_limit_inr": 0
+    },
+    "reference_narrative": "Arjun Nair is ineligible for GrabCredit. With only 1 month of account history and no purchase activity, there is insufficient data to assess creditworthiness.",
+    "edge_case_type": "zero_history_new_user"
+  },
+  {
+    "id": "cr_043",
+    "persona": {
+      "user_id": "U1043",
+      "name": "Sunita Sharma",
+      "gmv_last_year": 15000,
+      "gmv_prev_year": 14500,
+      "gmv_growth_pct": 3.4,
+      "avg_order_value": 500,
+      "order_count_last_year": 30,
+      "category_mix": {
+        "grocery": 80,
+        "household": 20
+      },
+      "payment_method": "upi",
+      "returns_rate_pct": 2,
+      "account_age_months": 60
+    },
+    "label": {
+      "eligible": true,
+      "credit_limit_inr": 10000
+    },
+    "reference_narrative": "Sunita Sharma qualifies for GrabCredit with a limit of Rs.10,000. Her 5-year account history and consistent low-value grocery purchases demonstrate reliable but modest engagement.",
+    "edge_case_type": "old_account_low_gmv"
+  },
+  {
+    "id": "cr_044",
+    "persona": {
+      "user_id": "U1044",
+      "name": "Rahul Verma",
+      "gmv_last_year": 300000,
+      "gmv_prev_year": 380000,
+      "gmv_growth_pct": -21.1,
+      "avg_order_value": 8000,
+      "order_count_last_year": 38,
+      "category_mix": {
+        "electronics": 70,
+        "appliances": 30
+      },
+      "payment_method": "credit_card",
+      "returns_rate_pct": 5,
+      "account_age_months": 36
+    },
+    "label": {
+      "eligible": true,
+      "credit_limit_inr": 75000
+    },
+    "reference_narrative": "Rahul Verma qualifies for GrabCredit with a limit of Rs.75,000. Despite a 21.1% GMV decline, his absolute spend of Rs.3L, high AOV of Rs.8,000, and low returns rate demonstrate strong purchasing capacity.",
+    "edge_case_type": "negative_growth_still_eligible"
   }
 ]
