@@ -134,6 +134,29 @@ def call_gemini(
 
 # ── Unified call with retry ────────────────────────────────────────────────────
 
+def _is_retryable(error: Exception) -> bool:
+    """
+    Only retry transient errors. Never retry permanent failures like bad API keys
+    or billing issues — those will fail every time no matter how many retries.
+    """
+    msg = str(error).lower()
+    # Permanent failures — no point retrying
+    if any(k in msg for k in ("api key", "auth", "billing", "not active", "invalid_api_key", "permission")):
+        return False
+    # Transient failures — worth retrying
+    if any(k in msg for k in ("rate limit", "429", "timeout", "connection", "500", "503", "overloaded")):
+        return True
+    # Default: retry unknown errors (conservative)
+    return True
+
+
+# Fallback chain — if primary provider fails permanently, try these in order
+_FALLBACK_CHAIN = [
+    ("anthropic", CLAUDE_HAIKU,  call_claude),
+    ("google",    GEMINI_FLASH,  call_gemini),
+]
+
+
 def call_model(
     prompt: str,
     system: str = "",
@@ -142,35 +165,64 @@ def call_model(
     max_tokens: int = 1024,
     temperature: float = 0.3,
     max_retries: int = 3,
+    enable_fallback: bool = True,
 ) -> tuple[str, dict]:
     """
-    Unified entry point. Tries up to max_retries times with exponential backoff.
-    Falls back across providers if a provider fails persistently.
+    Unified entry point with smart retry + provider fallback.
+
+    Retry logic:
+    - Transient errors (rate limit, timeout, 500s): retry with exponential backoff
+    - Permanent errors (bad API key, billing): fail immediately, no retry
+
+    Fallback logic:
+    - If primary provider fails after all retries, try next provider in fallback chain
+    - Fallback is skipped for permanent errors (they'll fail on the fallback too)
     """
-    if provider == "anthropic":
-        fn = call_claude
-        default_model = CLAUDE_HAIKU
-    elif provider == "openai":
-        fn = call_openai
-        default_model = GPT4O_MINI
-    elif provider == "google":
-        fn = call_gemini
-        default_model = GEMINI_FLASH
-    else:
+    provider_map = {
+        "anthropic": (call_claude,  CLAUDE_HAIKU),
+        "openai":    (call_openai,  GPT4O_MINI),
+        "google":    (call_gemini,  GEMINI_FLASH),
+    }
+    if provider not in provider_map:
         raise ValueError(f"Unknown provider: {provider}")
 
+    fn, default_model = provider_map[provider]
     chosen_model = model or default_model
 
+    last_error: Exception = RuntimeError("Unknown error")
+    permanent_failure = False
+
+    # ── Try primary provider ───────────────────────────────────────────────────
     for attempt in range(max_retries):
         try:
             return fn(prompt, system=system, model=chosen_model, max_tokens=max_tokens, temperature=temperature)
         except Exception as e:
-            if attempt == max_retries - 1:
-                raise
-            wait = 2 ** attempt
-            time.sleep(wait)
+            last_error = e
+            if not _is_retryable(e):
+                permanent_failure = True
+                break  # Don't retry permanent failures
+            if attempt < max_retries - 1:
+                wait = 2 ** attempt  # 1s, 2s, 4s
+                time.sleep(wait)
 
-    raise RuntimeError("All retries exhausted")
+    # ── Fallback to other providers ────────────────────────────────────────────
+    if enable_fallback and not permanent_failure:
+        for fallback_provider, fallback_model, fallback_fn in _FALLBACK_CHAIN:
+            if fallback_provider == provider:
+                continue  # Skip the one that already failed
+            try:
+                result = fallback_fn(
+                    prompt, system=system, model=fallback_model,
+                    max_tokens=max_tokens, temperature=temperature,
+                )
+                # Tag the usage dict so callers know a fallback was used
+                result[1]["fallback_from"] = provider
+                result[1]["fallback_to"] = fallback_provider
+                return result
+            except Exception:
+                continue  # Try next fallback
+
+    raise last_error
 
 
 def estimate_cost_usd(usage: dict) -> float:

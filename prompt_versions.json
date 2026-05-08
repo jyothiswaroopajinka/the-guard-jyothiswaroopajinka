@@ -30,5 +30,37 @@
     "git_commit": "f03a0d19",
     "timestamp": "2026-05-07T09:10:29.006951+00:00",
     "filepath": "prompts/insurance/v1.txt"
+  },
+  "judges/credit_prompt.txt": {
+    "task": "judges",
+    "filename": "credit_prompt.txt",
+    "content_hash": "14f2ae760c8a",
+    "git_commit": "c7ea61c8",
+    "timestamp": "2026-05-08T09:11:22.455640+00:00",
+    "filepath": "prompts/judges/credit_prompt.txt"
+  },
+  "judges/credit_system.txt": {
+    "task": "judges",
+    "filename": "credit_system.txt",
+    "content_hash": "572a40f996e5",
+    "git_commit": "c7ea61c8",
+    "timestamp": "2026-05-08T09:11:22.455640+00:00",
+    "filepath": "prompts/judges/credit_system.txt"
+  },
+  "judges/deal_copy_prompt.txt": {
+    "task": "judges",
+    "filename": "deal_copy_prompt.txt",
+    "content_hash": "a24ad40fc7db",
+    "git_commit": "c7ea61c8",
+    "timestamp": "2026-05-08T09:11:22.455640+00:00",
+    "filepath": "prompts/judges/deal_copy_prompt.txt"
+  },
+  "judges/deal_copy_system.txt": {
+    "task": "judges",
+    "filename": "deal_copy_system.txt",
+    "content_hash": "a2a6e4e71073",
+    "git_commit": "c7ea61c8",
+    "timestamp": "2026-05-08T09:11:22.455640+00:00",
+    "filepath": "prompts/judges/deal_copy_system.txt"
   }
 }

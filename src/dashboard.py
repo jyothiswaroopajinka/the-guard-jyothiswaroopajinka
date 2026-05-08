@@ -127,6 +127,48 @@ def save_run(
 
     run_file = RESULTS_DIR / f"run_{run_id}.json"
     run_file.write_text(json.dumps(payload, indent=2, default=str))
+
+    # Save to history so --history flag works
+    def _comp_mean(task, scorer):
+        c = comparison_results.get(task, {}).get(scorer, {})
+        return c.get("baseline_mean", 0.0), c.get("candidate_mean", 0.0), c.get("absolute_diff", 0.0)
+
+    b_deal, c_deal, d_deal = _comp_mean("deal_copy", "composite")
+    b_ins,  c_ins,  d_ins  = _comp_mean("insurance",  "intent_score")
+    b_cred, c_cred, d_cred = _comp_mean("credit",      "composite")
+
+    all_costs = [
+        getattr(r, "cost_usd", 0)
+        for res_dict in [baseline_results, candidate_results]
+        for res_list in res_dict.values()
+        for r in res_list
+    ]
+    total_cases = sum(len(v) for v in baseline_results.values())
+
+    summary = RunSummary(
+        run_id=run_id,
+        timestamp=datetime.now(timezone.utc).isoformat(),
+        baseline_provider=metadata.get("baseline_provider", ""),
+        baseline_model=metadata.get("baseline_model") or "default",
+        baseline_prompt=metadata.get("baseline_prompt", ""),
+        candidate_provider=metadata.get("candidate_provider", ""),
+        candidate_model=metadata.get("candidate_model") or "default",
+        candidate_prompt=metadata.get("candidate_prompt", ""),
+        gate_decision=gate_decision_obj.decision if gate_decision_obj else "UNKNOWN",
+        deal_copy_baseline_mean=b_deal,
+        deal_copy_candidate_mean=c_deal,
+        deal_copy_diff=d_deal,
+        insurance_baseline_mean=b_ins,
+        insurance_candidate_mean=c_ins,
+        insurance_diff=d_ins,
+        credit_baseline_mean=b_cred,
+        credit_candidate_mean=c_cred,
+        credit_diff=d_cred,
+        total_cost_usd=round(sum(all_costs), 6),
+        total_cases=total_cases,
+    )
+    update_history(summary)
+
     return run_file
 
 
@@ -143,6 +185,114 @@ def update_history(summary: RunSummary) -> None:
         history = json.loads(HISTORY_FILE.read_text())
     history.append(asdict(summary))
     HISTORY_FILE.write_text(json.dumps(history, indent=2))
+
+
+def _save_regression_detail(
+    run_id: str,
+    baseline_results: dict,
+    candidate_results: dict,
+    comparison: dict,
+) -> None:
+    """
+    For every regressed task, build a per-case JSON with:
+    - case_id, scores, score drop, and a human-readable reason for the failure.
+    Saved as eval_results/regression_<run_id>.json
+    """
+    task_map = {
+        "deal_copy": ("composite_score", "deal_copy"),
+        "insurance": ("intent_score",    "insurance"),
+        "credit":    ("composite_score", "credit"),
+    }
+
+    regression_detail = {}
+
+    for task_name, (score_field, res_key) in task_map.items():
+        task_comp = comparison.get(task_name, {})
+        if not any(v.get("verdict") == "REGRESSED" for v in task_comp.values()):
+            continue
+
+        b_list = baseline_results.get(res_key, [])
+        c_list = candidate_results.get(res_key, [])
+        cases = []
+
+        for b, c in zip(b_list, c_list):
+            b_score = getattr(b, score_field, None)
+            c_score = getattr(c, score_field, None)
+            if b_score is None or c_score is None:
+                continue
+
+            diff = c_score - b_score
+            case_id = getattr(b, "case_id", "?")
+
+            if diff < -0.02:
+                outcome = "CANDIDATE_WORSE"
+            elif diff > 0.02:
+                outcome = "CANDIDATE_BETTER"
+            else:
+                outcome = "TIED"
+
+            # Build a human-readable reason explaining WHY the candidate lost
+            reason = ""
+            if outcome == "CANDIDATE_WORSE":
+                if task_name == "deal_copy":
+                    b_fmt = getattr(b, "format_score", None)
+                    c_fmt = getattr(c, "format_score", None)
+                    b_grnd = getattr(b, "grounding_score", None)
+                    c_grnd = getattr(c, "grounding_score", None)
+                    b_jdg = getattr(b, "judge_score", None)
+                    c_jdg = getattr(c, "judge_score", None)
+                    parts = []
+                    if c_fmt is not None and b_fmt is not None and c_fmt < b_fmt - 0.1:
+                        parts.append(f"format compliance dropped ({b_fmt:.2f} → {c_fmt:.2f}) — likely exceeded channel character limit")
+                    if c_grnd is not None and b_grnd is not None and c_grnd < b_grnd - 0.1:
+                        parts.append(f"factual grounding dropped ({b_grnd:.2f} → {c_grnd:.2f}) — candidate missed or hallucinated deal details")
+                    if c_jdg is not None and b_jdg is not None and c_jdg < b_jdg - 0.1:
+                        parts.append(f"judge score dropped ({b_jdg:.2f} → {c_jdg:.2f}) — candidate copy was less persuasive or channel-appropriate")
+                    reason = "; ".join(parts) if parts else "composite score dropped — multiple scorers contributed"
+
+                elif task_name == "insurance":
+                    b_pred = getattr(b, "predicted_label", "?")
+                    c_pred = getattr(c, "predicted_label", "?")
+                    truth  = getattr(b, "ground_truth", "?")
+                    reason = (
+                        f"baseline correctly predicted '{truth}', "
+                        f"candidate predicted '{c_pred}' (wrong)"
+                    )
+
+                elif task_name == "credit":
+                    b_grnd = getattr(b, "grounding_score", None)
+                    c_grnd = getattr(c, "grounding_score", None)
+                    b_jdg  = getattr(b, "judge_score", None)
+                    c_jdg  = getattr(c, "judge_score", None)
+                    parts = []
+                    if c_grnd is not None and b_grnd is not None and c_grnd < b_grnd - 0.1:
+                        parts.append(f"grounding dropped ({b_grnd:.2f} → {c_grnd:.2f}) — candidate narrative cited stats not found in user data")
+                    if c_jdg is not None and b_jdg is not None and c_jdg < b_jdg - 0.1:
+                        parts.append(f"judge score dropped ({b_jdg:.2f} → {c_jdg:.2f}) — narrative was less professional or complete")
+                    reason = "; ".join(parts) if parts else "composite score dropped"
+
+            cases.append({
+                "case_id": case_id,
+                "outcome": outcome,
+                "baseline_score": round(b_score, 4),
+                "candidate_score": round(c_score, 4),
+                "score_drop": round(diff, 4),
+                "reason": reason,
+            })
+
+        regression_detail[task_name] = {
+            "score_field": score_field,
+            "total_cases": len(cases),
+            "candidate_worse": sum(1 for c in cases if c["outcome"] == "CANDIDATE_WORSE"),
+            "candidate_better": sum(1 for c in cases if c["outcome"] == "CANDIDATE_BETTER"),
+            "tied": sum(1 for c in cases if c["outcome"] == "TIED"),
+            "cases": cases,
+        }
+
+    if regression_detail:
+        RESULTS_DIR.mkdir(exist_ok=True)
+        reg_file = RESULTS_DIR / f"regression_{run_id}.json"
+        reg_file.write_text(json.dumps(regression_detail, indent=2))
 
 
 def print_run_report(
@@ -373,206 +523,42 @@ def print_run_report(
 
     console.print(table)
 
-    # ── Detailed per-case walkthrough (always shown) ───────────────────────────
-    console.print("\n[bold cyan]── Detailed Per-Case Breakdown ──[/]")
-    console.print("[dim]Shows exactly what each model generated and how each score was calculated.[/]\n")
+    # ── Regression detail — save to JSON + print concise summary ─────────────
+    _save_regression_detail(run_id, baseline_results, candidate_results, comparison)
 
-    task_configs = [
-        ("Deal Copy",       "deal_copy",  "deal_copy",  "composite_score",
-         ["format_score", "grounding_score", "judge_score", "similarity_score"]),
-        ("Insurance",       "insurance",  "insurance",  "intent_score",
-         ["intent_score"]),
-        ("Credit Narrative","credit",     "credit",     "composite_score",
-         ["grounding_score", "judge_score", "similarity_score"]),
-    ]
-
-    for display_name, task_key, res_key, primary_score, score_fields in task_configs:
-        b_list = baseline_results.get(res_key, [])
-        c_list = candidate_results.get(res_key, [])
-        if not b_list:
-            continue
-
-        console.print(f"[bold yellow]{'='*70}[/]")
-        console.print(f"[bold yellow]TASK: {display_name}[/]")
-        console.print(f"[bold yellow]{'='*70}[/]")
-
-        for i, (b, c) in enumerate(zip(b_list, c_list)):
-            case_id = getattr(b, "case_id", f"case_{i+1}")
-            console.print(f"\n[bold]  Case {i+1}/{len(b_list)}: {case_id}[/]")
-
-            # Input description
-            if res_key == "deal_copy":
-                console.print(f"  [dim]Input:[/] {getattr(b,'merchant','?')} — channel: {getattr(b,'channel','?')}")
-                console.print(f"  [dim]Source data:[/] {getattr(b,'source_data',{})}")
-            elif res_key == "insurance":
-                console.print(f"  [dim]Input:[/] deal_object → {getattr(b,'deal_object',{})}")
-                console.print(f"  [dim]Correct answer:[/] [green]{getattr(b,'ground_truth','?')}[/]")
-            elif res_key == "credit":
-                console.print(f"  [dim]Input:[/] user={getattr(b,'user_id','?')}, eligible={getattr(b,'ground_truth_eligible','?')}")
-
-            # Baseline output
-            b_text = getattr(b, "generated_text", None) or getattr(b, "generated_narrative", None) or getattr(b, "raw_output", "")
-            b_errors = getattr(b, "errors", [])
-            console.print(f"\n  [green]BASELINE ({getattr(b,'model','?')}):[/]")
-            if b_errors:
-                console.print(f"    [red]Error: {b_errors[0][:120]}[/]")
-            else:
-                console.print(f"    Output: {b_text.strip() if b_text else '(empty)'}")
-
-            # Baseline scores
-            score_parts = []
-            for sf in score_fields:
-                val = getattr(b, sf, None)
-                if val is not None:
-                    score_parts.append(f"{sf}={val:.3f}")
-            if res_key == "insurance":
-                score_parts.append(f"predicted={getattr(b,'predicted_label','?')}")
-                score_parts.append(f"correct={getattr(b,'correct','?')}")
-            b_primary = getattr(b, primary_score, 0)
-            console.print(f"    Scores: {' | '.join(score_parts)}")
-            console.print(f"    [green]Final score: {b_primary:.3f}[/]")
-
-            # Candidate output
-            c_text = getattr(c, "generated_text", None) or getattr(c, "generated_narrative", None) or getattr(c, "raw_output", "")
-            c_errors = getattr(c, "errors", [])
-            console.print(f"\n  [yellow]CANDIDATE ({getattr(c,'model','?')}):[/]")
-            if c_errors:
-                console.print(f"    [red]Error: {c_errors[0][:120]}[/]")
-            else:
-                console.print(f"    Output: {c_text.strip() if c_text else '(empty)'}")
-
-            # Candidate scores
-            score_parts = []
-            for sf in score_fields:
-                val = getattr(c, sf, None)
-                if val is not None:
-                    score_parts.append(f"{sf}={val:.3f}")
-            if res_key == "insurance":
-                score_parts.append(f"predicted={getattr(c,'predicted_label','?')}")
-                score_parts.append(f"correct={getattr(c,'correct','?')}")
-            c_primary = getattr(c, primary_score, 0)
-            console.print(f"    Scores: {' | '.join(score_parts)}")
-            console.print(f"    [yellow]Final score: {c_primary:.3f}[/]")
-
-            # Winner for this case
-            diff = c_primary - b_primary
-            if diff < -0.02:
-                console.print(f"  [red]  → Baseline won this case by {abs(diff):.3f}[/]")
-            elif diff > 0.02:
-                console.print(f"  [green]  → Candidate won this case by {diff:.3f}[/]")
-            else:
-                console.print(f"  [dim]  → Tied (diff={diff:+.3f})[/]")
-
-        console.print()
-
-    # ── Per-case breakdown (shown when any task REGRESSED) ─────────────────────
-    regressed_tasks = {
-        task: data
-        for task, comp_data in comparison.items()
-        for scorer, data in comp_data.items()
-        if data.get("verdict") == "REGRESSED"
-    }
-
-    if regressed_tasks or gate.decision == "NO-GO":
-        console.print("\n[bold red]── Regression Detail: Which Cases Failed ──[/]")
-
+    if gate.decision == "NO-GO":
         task_map = {
             "deal_copy": ("composite_score", "deal_copy"),
-            "insurance": ("intent_score", "insurance"),
+            "insurance": ("intent_score",    "insurance"),
             "credit":    ("composite_score", "credit"),
         }
-
+        console.print("\n[bold red]── Regression Detail: Which Cases Failed ──[/]")
         for task_name, (score_field, res_key) in task_map.items():
+            task_comp = comparison.get(task_name, {})
+            if not any(v.get("verdict") == "REGRESSED" for v in task_comp.values()):
+                continue
             b_list = baseline_results.get(res_key, [])
             c_list = candidate_results.get(res_key, [])
-            if not b_list or not c_list:
-                continue
-
-            # Check if this task has any REGRESSED scorer
-            task_comp = comparison.get(task_name, {})
-            task_has_regression = any(
-                v.get("verdict") == "REGRESSED" for v in task_comp.values()
-            )
-            if not task_has_regression:
-                continue
-
-            console.print(f"\n[bold cyan]{task_name.upper()} — case-by-case comparison:[/]")
-
-            case_table = Table(box=box.SIMPLE, show_header=True)
-            case_table.add_column("Case ID", style="dim", width=14)
-            case_table.add_column("Description", width=28)
-            case_table.add_column("Baseline", justify="right", width=10)
-            case_table.add_column("Candidate", justify="right", width=10)
-            case_table.add_column("Δ", justify="right", width=8)
-            case_table.add_column("Winner", width=12)
-
-            worse_cases = []
-            better_cases = []
-            same_cases = []
-
+            worse, better, tied = [], [], []
             for b, c in zip(b_list, c_list):
                 b_score = getattr(b, score_field, None)
                 c_score = getattr(c, score_field, None)
                 if b_score is None or c_score is None:
                     continue
-
-                case_id = getattr(b, "case_id", "?")
-
-                # Build a human-readable description per task
-                if task_name == "deal_copy":
-                    desc = f"{getattr(b, 'merchant', '?')} ({getattr(b, 'channel', '?')})"
-                elif task_name == "insurance":
-                    truth = getattr(b, "ground_truth", "?")
-                    b_pred = getattr(b, "predicted_label", "?")
-                    c_pred = getattr(c, "predicted_label", "?")
-                    desc = f"truth={truth}"
-                elif task_name == "credit":
-                    uid = getattr(b, "user_id", "?")
-                    eligible = getattr(b, "ground_truth_eligible", "?")
-                    desc = f"user={uid} eligible={eligible}"
-                else:
-                    desc = ""
-
                 diff = c_score - b_score
+                cid = getattr(b, "case_id", "?")
                 if diff < -0.02:
-                    color = "red"
-                    winner = "[red]BASELINE[/]"
-                    worse_cases.append(case_id)
+                    worse.append(cid)
                 elif diff > 0.02:
-                    color = "green"
-                    winner = "[green]CANDIDATE[/]"
-                    better_cases.append(case_id)
+                    better.append(cid)
                 else:
-                    color = "white"
-                    winner = "[dim]TIED[/]"
-                    same_cases.append(case_id)
-
-                # For insurance, show label prediction details too
-                if task_name == "insurance":
-                    b_pred = getattr(b, "predicted_label", "?")
-                    c_pred = getattr(c, "predicted_label", "?")
-                    desc = f"{desc} | B={b_pred} C={c_pred}"
-
-                case_table.add_row(
-                    case_id,
-                    desc,
-                    f"{b_score:.3f}",
-                    f"[{color}]{c_score:.3f}[/]",
-                    f"[{color}]{diff:+.3f}[/]",
-                    winner,
-                )
-
-            console.print(case_table)
-            console.print(
-                f"  [red]Candidate worse on {len(worse_cases)} case(s):[/] {', '.join(worse_cases) or 'none'}"
-            )
-            console.print(
-                f"  [green]Candidate better on {len(better_cases)} case(s):[/] {', '.join(better_cases) or 'none'}"
-            )
-            console.print(
-                f"  [dim]Tied on {len(same_cases)} case(s)[/]"
-            )
-
+                    tied.append(cid)
+            console.print(f"\n  [bold]{task_name.upper()}[/]")
+            console.print(f"  [red]Failed cases ({len(worse)}):[/] {', '.join(worse) or 'none'}")
+            console.print(f"  [green]Improved cases ({len(better)}):[/] {', '.join(better) or 'none'}")
+            console.print(f"  [dim]Tied ({len(tied)})[/]")
+        reg_file = RESULTS_DIR / f"regression_{run_id}.json"
+        console.print(f"\n  [dim]Full regression detail saved to: {reg_file}[/]")
         console.print()
 
     # ── Cost summary ────────────────────────────────────────────────────────────

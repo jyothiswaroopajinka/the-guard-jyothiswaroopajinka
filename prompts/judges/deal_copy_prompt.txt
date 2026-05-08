@@ -1,0 +1,22 @@
+Grade this deal copy for a {channel} channel. Source data is provided.
+
+SOURCE DATA: {source_data}
+
+GENERATED COPY:
+{generated_text}
+
+REFERENCE COPY (ideal output):
+{reference_text}
+
+Grade on three dimensions, each 0-10:
+1. persuasiveness: How likely is a user to click/act? (10 = highly compelling)
+2. factual_accuracy: Does it correctly represent the source data? (10 = perfect match)
+3. channel_fit: Does it respect channel constraints and tone? (10 = perfect fit)
+
+Output ONLY this JSON (no markdown, no explanation):
+{
+  "persuasiveness": <int 0-10>,
+  "factual_accuracy": <int 0-10>,
+  "channel_fit": <int 0-10>,
+  "overall_reasoning": "<one sentence>"
+}

@@ -13,35 +13,22 @@ We do NOT use Opus for the generation step (cost reason), only for judging.
 import json
 import re
 from dataclasses import dataclass
+from pathlib import Path
 
 from src.providers import call_claude, CLAUDE_OPUS, CLAUDE_HAIKU, estimate_cost_usd
 
+_JUDGES_DIR = Path(__file__).parent.parent.parent / "prompts" / "judges"
 
-JUDGE_SYSTEM = """You are a senior marketing quality reviewer for GrabOn, India's largest coupon platform.
-You grade deal copy objectively. You output ONLY valid JSON."""
 
-JUDGE_PROMPT_TEMPLATE = """Grade this deal copy for a {channel} channel. Source data is provided.
+def _load_judge_prompt(filename: str) -> str:
+    path = _JUDGES_DIR / filename
+    if not path.exists():
+        raise FileNotFoundError(f"Judge prompt not found: {path}")
+    return path.read_text()
 
-SOURCE DATA: {source_data}
 
-GENERATED COPY:
-{generated_text}
-
-REFERENCE COPY (ideal output):
-{reference_text}
-
-Grade on three dimensions, each 0-10:
-1. persuasiveness: How likely is a user to click/act? (10 = highly compelling)
-2. factual_accuracy: Does it correctly represent the source data? (10 = perfect match)
-3. channel_fit: Does it respect channel constraints and tone? (10 = perfect fit)
-
-Output ONLY this JSON (no markdown, no explanation):
-{{
-  "persuasiveness": <int 0-10>,
-  "factual_accuracy": <int 0-10>,
-  "channel_fit": <int 0-10>,
-  "overall_reasoning": "<one sentence>"
-}}"""
+JUDGE_SYSTEM          = _load_judge_prompt("deal_copy_system.txt")
+JUDGE_PROMPT_TEMPLATE = _load_judge_prompt("deal_copy_prompt.txt")
 
 
 @dataclass
