@@ -144,11 +144,33 @@ The eval is **provider-agnostic**: all 3 tasks use whatever provider you pass vi
 
 This lets you answer "can we swap Haiku → Gemini everywhere?" in one run.
 
+**Default model per provider** (used when no `--model` flag is passed):
+
+| Provider flag | Default model | Other usable models | Cost (input / output per 1M tokens) |
+|---|---|---|---|
+| `anthropic` | `claude-haiku-4-5-20251001` | `claude-sonnet-4-6`, `claude-opus-4-7` | $0.25 / $1.25 |
+| `openai` | `gpt-4o-mini` | `gpt-4o` | $0.15 / $0.60 |
+| `google` | `gemini-2.5-flash` | `gemini-2.5-pro` | $0.075 / $0.30 |
+
+Pass any model name directly via `--baseline-model` or `--candidate-model`:
+```bash
+# Use Sonnet instead of Haiku as baseline
+python run_eval.py --baseline-provider anthropic --baseline-model claude-sonnet-4-6 --candidate-provider google
+
+# Use GPT-4o instead of GPT-4o-mini
+python run_eval.py --baseline-provider anthropic --candidate-provider openai --candidate-model gpt-4o
+
+# Use Gemini Pro instead of Flash
+python run_eval.py --baseline-provider anthropic --candidate-provider google --candidate-model gemini-2.5-pro
+```
+
+**Component routing:**
+
 | Component | Model | Provider | Why |
 |---|---|---|---|
 | All generation tasks (baseline) | Claude Haiku | Anthropic | Default baseline — cheap, capable |
 | All generation tasks (candidate) | Gemini 2.5 Flash | Google | Default candidate — 80% cheaper than Haiku, equivalent quality on eval |
-| LLM-as-judge (deal copy + credit) | Claude Opus | Anthropic | Hardcoded — cheap judge, sufficient for structured 0-10 scoring |
+| LLM-as-judge (deal copy + credit) | Claude Sonnet | Anthropic | Better reasoning for nuanced quality assessment; generation uses Haiku, judging uses Sonnet |
 | Semantic similarity | all-MiniLM-L6-v2 | Local | Free, no API call, no network latency |
 | Format compliance | Python | None | Exact character counting — no LLM needed |
 | Factual grounding | Python + regex | None | Number extraction — no LLM needed |
@@ -172,7 +194,6 @@ pip install -r requirements.txt
 ### 2. Set API keys
 
 ```bash
-cp .env.example .env
 # Edit .env and fill in your keys:
 # ANTHROPIC_API_KEY  — console.anthropic.com
 # OPENAI_API_KEY     — platform.openai.com
@@ -192,18 +213,49 @@ python run_eval.py --baseline-provider anthropic --candidate-provider google
 python run_eval.py --demo-regression
 # Expected output: NO-GO — deal_copy regresses significantly
 
-# Compare specific models
+# Compare two models (Haiku vs GPT-4o-mini), all tasks use v1 prompt
 python run_eval.py \
   --baseline-provider anthropic \
-  --candidate-provider openai \
-  --baseline-prompt v1.txt \
-  --candidate-prompt v1.txt
+  --candidate-provider openai
+
+# Test a new insurance prompt (v2) without touching deal_copy or credit
+python run_eval.py \
+  --baseline-provider anthropic \
+  --candidate-provider anthropic \
+  --insurance-prompt v2.txt
+
+# Test a new deal_copy prompt only
+python run_eval.py \
+  --baseline-provider anthropic \
+  --candidate-provider anthropic \
+  --deal-copy-prompt v2.txt
+
+# Test all three prompts changed at once
+python run_eval.py \
+  --baseline-provider anthropic \
+  --candidate-provider anthropic \
+  --deal-copy-prompt v2.txt \
+  --insurance-prompt v2.txt \
+  --credit-prompt v2.txt
+
+# Use a specific model instead of provider default
+python run_eval.py \
+  --baseline-provider anthropic \
+  --baseline-model claude-sonnet-4-6 \
+  --candidate-provider google \
+  --candidate-model gemini-2.5-pro
+
+# Demo provider fallback: simulate Anthropic failing mid-eval, watch Google take over
+python run_eval.py --demo-fallback
+# Expected output: "⚠ Provider fallback: anthropic failed → switching to google/gemini-2.5-flash"
+# The eval completes normally — fallback is automatic, not a crash
 
 # View history of all past runs
 python run_eval.py --history
 
 # Diff two prompt versions
 python run_eval.py --diff deal_copy v1.txt v2.txt
+python run_eval.py --diff insurance v1.txt v2.txt
 
 # Analyze test case diversity
 python analyze_coverage.py
@@ -335,7 +387,16 @@ The GitHub Action at `.github/workflows/eval-guard.yml` triggers on every PR tou
 
 - **Permanent failures** (bad API key, billing, 401): fail immediately, no retry. Retrying would waste time and money.
 - **Transient failures** (rate limit, 429, timeout, 500): retry with exponential backoff (1s, 2s, 4s).
-- **After max retries**: fall back to the next provider in the chain (Anthropic → Google).
+- **After max retries**: automatically fall back through the chain — Anthropic → Google Gemini → OpenAI. The fallback prints a visible warning so you know which provider actually ran.
+
+The fallback is always-on in `call_model()` — no manual if/else, no config toggle. Any exception from the primary provider triggers it. Run `--demo-fallback` to see it live:
+
+```bash
+python run_eval.py --demo-fallback
+# Simulates Anthropic failing — Gemini takes over every call
+# ⚠ Provider fallback: anthropic failed → switching to google/gemini-2.5-flash
+# Eval finishes normally with GO/NO-GO gate intact
+```
 
 If an individual case fails, the error is logged in `result.errors` and the case scores 0. The eval continues to the next case — a partial outage shows up as lower accuracy, not a crashed run.
 

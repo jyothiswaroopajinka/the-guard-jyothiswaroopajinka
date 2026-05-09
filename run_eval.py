@@ -45,20 +45,27 @@ console = Console()
 def run_full_eval(
     baseline_provider: str,
     baseline_model: str | None,
-    baseline_prompt: str,
     candidate_provider: str,
     candidate_model: str | None,
-    candidate_prompt: str,
+    deal_copy_baseline_prompt: str = "v1.txt",
+    deal_copy_candidate_prompt: str = "v1.txt",
+    insurance_baseline_prompt: str = "v1.txt",
+    insurance_candidate_prompt: str = "v1.txt",
+    credit_baseline_prompt: str = "v1.txt",
+    credit_candidate_prompt: str = "v1.txt",
     max_cases: int | None = None,
     use_judge: bool = True,
 ) -> int:
     """
-    Core eval loop. Returns exit code (0=GO, 1=NO-GO, 2=INCONCLUSIVE).
+    Core eval loop. Returns exit code (0=GO, 1=NO-GO).
+    Each task has its own baseline and candidate prompt so any task's prompt
+    can be tested independently without affecting the others.
     """
     run_id = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S") + "_" + uuid.uuid4().hex[:6]
     console.print(f"\n[bold cyan]The Guard — Eval Run {run_id}[/]")
-    console.print(f"Baseline: [green]{baseline_provider}/{baseline_model or 'default'}[/] + prompt [green]{baseline_prompt}[/]")
-    console.print(f"Candidate: [yellow]{candidate_provider}/{candidate_model or 'default'}[/] + prompt [yellow]{candidate_prompt}[/]\n")
+    console.print(f"Baseline: [green]{baseline_provider}/{baseline_model or 'default'}[/]")
+    console.print(f"Candidate: [yellow]{candidate_provider}/{candidate_model or 'default'}[/]")
+    console.print(f"Prompts (baseline → candidate): deal_copy=[green]{deal_copy_baseline_prompt}[/]→[yellow]{deal_copy_candidate_prompt}[/]  insurance=[green]{insurance_baseline_prompt}[/]→[yellow]{insurance_candidate_prompt}[/]  credit=[green]{credit_baseline_prompt}[/]→[yellow]{credit_candidate_prompt}[/]\n")
 
     # ── Step 1: Register prompt versions ───────────────────────────────────────
     console.print("[dim]Registering prompt versions...[/]")
@@ -71,7 +78,7 @@ def run_full_eval(
     baseline_deal = deal_copy_eval.run_all(
         provider=baseline_provider,
         model=baseline_model,
-        prompt_file=baseline_prompt,
+        prompt_file=deal_copy_baseline_prompt,
         max_cases=max_cases,
         use_judge=use_judge,
     )
@@ -80,7 +87,7 @@ def run_full_eval(
     baseline_ins = insurance_eval.run_all(
         provider=baseline_provider,
         model=baseline_model,
-        prompt_file="v1.txt",
+        prompt_file=insurance_baseline_prompt,
         max_cases=max_cases,
     )
 
@@ -88,7 +95,7 @@ def run_full_eval(
     baseline_credit = credit_eval.run_all(
         provider=baseline_provider,
         model=baseline_model,
-        prompt_file="v1.txt",
+        prompt_file=credit_baseline_prompt,
         max_cases=max_cases,
         use_judge=use_judge,
     )
@@ -100,7 +107,7 @@ def run_full_eval(
     candidate_deal = deal_copy_eval.run_all(
         provider=candidate_provider,
         model=candidate_model,
-        prompt_file=candidate_prompt,
+        prompt_file=deal_copy_candidate_prompt,
         max_cases=max_cases,
         use_judge=use_judge,
     )
@@ -109,7 +116,7 @@ def run_full_eval(
     candidate_ins = insurance_eval.run_all(
         provider=candidate_provider,
         model=candidate_model,
-        prompt_file="v1.txt",
+        prompt_file=insurance_candidate_prompt,
         max_cases=max_cases,
     )
 
@@ -117,7 +124,7 @@ def run_full_eval(
     candidate_credit = credit_eval.run_all(
         provider=candidate_provider,
         model=candidate_model,
-        prompt_file="v1.txt",
+        prompt_file=credit_candidate_prompt,
         max_cases=max_cases,
         use_judge=use_judge,
     )
@@ -138,8 +145,8 @@ def run_full_eval(
         task_name="deal_copy",
         scorer_name="composite",
         result=deal_comp,
-        baseline_version=f"{baseline_provider}/{baseline_prompt}",
-        candidate_version=f"{candidate_provider}/{candidate_prompt}",
+        baseline_version=f"{baseline_provider}/{deal_copy_baseline_prompt}",
+        candidate_version=f"{candidate_provider}/{deal_copy_candidate_prompt}",
     ))
 
     # Insurance: McNemar's (binary correct/incorrect) + continuous intent score
@@ -159,8 +166,8 @@ def run_full_eval(
         task_name="insurance",
         scorer_name="intent_score",
         result=ins_comp,
-        baseline_version=f"{baseline_provider}/v1.txt",
-        candidate_version=f"{candidate_provider}/v1.txt",
+        baseline_version=f"{baseline_provider}/{insurance_baseline_prompt}",
+        candidate_version=f"{candidate_provider}/{insurance_candidate_prompt}",
     ))
 
     # Credit: compare grounding scores (most critical)
@@ -173,8 +180,8 @@ def run_full_eval(
         task_name="credit",
         scorer_name="composite",
         result=credit_comp,
-        baseline_version=f"{baseline_provider}/v1.txt",
-        candidate_version=f"{candidate_provider}/v1.txt",
+        baseline_version=f"{baseline_provider}/{credit_baseline_prompt}",
+        candidate_version=f"{candidate_provider}/{credit_candidate_prompt}",
     ))
 
     # ── Step 5: GO/NO-GO gate ─────────────────────────────────────────────────
@@ -186,10 +193,14 @@ def run_full_eval(
     metadata = {
         "baseline_provider": baseline_provider,
         "baseline_model": baseline_model,
-        "baseline_prompt": baseline_prompt,
         "candidate_provider": candidate_provider,
         "candidate_model": candidate_model,
-        "candidate_prompt": candidate_prompt,
+        "deal_copy_baseline_prompt": deal_copy_baseline_prompt,
+        "deal_copy_candidate_prompt": deal_copy_candidate_prompt,
+        "insurance_baseline_prompt": insurance_baseline_prompt,
+        "insurance_candidate_prompt": insurance_candidate_prompt,
+        "credit_baseline_prompt": credit_baseline_prompt,
+        "credit_candidate_prompt": credit_candidate_prompt,
     }
 
     run_file = dashboard.save_run(
@@ -212,11 +223,20 @@ def run_full_eval(
 
     console.print(f"\n[dim]Results saved to: {run_file}[/]")
 
-    # If regression detected, also print the prompt diff
-    if gate_decision.decision == "NO-GO" and baseline_prompt != candidate_prompt:
-        console.print("\n[bold red]Prompt diff (what changed):[/]")
-        diff = versioning.diff_prompts("deal_copy", baseline_prompt, candidate_prompt)
-        console.print(diff)
+    # If regression detected, show diffs for any tasks whose prompts changed
+    if gate_decision.decision == "NO-GO":
+        prompt_pairs = [
+            ("deal_copy", deal_copy_baseline_prompt, deal_copy_candidate_prompt),
+            ("insurance", insurance_baseline_prompt, insurance_candidate_prompt),
+            ("credit", credit_baseline_prompt, credit_candidate_prompt),
+        ]
+        changed = [(task, b, c) for task, b, c in prompt_pairs if b != c]
+        if changed:
+            console.print("\n[bold red]Prompt diff (what changed):[/]")
+            for task, b_prompt, c_prompt in changed:
+                console.print(f"\n[bold]{task}[/]: {b_prompt} → {c_prompt}")
+                diff = versioning.diff_prompts(task, b_prompt, c_prompt)
+                console.print(diff)
 
     return gate_decision.exit_code
 
@@ -230,16 +250,22 @@ def main():
     # Baseline args
     parser.add_argument("--baseline-provider", default="anthropic", choices=["anthropic", "openai", "google"])
     parser.add_argument("--baseline-model", default=None, help="e.g. claude-sonnet-4-6")
-    parser.add_argument("--baseline-prompt", default="v1.txt", help="Prompt file in prompts/deal_copy/")
 
     # Candidate args
     parser.add_argument("--candidate-provider", default="google", choices=["anthropic", "openai", "google"])
     parser.add_argument("--candidate-model", default=None, help="e.g. gpt-4o-mini")
-    parser.add_argument("--candidate-prompt", default="v1.txt", help="Prompt file")
+
+    # Per-task prompt flags (baseline and candidate independently)
+    parser.add_argument("--deal-copy-prompt", default="v1.txt", help="Candidate prompt for deal_copy task")
+    parser.add_argument("--insurance-prompt", default="v1.txt", help="Candidate prompt for insurance task")
+    parser.add_argument("--credit-prompt", default="v1.txt", help="Candidate prompt for credit task")
 
     # Regression demo: compare bad prompt (v2) vs good (v1) to show gate catching it
     parser.add_argument("--demo-regression", action="store_true",
                         help="Demo: compare v1 vs v2 (bad prompt) to show NO-GO gate")
+    # Fallback demo: break the primary provider mid-eval to show automatic recovery
+    parser.add_argument("--demo-fallback", action="store_true",
+                        help="Demo: simulate primary provider failure to show fallback chain live")
     parser.add_argument("--max-cases", type=int, default=30,
                         help="Max cases per task (default: 30)")
 
@@ -255,16 +281,43 @@ def main():
         console.print(diff)
         sys.exit(0)
 
-    # Demo regression: use same model (Sonnet) but swap to degraded prompt v2
+    # Fallback demo: patch Anthropic to fail so Google takes over during the real eval
+    if args.demo_fallback:
+        import src.providers as _providers
+        _real_claude = _providers.call_claude
+
+        def _broken_claude(*a, **kw):
+            raise Exception("auth: invalid_api_key — simulated failure for fallback demo")
+
+        _providers.call_claude = _broken_claude
+        console.print("[bold yellow]DEMO MODE: Anthropic is broken — watch Google Gemini take over[/]\n")
+        try:
+            exit_code = run_full_eval(
+                baseline_provider="anthropic",
+                baseline_model=None,
+                candidate_provider="anthropic",
+                candidate_model=None,
+                max_cases=3,
+                use_judge=False,
+            )
+        finally:
+            _providers.call_claude = _real_claude  # always restore
+        sys.exit(exit_code)
+
+    # Demo regression: same model, swap all tasks to degraded v2 prompts
     if args.demo_regression:
-        console.print("[bold yellow]DEMO MODE: Comparing v1 (good) vs v2 (degraded) prompt[/]")
+        console.print("[bold yellow]DEMO MODE: Comparing v1 (good) vs v2 (degraded) prompts across all tasks[/]")
         exit_code = run_full_eval(
             baseline_provider="anthropic",
             baseline_model=None,
-            baseline_prompt="v1.txt",
             candidate_provider="anthropic",
             candidate_model=None,
-            candidate_prompt="v2.txt",
+            deal_copy_baseline_prompt="v1.txt",
+            deal_copy_candidate_prompt="v2.txt",
+            insurance_baseline_prompt="v1.txt",
+            insurance_candidate_prompt="v2.txt",
+            credit_baseline_prompt="v1.txt",
+            credit_candidate_prompt="v1.txt",
             max_cases=args.max_cases,
             use_judge=True,
         )
@@ -272,10 +325,14 @@ def main():
         exit_code = run_full_eval(
             baseline_provider=args.baseline_provider,
             baseline_model=args.baseline_model,
-            baseline_prompt=args.baseline_prompt,
             candidate_provider=args.candidate_provider,
             candidate_model=args.candidate_model,
-            candidate_prompt=args.candidate_prompt,
+            deal_copy_baseline_prompt="v1.txt",
+            deal_copy_candidate_prompt=args.deal_copy_prompt,
+            insurance_baseline_prompt="v1.txt",
+            insurance_candidate_prompt=args.insurance_prompt,
+            credit_baseline_prompt="v1.txt",
+            credit_candidate_prompt=args.credit_prompt,
             max_cases=5 if args.quick else args.max_cases,
             use_judge=not args.quick,
         )

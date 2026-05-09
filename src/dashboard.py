@@ -303,11 +303,17 @@ def _print_recommendation(gate, metadata: dict, baseline_results: dict, candidat
     """
     b_provider = metadata.get("baseline_provider", "")
     c_provider = metadata.get("candidate_provider", "")
-    b_prompt   = metadata.get("baseline_prompt", "v1.txt")
-    c_prompt   = metadata.get("candidate_prompt", "v1.txt")
+
+    # Detect which tasks had prompt changes
+    task_prompt_changes = {}
+    for task in ["deal_copy", "insurance", "credit"]:
+        b = metadata.get(f"{task}_baseline_prompt", "v1.txt")
+        c = metadata.get(f"{task}_candidate_prompt", "v1.txt")
+        if b != c:
+            task_prompt_changes[task] = (b, c)
 
     is_model_change  = b_provider != c_provider
-    is_prompt_change = b_prompt != c_prompt
+    is_prompt_change = len(task_prompt_changes) > 0
 
     if is_model_change and gate.decision == "GO":
         # Compute actual per-case cost from run data
@@ -349,18 +355,27 @@ def _print_recommendation(gate, metadata: dict, baseline_results: dict, candidat
 
     elif is_prompt_change and gate.decision == "NO-GO":
         failed_tasks = [tv.task_name for tv in gate.regressions]
+
+        # List all changed prompts
+        changed_lines = []
+        for task, (b, c) in task_prompt_changes.items():
+            status = "[red]REGRESSED[/]" if task in failed_tasks else "[green]OK[/]"
+            changed_lines.append(f"  • {task}: [green]{b}[/] → [red]{c}[/]  {status}")
+        changed_text = "\n".join(changed_lines)
+
         reasons = []
         for fr in getattr(gate, "failure_reasons", []):
             reasons.append(f"  • [{fr['task']}] {fr['reason']}")
         reason_text = "\n".join(reasons) if reasons else "  • Score regression detected across tasks."
 
+        revert_lines = [f"    {task}: revert to [green]{b}[/]" for task, (b, c) in task_prompt_changes.items() if task in failed_tasks]
+        revert_text = "\n".join(revert_lines)
+
         body = (
-            f"[bold red]DO NOT USE PROMPT: {c_prompt}[/]\n\n"
-            f"This prompt caused a measurable quality regression compared to {b_prompt}.\n"
-            f"Deploying it would hurt real users.\n\n"
+            f"[bold red]DO NOT DEPLOY — Prompt regression detected[/]\n\n"
+            f"[bold]Changed prompts ({len(task_prompt_changes)}):[/]\n{changed_text}\n\n"
             f"[bold]Why it failed:[/]\n{reason_text}\n\n"
-            f"[bold]Failed tasks:[/] {', '.join(failed_tasks)}\n"
-            f"[bold]Action:[/] Revert to [green]{b_prompt}[/] or fix the prompt and re-eval."
+            f"[bold]Action — revert the failing prompts:[/]\n{revert_text}"
         )
         console.print(Panel(body, title="[bold red]Prompt Safety Warning[/]", border_style="red"))
 

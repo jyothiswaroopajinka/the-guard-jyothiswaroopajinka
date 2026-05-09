@@ -112,6 +112,7 @@ def run_single(
                 prompt=judge_prompt,
                 system=CREDIT_JUDGE_SYSTEM,
                 provider="anthropic",
+                # model="claude-sonnet-4-6",  # switch to Sonnet when budget allows
                 model="claude-haiku-4-5-20251001",
                 max_tokens=200,
                 temperature=0.1,

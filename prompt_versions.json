@@ -27,8 +27,8 @@
     "task": "insurance",
     "filename": "v1.txt",
     "content_hash": "d0382e360960",
-    "git_commit": "f03a0d19",
-    "timestamp": "2026-05-07T09:10:29.006951+00:00",
+    "git_commit": "none",
+    "timestamp": "2026-05-09T06:39:22.284501+00:00",
     "filepath": "prompts/insurance/v1.txt"
   },
   "judges/credit_prompt.txt": {
@@ -62,5 +62,13 @@
     "git_commit": "c7ea61c8",
     "timestamp": "2026-05-08T09:11:22.455640+00:00",
     "filepath": "prompts/judges/deal_copy_system.txt"
+  },
+  "insurance/v2.txt": {
+    "task": "insurance",
+    "filename": "v2.txt",
+    "content_hash": "a4a7bdd0d154",
+    "git_commit": "none",
+    "timestamp": "2026-05-08T18:17:05.028715+00:00",
+    "filepath": "prompts/insurance/v2.txt"
   }
 }

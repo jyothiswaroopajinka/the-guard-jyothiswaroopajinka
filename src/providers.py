@@ -19,6 +19,9 @@ import openai
 from google import genai
 from google.genai import types as genai_types
 from dotenv import load_dotenv
+from rich.console import Console
+
+_console = Console(stderr=True)
 
 load_dotenv()
 
@@ -153,10 +156,12 @@ def _is_retryable(error: Exception) -> bool:
     return True
 
 
-# Fallback chain — if primary provider fails permanently, try these in order
+# Fallback chain — tried in order when primary provider fails
+# anthropic → google → openai
 _FALLBACK_CHAIN = [
     ("anthropic", CLAUDE_HAIKU,  call_claude),
     ("google",    GEMINI_FLASH,  call_gemini),
+    ("openai",    GPT4O_MINI,    call_openai),
 ]
 
 
@@ -209,7 +214,10 @@ def call_model(
                 time.sleep(wait)
 
     # ── Fallback to other providers ────────────────────────────────────────────
-    if enable_fallback and not permanent_failure:
+    # Always attempt fallback — a billing/auth failure on one provider doesn't
+    # mean other providers will fail too. Only skip fallback on transient errors
+    # that exhausted retries (those might also hit the fallback provider).
+    if enable_fallback:
         for fallback_provider, fallback_model, fallback_fn in _FALLBACK_CHAIN:
             if fallback_provider == provider:
                 continue  # Skip the one that already failed
@@ -221,8 +229,13 @@ def call_model(
                 # Tag the usage dict so callers know a fallback was used
                 result[1]["fallback_from"] = provider
                 result[1]["fallback_to"] = fallback_provider
+                _console.print(
+                    f"  [yellow]⚠ Provider fallback:[/] {provider} failed "
+                    f"({last_error}) → switching to {fallback_provider}/{fallback_model}"
+                )
                 return result
-            except Exception:
+            except Exception as fe:
+                _console.print(f"  [dim]  fallback {fallback_provider} also failed: {fe}[/]")
                 continue  # Try next fallback
 
     raise last_error

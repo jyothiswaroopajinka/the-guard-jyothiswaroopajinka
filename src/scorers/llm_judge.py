@@ -1,12 +1,12 @@
 """
 Scorer (d): LLM-as-Judge
 
-Uses Claude Haiku to rate another model's deal copy on a 0-10 scale across
+Uses Claude Sonnet to rate another model's deal copy on a 0-10 scale across
 three dimensions: persuasiveness, factual accuracy, and channel fit.
 Normalized to [0, 1].
 
-Why Haiku as judge? Cheap, fast, sufficient for structured scoring tasks.
-We do NOT use the same model for generation and judging — judge is always Haiku.
+Why Sonnet as judge? Strong reasoning for nuanced quality assessment without
+the cost of Opus. Generation tasks use Haiku; judging uses Sonnet.
 """
 
 import json
@@ -14,7 +14,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from src.providers import call_claude, CLAUDE_OPUS, CLAUDE_HAIKU, estimate_cost_usd
+from src.providers import call_claude, CLAUDE_SONNET, CLAUDE_HAIKU, estimate_cost_usd  # noqa: F401
 
 _JUDGES_DIR = Path(__file__).parent.parent.parent / "prompts" / "judges"
 
@@ -47,10 +47,11 @@ def score(
     reference_text: str,
     source_data: dict,
     channel: str,
+    # judge_model: str = CLAUDE_SONNET,  # switch to Sonnet when budget allows
     judge_model: str = CLAUDE_HAIKU,
 ) -> JudgeResult:
     """
-    Ask Claude Opus to judge the generated copy.
+    Ask Claude Haiku to judge the generated copy.
     Returns scores normalized to [0, 1] with confidence interval.
     """
     prompt = (JUDGE_PROMPT_TEMPLATE
