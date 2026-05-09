@@ -1,0 +1,912 @@
+{
+  "run_id": "20260509_063922_31df1a",
+  "timestamp": "2026-05-09T06:40:58.923826+00:00",
+  "metadata": {
+    "baseline_provider": "anthropic",
+    "baseline_model": null,
+    "candidate_provider": "anthropic",
+    "candidate_model": null,
+    "deal_copy_baseline_prompt": "v1.txt",
+    "deal_copy_candidate_prompt": "v1.txt",
+    "insurance_baseline_prompt": "v1.txt",
+    "insurance_candidate_prompt": "v2.txt",
+    "credit_baseline_prompt": "v1.txt",
+    "credit_candidate_prompt": "v1.txt"
+  },
+  "gate_decision": "NO-GO",
+  "gate_summary": "NO-GO: 1 regression(s) detected \u2014 drop exceeded 10% practical threshold (too large to ignore even without statistical significance).\nRegressed tasks:\n  - [insurance / intent_score]: 1.0000 \u2192 0.0000 (drop of 1.0000 = 100.0%, confidence=0.0%, p=1.0000)\n    95% CI of drop: [-1.0000, -1.0000]\n    Reason: candidate scored lower than baseline on average across all cases\nCandidate version blocked from deployment.",
+  "failure_reasons": [
+    {
+      "task": "insurance",
+      "scorer": "intent_score",
+      "baseline_version": "anthropic/v1.txt",
+      "candidate_version": "anthropic/v2.txt",
+      "reason": "Score dropped from 1.0000 to 0.0000 (drop of 1.0000 = 100.0%). Triggered by practical threshold \u2014 drop too large to ignore.",
+      "trigger": "practical_threshold",
+      "p_value": 1.0,
+      "confidence_pct": 0.0,
+      "score_drop": -1.0
+    }
+  ],
+  "baseline_results": {
+    "deal_copy": [
+      {
+        "case_id": "dc_001",
+        "channel": "email",
+        "merchant": "Myntra",
+        "generated_text": "Subject: Your Exclusive 40% Off Fashion Deal at Myntra Awaits!\n\n---\n\nHey there, fashion lover!\n\nWe've got something special for you at Myntra \u2013 a fantastic 40% discount on your next purchase!\n\n**Here's what you need to know:**\n\n\u2728 **Discount:** Flat 40% off\n\ud83d\udecd\ufe0f **Minimum Order:** \u20b9999\n\ud83c\udf9f\ufe0f **Coupon Code:** MYNTRA40\n\ud83d\udcc5 **Valid Until:** May 31, 2026\n\nWhether you're refreshing your wardrobe with the latest trends or hunting for those perfect pieces you've been eyeing, now's the time to shop! With 40% off, you can grab more styles without breaking the bank.\n\n**How to claim:**\n1. Shop your favorites at Myntra\n2. Add items worth \u20b9999 or more to your cart\n3. Enter code **MYNTRA40** at checkout\n4. Watch your savings add up!\n\nDon't let this opportunity slip away \u2013 your style upgrade is just a click away. Shop now and save big!\n\nHappy shopping!\n\n---",
+        "reference_text": "Flat 40% OFF on Myntra! Use code MYNTRA40 on orders above \u20b9999. Valid till 31st May 2026. Shop top fashion brands now.",
+        "source_data": {
+          "discount_percent": 40,
+          "type": "flat",
+          "min_order": 999,
+          "expiry": "2026-05-31",
+          "coupon_code": "MYNTRA40"
+        },
+        "format_score": 1.0,
+        "grounding_score": 0.6471,
+        "judge_score": 0.0,
+        "similarity_score": 0.7921,
+        "composite_score": 0.5233,
+        "latency_ms": 6340.0,
+        "cost_usd": 0.000414,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "dc_002",
+        "channel": "whatsapp",
+        "merchant": "Zomato",
+        "generated_text": "\ud83c\udf54 Zomato: 50% off on orders above \u20b9149! Use code ZOMATO50. Valid till May 15, 2026. Order now! \ud83c\udf89",
+        "reference_text": "\ud83c\udf55 Flat 50% OFF on Zomato! Code: ZOMATO50. Min \u20b9149. Expires 15 May. Order now!",
+        "source_data": {
+          "discount_percent": 50,
+          "type": "flat",
+          "min_order": 149,
+          "expiry": "2026-05-15",
+          "coupon_code": "ZOMATO50"
+        },
+        "format_score": 1.0,
+        "grounding_score": 0.6,
+        "judge_score": 0.0,
+        "similarity_score": 0.9249,
+        "composite_score": 0.5225,
+        "latency_ms": 1475.2,
+        "cost_usd": 0.000158,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "dc_003",
+        "channel": "push",
+        "merchant": "Amazon",
+        "generated_text": "Amazon Electronics: 30% Off Now",
+        "reference_text": "Amazon: 30% OFF Electronics",
+        "source_data": {
+          "discount_percent": 30,
+          "type": "percentage",
+          "min_order": 0,
+          "expiry": "2026-05-10",
+          "coupon_code": null
+        },
+        "format_score": 1.0,
+        "grounding_score": 1.0,
+        "judge_score": 0.0,
+        "similarity_score": 0.908,
+        "composite_score": 0.6408,
+        "latency_ms": 1324.5,
+        "cost_usd": 0.000107,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "dc_004",
+        "channel": "email",
+        "merchant": "Swiggy",
+        "generated_text": "Subject: 60% Off Your Next Swiggy Order \u2013 Don't Miss Out!\n\n---\n\nHey there!\n\nWe've got something delicious lined up for you! \ud83c\udf55\n\nEnjoy a massive **60% discount** on your next Swiggy order with our exclusive deal.\n\n**Here's what you need to know:**\n\n\u2713 **Discount:** 60% off (flat discount)\n\u2713 **Coupon Code:** SWIGGY60\n\u2713 **Minimum Order:** \u20b9199\n\u2713 **Valid Until:** May 20, 2026\n\nWhether you're craving your favorite restaurant's signature dish, ordering comfort food for a lazy evening, or treating yourself to something special \u2013 this is the perfect time to do it without burning a hole in your pocket.\n\n**How to redeem:**\n1. Open Swiggy and browse your favorite restaurants\n2. Add items to your cart (minimum order \u20b9199)\n3. Enter code **SWIGGY60** at checkout\n4. Enjoy 60% off your meal!\n\nWith over a month to use this offer, there's no rush \u2013 but why",
+        "reference_text": "Flat 60% OFF on Swiggy! Use code SWIGGY60 on orders above \u20b9199. Offer valid till 20th May 2026. Hungry? Order now!",
+        "source_data": {
+          "discount_percent": 60,
+          "type": "flat",
+          "min_order": 199,
+          "expiry": "2026-05-20",
+          "coupon_code": "SWIGGY60"
+        },
+        "format_score": 1.0,
+        "grounding_score": 0.6471,
+        "judge_score": 0.0,
+        "similarity_score": 0.7754,
+        "composite_score": 0.5217,
+        "latency_ms": 3454.1,
+        "cost_usd": 0.000415,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "dc_005",
+        "channel": "whatsapp",
+        "merchant": "MakeMyTrip",
+        "generated_text": "\u2708\ufe0f MakeMyTrip: 15% cashback on bookings above \u20b95000! Code: MMTFLY15 Valid till 30 Jun 2026 \ud83c\udf89",
+        "reference_text": "\u2708\ufe0f 15% cashback on MakeMyTrip! Code: MMTFLY15. Min \u20b95000. Book by 30 Jun.",
+        "source_data": {
+          "discount_percent": 15,
+          "type": "cashback",
+          "min_order": 5000,
+          "expiry": "2026-06-30",
+          "coupon_code": "MMTFLY15"
+        },
+        "format_score": 1.0,
+        "grounding_score": 0.6,
+        "judge_score": 0.0,
+        "similarity_score": 0.9072,
+        "composite_score": 0.5207,
+        "latency_ms": 1367.9,
+        "cost_usd": 0.000159,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      }
+    ],
+    "insurance": [
+      {
+        "case_id": "ins_001",
+        "deal_object": {
+          "merchant": "MakeMyTrip",
+          "category": "Travel",
+          "deal_type": "flight",
+          "amount": 12000,
+          "destination": "international",
+          "duration_days": 10
+        },
+        "ground_truth": "travel_insurance",
+        "predicted_label": "travel_insurance",
+        "predicted_confidence": 0.95,
+        "intent_score": 1.0,
+        "correct": true,
+        "is_edge_case": false,
+        "latency_ms": 1230.9,
+        "cost_usd": 0.000182,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "raw_output": "```json\n{\n  \"label\": \"travel_insurance\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"International flight booking on MakeMyTrip for \u20b912000 exceeds \u20b93000 threshold with 10-day duration, making travel insurance highly relevant.\"\n}\n```",
+        "errors": []
+      },
+      {
+        "case_id": "ins_002",
+        "deal_object": {
+          "merchant": "Myntra",
+          "category": "Fashion",
+          "deal_type": "apparel",
+          "amount": 2500,
+          "return_policy_days": 30
+        },
+        "ground_truth": "no_insurance",
+        "predicted_label": "no_insurance",
+        "predicted_confidence": 0.95,
+        "intent_score": 1.0,
+        "correct": true,
+        "is_edge_case": false,
+        "latency_ms": 1260.9,
+        "cost_usd": 0.000173,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "raw_output": "```json\n{\n  \"label\": \"no_insurance\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"Fashion apparel purchase of \u20b92500 with standard return policy falls below insurance-relevant thresholds and does not match any protected product category.\"\n}\n```",
+        "errors": []
+      },
+      {
+        "case_id": "ins_003",
+        "deal_object": {
+          "merchant": "PharmEasy",
+          "category": "Health",
+          "deal_type": "prescription_medicine",
+          "amount": 1500,
+          "chronic_condition": true
+        },
+        "ground_truth": "health_insurance",
+        "predicted_label": "health_insurance",
+        "predicted_confidence": 0.92,
+        "intent_score": 1.0,
+        "correct": true,
+        "is_edge_case": false,
+        "latency_ms": 1069.1,
+        "cost_usd": 0.000158,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "raw_output": "```json\n{\n  \"label\": \"health_insurance\",\n  \"confidence\": 0.92,\n  \"reasoning\": \"Prescription medicine purchase from PharmEasy with chronic condition flag indicates clear health insurance relevance.\"\n}\n```",
+        "errors": []
+      },
+      {
+        "case_id": "ins_004",
+        "deal_object": {
+          "merchant": "Amazon",
+          "category": "Electronics",
+          "deal_type": "mobile_phone",
+          "amount": 45000,
+          "brand": "Apple"
+        },
+        "ground_truth": "device_protection",
+        "predicted_label": "device_protection",
+        "predicted_confidence": 0.92,
+        "intent_score": 1.0,
+        "correct": true,
+        "is_edge_case": false,
+        "latency_ms": 1561.9,
+        "cost_usd": 0.000168,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "raw_output": "```json\n{\n  \"label\": \"device_protection\",\n  \"confidence\": 0.92,\n  \"reasoning\": \"Apple mobile phone priced at \u20b945000 exceeds the \u20b95000 threshold for device protection insurance eligibility.\"\n}\n```",
+        "errors": []
+      },
+      {
+        "case_id": "ins_005",
+        "deal_object": {
+          "merchant": "BigBasket",
+          "category": "Grocery",
+          "deal_type": "fresh_produce",
+          "amount": 600
+        },
+        "ground_truth": "no_insurance",
+        "predicted_label": "no_insurance",
+        "predicted_confidence": 0.98,
+        "intent_score": 1.0,
+        "correct": true,
+        "is_edge_case": false,
+        "latency_ms": 1534.1,
+        "cost_usd": 0.00017,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "raw_output": "```json\n{\n  \"label\": \"no_insurance\",\n  \"confidence\": 0.98,\n  \"reasoning\": \"Grocery purchase from BigBasket with fresh produce at \u20b9600 falls under commodity category with low transaction value, not eligible for any insurance product.\"\n}\n```",
+        "errors": []
+      }
+    ],
+    "credit": [
+      {
+        "case_id": "cr_001",
+        "user_id": "U1001",
+        "persona": {
+          "user_id": "U1001",
+          "name": "Rajesh Kumar",
+          "gmv_last_year": 480000,
+          "gmv_prev_year": 350000,
+          "gmv_growth_pct": 37.14,
+          "avg_order_value": 2400,
+          "order_count_last_year": 200,
+          "category_mix": {
+            "Fashion": 0.4,
+            "Electronics": 0.3,
+            "Food": 0.3
+          },
+          "payment_method": "credit_card",
+          "returns_rate_pct": 5.2,
+          "account_age_months": 36
+        },
+        "ground_truth_eligible": true,
+        "generated_narrative": "Rajesh Kumar (U1001) demonstrates strong creditworthiness with a GMV of \u20b9480,000 in the last fiscal year, representing a year-on-year growth of 37.14% from \u20b9350,000 previously. Over 36 months of account tenure, he has completed 200 orders with an average order value of \u20b92,400 and maintains a healthy returns rate of 5.2%, indicating consistent purchasing behavior across diversified categories (Fashion 40%, Electronics 30%, Food 30%). The applicant qualifies for credit facility with a recommended limit of \u20b950,000, supported by demonstrated payment discipline and sustained transaction velocity.",
+        "reference_narrative": "Rajesh Kumar qualifies for GrabCredit based on strong purchase activity. His GMV grew 37.14% YoY (\u20b93,50,000 to \u20b94,80,000), with 200 orders at an average value of \u20b92,400. Low returns rate of 5.2% over 36 months indicates high-quality engagement.",
+        "grounding_score": 0.7059,
+        "similarity_score": 0.7541,
+        "judge_score": 0.0,
+        "composite_score": 0.4685,
+        "latency_ms": 2188.0,
+        "cost_usd": 0.000304,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "cr_002",
+        "user_id": "U1002",
+        "persona": {
+          "user_id": "U1002",
+          "name": "Priya Sharma",
+          "gmv_last_year": 120000,
+          "gmv_prev_year": 180000,
+          "gmv_growth_pct": -33.33,
+          "avg_order_value": 1200,
+          "order_count_last_year": 100,
+          "category_mix": {
+            "Food": 0.7,
+            "Health": 0.3
+          },
+          "payment_method": "upi",
+          "returns_rate_pct": 15.0,
+          "account_age_months": 12
+        },
+        "ground_truth_eligible": true,
+        "generated_narrative": "Priya Sharma (U1002) has demonstrated a 12-month account history with a gross merchandise value of \u20b9120,000 in the last year, though this represents a year-over-year decline of 33.33% from \u20b9180,000 in the prior year. With 100 orders placed at an average order value of \u20b91,200 and a returns rate of 15.0%, the account shows moderate transaction activity concentrated in Food (70%) and Health (30%) categories, primarily transacted via UPI. Despite the significant GMV contraction, the applicant qualifies for a credit facility with a recommended limit of \u20b95,000, contingent on enhanced monitoring of spending trajectory and returns behavior over the next review cycle.",
+        "reference_narrative": "Priya Sharma's GrabCredit assessment shows declining activity. GMV fell 33.33% YoY (\u20b91,80,000 to \u20b91,20,000), with a high returns rate of 15.0% and a relatively short account history of 12 months. Credit limit set conservatively.",
+        "grounding_score": 1.0,
+        "similarity_score": 0.6854,
+        "judge_score": 0.0,
+        "composite_score": 0.5871,
+        "latency_ms": 2685.5,
+        "cost_usd": 0.000324,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "cr_003",
+        "user_id": "U1003",
+        "persona": {
+          "user_id": "U1003",
+          "name": "Arjun Mehta",
+          "gmv_last_year": 950000,
+          "gmv_prev_year": 720000,
+          "gmv_growth_pct": 31.94,
+          "avg_order_value": 4750,
+          "order_count_last_year": 200,
+          "category_mix": {
+            "Electronics": 0.6,
+            "Travel": 0.25,
+            "Fashion": 0.15
+          },
+          "payment_method": "credit_card",
+          "returns_rate_pct": 3.1,
+          "account_age_months": 60
+        },
+        "ground_truth_eligible": true,
+        "generated_narrative": "Arjun Mehta (U1003) demonstrates strong creditworthiness with a gross merchandise value of \u20b9950,000 over the last fiscal year, representing a year-over-year growth of 31.94% from \u20b9720,000 in the prior period. The applicant maintains a disciplined purchasing pattern with 200 orders at an average order value of \u20b94,750, a low returns rate of 3.1%, and an established account tenure of 60 months, indicating consistent engagement and reliability. Based on transaction history and payment behavior, the applicant qualifies for credit facility consideration with a recommended credit limit of \u20b9150,000.",
+        "reference_narrative": "Arjun Mehta is a premium GrabOn user with GMV of \u20b99,50,000 last year, representing 31.94% YoY growth. With 200 orders at \u20b94,750 average value and a low 3.1% returns rate across 60 months, he qualifies for our highest credit tier.",
+        "grounding_score": 0.8462,
+        "similarity_score": 0.8528,
+        "judge_score": 0.0,
+        "composite_score": 0.5514,
+        "latency_ms": 3105.9,
+        "cost_usd": 0.000304,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "cr_004",
+        "user_id": "U1004",
+        "persona": {
+          "user_id": "U1004",
+          "name": "Sneha Patel",
+          "gmv_last_year": 45000,
+          "gmv_prev_year": 40000,
+          "gmv_growth_pct": 12.5,
+          "avg_order_value": 750,
+          "order_count_last_year": 60,
+          "category_mix": {
+            "Health": 0.5,
+            "Grocery": 0.5
+          },
+          "payment_method": "debit_card",
+          "returns_rate_pct": 8.0,
+          "account_age_months": 18
+        },
+        "ground_truth_eligible": false,
+        "generated_narrative": "Sneha Patel (U1004) demonstrates moderate purchasing activity with GMV of \u20b945,000 in the last year, representing 12.5% YoY growth from \u20b940,000, and maintains a reasonable average order value of \u20b9750 across 60 orders. However, the applicant does not qualify for credit facility at this time due to account tenure of only 18 months, which falls below the minimum seasoning requirement for credit assessment, combined with an 8.0% returns rate that warrants further behavioral monitoring before credit exposure is extended.",
+        "reference_narrative": "Sneha Patel shows moderate GrabOn engagement with \u20b945,000 GMV (12.5% YoY growth) and 60 orders at \u20b9750 average. Her account is 18 months old with an 8.0% returns rate. Credit eligibility is borderline.",
+        "grounding_score": 0.9167,
+        "similarity_score": 0.8144,
+        "judge_score": 0.0,
+        "composite_score": 0.5754,
+        "latency_ms": 2501.7,
+        "cost_usd": 0.000275,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "cr_005",
+        "user_id": "U1005",
+        "persona": {
+          "user_id": "U1005",
+          "name": "Vikram Singh",
+          "gmv_last_year": 1200000,
+          "gmv_prev_year": 900000,
+          "gmv_growth_pct": 33.33,
+          "avg_order_value": 6000,
+          "order_count_last_year": 200,
+          "category_mix": {
+            "Travel": 0.5,
+            "Electronics": 0.3,
+            "Fashion": 0.2
+          },
+          "payment_method": "credit_card",
+          "returns_rate_pct": 2.5,
+          "account_age_months": 84
+        },
+        "ground_truth_eligible": true,
+        "generated_narrative": "Vikram Singh (U1005) demonstrates strong creditworthiness with a gross merchandise value of \u20b912,00,000 in the last financial year, representing a year-over-year growth of 33.33% from \u20b99,00,000 previously. Over 84 months of account tenure, the applicant has maintained disciplined purchasing behavior with 200 orders at an average order value of \u20b96,000 and a low returns rate of 2.5%, indicating consistent transaction quality and reliable payment conduct. Based on demonstrated spending patterns, growth trajectory, and account stability, the applicant qualifies for credit facility consideration with a recommended credit limit of \u20b92,00,000.",
+        "reference_narrative": "Vikram Singh is GrabOn's top tier user with \u20b912,00,000 GMV last year \u2014 a 33.33% YoY increase from \u20b99,00,000. 200 orders at \u20b96,000 average, 2.5% returns rate over 84 months of loyalty qualify him for maximum GrabCredit.",
+        "grounding_score": 0.8667,
+        "similarity_score": 0.699,
+        "judge_score": 0.0,
+        "composite_score": 0.5298,
+        "latency_ms": 2957.8,
+        "cost_usd": 0.000312,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      }
+    ]
+  },
+  "candidate_results": {
+    "deal_copy": [
+      {
+        "case_id": "dc_001",
+        "channel": "email",
+        "merchant": "Myntra",
+        "generated_text": "Subject: 40% Off Fashion at Myntra \u2013 Your Style Upgrade Awaits!\n\n---\n\nHey there!\n\nWe've got something exciting for you at Myntra! Enjoy an incredible **40% discount** on your favorite fashion picks.\n\n**Here's what you need to know:**\n\n\u2728 **Discount:** 40% off\n\ud83d\udecd\ufe0f **Minimum Order:** \u20b9999\n\ud83c\udf9f\ufe0f **Coupon Code:** MYNTRA40\n\ud83d\udcc5 **Valid Until:** May 31, 2026\n\nWhether you're refreshing your wardrobe with the latest trends or hunting for those perfect basics, this is your moment to shop smart and save big. From clothing to accessories, find everything you love at unbeatable prices.\n\n**How to claim:**\n1. Shop your favorites on Myntra\n2. Add items worth \u20b9999 or more to your cart\n3. Enter code **MYNTRA40** at checkout\n4. Watch your savings add up!\n\nDon't let this opportunity slip away. Your style transformation starts now!\n\nHappy shopping!\n\n---\n\n*Offer valid until May 31, 2",
+        "reference_text": "Flat 40% OFF on Myntra! Use code MYNTRA40 on orders above \u20b9999. Valid till 31st May 2026. Shop top fashion brands now.",
+        "source_data": {
+          "discount_percent": 40,
+          "type": "flat",
+          "min_order": 999,
+          "expiry": "2026-05-31",
+          "coupon_code": "MYNTRA40"
+        },
+        "format_score": 1.0,
+        "grounding_score": 0.5294,
+        "judge_score": 0.0,
+        "similarity_score": 0.7775,
+        "composite_score": 0.4866,
+        "latency_ms": 3594.0,
+        "cost_usd": 0.000414,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "dc_002",
+        "channel": "whatsapp",
+        "merchant": "Zomato",
+        "generated_text": "\ud83c\udf54 Zomato: 50% off on orders above \u20b9149! Use code ZOMATO50. Valid till May 15, 2026 \ud83c\udf89",
+        "reference_text": "\ud83c\udf55 Flat 50% OFF on Zomato! Code: ZOMATO50. Min \u20b9149. Expires 15 May. Order now!",
+        "source_data": {
+          "discount_percent": 50,
+          "type": "flat",
+          "min_order": 149,
+          "expiry": "2026-05-15",
+          "coupon_code": "ZOMATO50"
+        },
+        "format_score": 1.0,
+        "grounding_score": 0.6,
+        "judge_score": 0.0,
+        "similarity_score": 0.9153,
+        "composite_score": 0.5215,
+        "latency_ms": 1148.5,
+        "cost_usd": 0.000153,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "dc_003",
+        "channel": "push",
+        "merchant": "Amazon",
+        "generated_text": "Amazon: 30% Off Electronics",
+        "reference_text": "Amazon: 30% OFF Electronics",
+        "source_data": {
+          "discount_percent": 30,
+          "type": "percentage",
+          "min_order": 0,
+          "expiry": "2026-05-10",
+          "coupon_code": null
+        },
+        "format_score": 1.0,
+        "grounding_score": 1.0,
+        "judge_score": 0.0,
+        "similarity_score": 1.0,
+        "composite_score": 0.65,
+        "latency_ms": 1368.8,
+        "cost_usd": 0.000106,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "dc_004",
+        "channel": "email",
+        "merchant": "Swiggy",
+        "generated_text": "Subject: 60% Off Your Next Swiggy Order \u2013 Don't Miss Out!\n\n---\n\nHey there, food lover!\n\nWe've got something delicious for you. Enjoy a massive **60% discount** on your next Swiggy order!\n\n**Here's what you need to know:**\n\n\ud83c\udf89 **Discount:** 60% off (flat discount)\n\ud83d\uded2 **Minimum Order:** \u20b9199\n\ud83c\udf9f\ufe0f **Coupon Code:** SWIGGY60\n\ud83d\udcc5 **Valid Until:** May 20, 2026\n\nWhether you're craving your favorite restaurant's signature dish, ordering comfort food for a lazy evening, or treating yourself to something special \u2013 this is the perfect time to do it without breaking the bank.\n\n**How to redeem:**\n1. Open Swiggy and browse your favorite restaurants\n2. Add items to your cart (minimum order \u20b9199)\n3. Enter the code **SWIGGY60** at checkout\n4. Watch your bill drop by 60%!\n\nThat's right \u2013 you get to enjoy premium meals at a fraction of the price. From biryani to",
+        "reference_text": "Flat 60% OFF on Swiggy! Use code SWIGGY60 on orders above \u20b9199. Offer valid till 20th May 2026. Hungry? Order now!",
+        "source_data": {
+          "discount_percent": 60,
+          "type": "flat",
+          "min_order": 199,
+          "expiry": "2026-05-20",
+          "coupon_code": "SWIGGY60"
+        },
+        "format_score": 1.0,
+        "grounding_score": 0.6471,
+        "judge_score": 0.0,
+        "similarity_score": 0.769,
+        "composite_score": 0.521,
+        "latency_ms": 3724.9,
+        "cost_usd": 0.000415,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "dc_005",
+        "channel": "whatsapp",
+        "merchant": "MakeMyTrip",
+        "generated_text": "\u2708\ufe0f MakeMyTrip: 15% cashback on bookings \u20b95000+! Code: MMTFLY15 Valid till 30 Jun 2026 \ud83c\udf89",
+        "reference_text": "\u2708\ufe0f 15% cashback on MakeMyTrip! Code: MMTFLY15. Min \u20b95000. Book by 30 Jun.",
+        "source_data": {
+          "discount_percent": 15,
+          "type": "cashback",
+          "min_order": 5000,
+          "expiry": "2026-06-30",
+          "coupon_code": "MMTFLY15"
+        },
+        "format_score": 1.0,
+        "grounding_score": 0.6,
+        "judge_score": 0.0,
+        "similarity_score": 0.9094,
+        "composite_score": 0.5209,
+        "latency_ms": 2033.1,
+        "cost_usd": 0.000159,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      }
+    ],
+    "insurance": [
+      {
+        "case_id": "ins_001",
+        "deal_object": {
+          "merchant": "MakeMyTrip",
+          "category": "Travel",
+          "deal_type": "flight",
+          "amount": 12000,
+          "destination": "international",
+          "duration_days": 10
+        },
+        "ground_truth": "travel_insurance",
+        "predicted_label": "<parse_error>",
+        "predicted_confidence": 0.0,
+        "intent_score": 0.0,
+        "correct": false,
+        "is_edge_case": false,
+        "latency_ms": 2881.9,
+        "cost_usd": 0.000199,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "raw_output": "**Recommended Insurance: Travel Insurance (Comprehensive)**\n\nThis is a clear case for travel insurance. Here's why:\n\n- **International flight** to an unknown destination\n- **10-day duration** - sufficient length to warrant coverage\n- **\u20b912,000 investment** - meaningful amount worth protecting\n- **Flight-based travel** - covers flight delays, cancellations, baggage issues\n\n**Suggest covering:**\n- Trip cancellation/interruption\n- Flight delay compensation\n- Lost/damaged baggage\n- Medical emergencies abroad\n- Emergency evacuation\n\nThis is a high-intent insurance recommendation.",
+        "errors": []
+      },
+      {
+        "case_id": "ins_002",
+        "deal_object": {
+          "merchant": "Myntra",
+          "category": "Fashion",
+          "deal_type": "apparel",
+          "amount": 2500,
+          "return_policy_days": 30
+        },
+        "ground_truth": "no_insurance",
+        "predicted_label": "<parse_error>",
+        "predicted_confidence": 0.0,
+        "intent_score": 0.0,
+        "correct": false,
+        "is_edge_case": false,
+        "latency_ms": 4133.5,
+        "cost_usd": 0.000131,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "raw_output": "**Insurance Recommendation: None**\n\nThis is a low-risk fashion apparel purchase from a reputable retailer (Myntra) with:\n- Reasonable amount (\u20b92,500)\n- Strong return policy (30 days)\n- Standard product category with minimal damage risk\n\nThe existing return policy provides adequate protection for this transaction. Insurance is not necessary.",
+        "errors": []
+      },
+      {
+        "case_id": "ins_003",
+        "deal_object": {
+          "merchant": "PharmEasy",
+          "category": "Health",
+          "deal_type": "prescription_medicine",
+          "amount": 1500,
+          "chronic_condition": true
+        },
+        "ground_truth": "health_insurance",
+        "predicted_label": "<parse_error>",
+        "predicted_confidence": 0.0,
+        "intent_score": 0.0,
+        "correct": false,
+        "is_edge_case": false,
+        "latency_ms": 4123.0,
+        "cost_usd": 0.000249,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "raw_output": "**Insurance Recommendation: Health Insurance / Mediclaim Policy**\n\nThis deal involves purchasing prescription medicines for a chronic condition at a significant amount (\u20b91500). \n\n**Recommended Insurance Products:**\n\n1. **Comprehensive Health Insurance** - Covers prescription medicines, outpatient treatments, and chronic disease management\n2. **Mediclaim Policy** - Reimburses medical expenses including medicines for chronic conditions\n3. **Critical Illness Insurance** - If the chronic condition is serious (diabetes, heart disease, cancer, etc.)\n\n**Why it's relevant:**\n- Regular prescription medicine costs for chronic conditions can accumulate significantly over time\n- Health insurance can help offset these recurring expenses\n- Mediclaim policies typically cover both inpatient and outpatient prescription costs\n\nThis is a **strong insurance recommendation** scenario.",
+        "errors": []
+      },
+      {
+        "case_id": "ins_004",
+        "deal_object": {
+          "merchant": "Amazon",
+          "category": "Electronics",
+          "deal_type": "mobile_phone",
+          "amount": 45000,
+          "brand": "Apple"
+        },
+        "ground_truth": "device_protection",
+        "predicted_label": "<parse_error>",
+        "predicted_confidence": 0.0,
+        "intent_score": 0.0,
+        "correct": false,
+        "is_edge_case": false,
+        "latency_ms": 3178.8,
+        "cost_usd": 0.000175,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "raw_output": "**Recommended Insurance: Device Protection/Mobile Phone Insurance**\n\nThis is a high-value Apple mobile phone purchase (\u20b945,000). I'd recommend:\n\n- **Device Protection Plan** - covers accidental damage, drops, water damage, and hardware failures\n- **Extended Warranty** - extends manufacturer coverage beyond standard 1 year\n- **Accidental Damage Protection** - specifically useful for phones given their fragility\n\nGiven the premium price point and typical usage risks with mobile devices, insurance is **highly relevant** for this purchase.",
+        "errors": []
+      },
+      {
+        "case_id": "ins_005",
+        "deal_object": {
+          "merchant": "BigBasket",
+          "category": "Grocery",
+          "deal_type": "fresh_produce",
+          "amount": 600
+        },
+        "ground_truth": "no_insurance",
+        "predicted_label": "<parse_error>",
+        "predicted_confidence": 0.0,
+        "intent_score": 0.0,
+        "correct": false,
+        "is_edge_case": false,
+        "latency_ms": 3141.2,
+        "cost_usd": 0.000141,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "raw_output": "**Insurance Recommendation: None**\n\nThis is a grocery purchase of fresh produce from BigBasket for \u20b9600. Fresh produce is a perishable item with minimal insurance relevance. Standard grocery shopping doesn't require insurance coverage.\n\nHowever, if this were part of a **bulk wholesale purchase** or **commercial inventory**, product liability insurance might be worth considering\u2014but that's not the case here for a regular consumer grocery transaction.",
+        "errors": []
+      }
+    ],
+    "credit": [
+      {
+        "case_id": "cr_001",
+        "user_id": "U1001",
+        "persona": {
+          "user_id": "U1001",
+          "name": "Rajesh Kumar",
+          "gmv_last_year": 480000,
+          "gmv_prev_year": 350000,
+          "gmv_growth_pct": 37.14,
+          "avg_order_value": 2400,
+          "order_count_last_year": 200,
+          "category_mix": {
+            "Fashion": 0.4,
+            "Electronics": 0.3,
+            "Food": 0.3
+          },
+          "payment_method": "credit_card",
+          "returns_rate_pct": 5.2,
+          "account_age_months": 36
+        },
+        "ground_truth_eligible": true,
+        "generated_narrative": "Rajesh Kumar (U1001) demonstrates strong creditworthiness with a GMV of \u20b9480,000 in the last fiscal year, representing a year-on-year growth of 37.14% from \u20b9350,000 previously. Over 36 months of account tenure, the applicant has maintained a healthy returns rate of 5.2% across a diversified purchase portfolio (Fashion 40%, Electronics 30%, Food 30%), with consistent order activity of 200 transactions and an average order value of \u20b92,400, indicating disciplined spending patterns and reliable payment behavior via credit card. The applicant qualifies for credit facility and is approved for a credit limit of \u20b950,000.",
+        "reference_narrative": "Rajesh Kumar qualifies for GrabCredit based on strong purchase activity. His GMV grew 37.14% YoY (\u20b93,50,000 to \u20b94,80,000), with 200 orders at an average value of \u20b92,400. Low returns rate of 5.2% over 36 months indicates high-quality engagement.",
+        "grounding_score": 0.7059,
+        "similarity_score": 0.7413,
+        "judge_score": 0.0,
+        "composite_score": 0.4659,
+        "latency_ms": 2557.1,
+        "cost_usd": 0.000316,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "cr_002",
+        "user_id": "U1002",
+        "persona": {
+          "user_id": "U1002",
+          "name": "Priya Sharma",
+          "gmv_last_year": 120000,
+          "gmv_prev_year": 180000,
+          "gmv_growth_pct": -33.33,
+          "avg_order_value": 1200,
+          "order_count_last_year": 100,
+          "category_mix": {
+            "Food": 0.7,
+            "Health": 0.3
+          },
+          "payment_method": "upi",
+          "returns_rate_pct": 15.0,
+          "account_age_months": 12
+        },
+        "ground_truth_eligible": true,
+        "generated_narrative": "Priya Sharma (U1002) presents a mixed credit profile with concerning revenue trajectory but acceptable operational metrics. Gross merchandise value declined 33.33% year-over-year from \u20b9180,000 to \u20b9120,000, driven primarily by reduced transaction frequency rather than order value deterioration (average order value stable at \u20b91,200 across 100 orders in the last year). Returns rate of 15.0% and consistent UPI payment behavior indicate reasonable transaction discipline, though the significant GMV contraction and 12-month account tenure warrant conservative credit exposure. User qualifies for credit facility with recommended limit of \u20b95,000.",
+        "reference_narrative": "Priya Sharma's GrabCredit assessment shows declining activity. GMV fell 33.33% YoY (\u20b91,80,000 to \u20b91,20,000), with a high returns rate of 15.0% and a relatively short account history of 12 months. Credit limit set conservatively.",
+        "grounding_score": 1.0,
+        "similarity_score": 0.6485,
+        "judge_score": 0.0,
+        "composite_score": 0.5797,
+        "latency_ms": 2593.0,
+        "cost_usd": 0.000297,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "cr_003",
+        "user_id": "U1003",
+        "persona": {
+          "user_id": "U1003",
+          "name": "Arjun Mehta",
+          "gmv_last_year": 950000,
+          "gmv_prev_year": 720000,
+          "gmv_growth_pct": 31.94,
+          "avg_order_value": 4750,
+          "order_count_last_year": 200,
+          "category_mix": {
+            "Electronics": 0.6,
+            "Travel": 0.25,
+            "Fashion": 0.15
+          },
+          "payment_method": "credit_card",
+          "returns_rate_pct": 3.1,
+          "account_age_months": 60
+        },
+        "ground_truth_eligible": true,
+        "generated_narrative": "Arjun Mehta (U1003) demonstrates strong creditworthiness with a gross merchandise value of \u20b9950,000 over the last twelve months, representing year-over-year growth of 31.94% from \u20b9720,000 in the prior period. The applicant maintains a disciplined purchase pattern with 200 orders at an average order value of \u20b94,750, a low returns rate of 3.1%, and an established account tenure of 60 months, indicating consistent platform engagement and reliable transaction behavior. Based on demonstrated purchasing discipline, growth trajectory, and low return incidence, the applicant qualifies for credit facility consideration at the proposed limit of \u20b9150,000.",
+        "reference_narrative": "Arjun Mehta is a premium GrabOn user with GMV of \u20b99,50,000 last year, representing 31.94% YoY growth. With 200 orders at \u20b94,750 average value and a low 3.1% returns rate across 60 months, he qualifies for our highest credit tier.",
+        "grounding_score": 0.8667,
+        "similarity_score": 0.8367,
+        "judge_score": 0.0,
+        "composite_score": 0.5574,
+        "latency_ms": 2609.2,
+        "cost_usd": 0.000314,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "cr_004",
+        "user_id": "U1004",
+        "persona": {
+          "user_id": "U1004",
+          "name": "Sneha Patel",
+          "gmv_last_year": 45000,
+          "gmv_prev_year": 40000,
+          "gmv_growth_pct": 12.5,
+          "avg_order_value": 750,
+          "order_count_last_year": 60,
+          "category_mix": {
+            "Health": 0.5,
+            "Grocery": 0.5
+          },
+          "payment_method": "debit_card",
+          "returns_rate_pct": 8.0,
+          "account_age_months": 18
+        },
+        "ground_truth_eligible": false,
+        "generated_narrative": "Sneha Patel (U1004) demonstrates moderate purchasing activity with a GMV of \u20b945,000 over the last year and a YoY growth rate of 12.5%, supported by 60 orders at an average order value of \u20b9750. However, the applicant does not qualify for credit facility at this time due to account tenure of only 18 months, which falls below the minimum seasoning requirement for credit assessment. The returns rate of 8.0% and consistent debit card payment behavior indicate reasonable transaction discipline, but the limited account history and modest GMV base present insufficient data for credit risk evaluation at Poonawalla Fincorp.",
+        "reference_narrative": "Sneha Patel shows moderate GrabOn engagement with \u20b945,000 GMV (12.5% YoY growth) and 60 orders at \u20b9750 average. Her account is 18 months old with an 8.0% returns rate. Credit eligibility is borderline.",
+        "grounding_score": 0.9091,
+        "similarity_score": 0.7748,
+        "judge_score": 0.0,
+        "composite_score": 0.5641,
+        "latency_ms": 2460.1,
+        "cost_usd": 0.000299,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      },
+      {
+        "case_id": "cr_005",
+        "user_id": "U1005",
+        "persona": {
+          "user_id": "U1005",
+          "name": "Vikram Singh",
+          "gmv_last_year": 1200000,
+          "gmv_prev_year": 900000,
+          "gmv_growth_pct": 33.33,
+          "avg_order_value": 6000,
+          "order_count_last_year": 200,
+          "category_mix": {
+            "Travel": 0.5,
+            "Electronics": 0.3,
+            "Fashion": 0.2
+          },
+          "payment_method": "credit_card",
+          "returns_rate_pct": 2.5,
+          "account_age_months": 84
+        },
+        "ground_truth_eligible": true,
+        "generated_narrative": "Vikram Singh (U1005) demonstrates strong creditworthiness with a gross merchandise value of \u20b912,00,000 in the last fiscal year, representing a year-over-year growth of 33.33% from \u20b99,00,000 previously. Over 84 months of account tenure, the applicant has maintained disciplined purchasing behavior with 200 orders at an average order value of \u20b96,000 and a low returns rate of 2.5%, indicating reliable transaction patterns across diversified categories (Travel 50%, Electronics 30%, Fashion 20%). The applicant qualifies for the requested credit facility of \u20b92,00,000 based on demonstrated income stability, consistent growth trajectory, and minimal default risk indicators.",
+        "reference_narrative": "Vikram Singh is GrabOn's top tier user with \u20b912,00,000 GMV last year \u2014 a 33.33% YoY increase from \u20b99,00,000. 200 orders at \u20b96,000 average, 2.5% returns rate over 84 months of loyalty qualify him for maximum GrabCredit.",
+        "grounding_score": 0.7368,
+        "similarity_score": 0.6918,
+        "judge_score": 0.0,
+        "composite_score": 0.4699,
+        "latency_ms": 2570.7,
+        "cost_usd": 0.000326,
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001",
+        "prompt_file": "v1.txt",
+        "errors": []
+      }
+    ]
+  },
+  "comparison_results": {
+    "deal_copy": {
+      "composite": {
+        "baseline_mean": 0.5458,
+        "candidate_mean": 0.54,
+        "absolute_diff": -0.0058,
+        "relative_diff_pct": -1.06,
+        "p_value": 0.5065,
+        "significant": false,
+        "ci_low": -0.0221,
+        "ci_high": 0.0052,
+        "cohens_d": -0.1108,
+        "n_samples": 5,
+        "verdict": "NO_CHANGE",
+        "recommendation": "Difference of -0.0058 (-1.1%) is not statistically significant (p=0.5065). Cannot distinguish from noise. INCONCLUSIVE."
+      }
+    },
+    "insurance": {
+      "intent_score": {
+        "baseline_mean": 1.0,
+        "candidate_mean": 0.0,
+        "absolute_diff": -1.0,
+        "relative_diff_pct": -100.0,
+        "p_value": 1.0,
+        "significant": false,
+        "ci_low": -1.0,
+        "ci_high": -1.0,
+        "cohens_d": -2.0,
+        "n_samples": 5,
+        "verdict": "NO_CHANGE",
+        "recommendation": "Difference of -1.0000 (-100.0%) is not statistically significant (p=1.0000). Cannot distinguish from noise. INCONCLUSIVE."
+      },
+      "mcnemar": {
+        "p_value": 0.073638,
+        "significant": false,
+        "baseline_correct": 5,
+        "candidate_correct": 0,
+        "discordant_b": 0,
+        "discordant_c": 5,
+        "verdict": "NO_CHANGE"
+      }
+    },
+    "credit": {
+      "composite": {
+        "baseline_mean": 0.5424,
+        "candidate_mean": 0.5274,
+        "absolute_diff": -0.015,
+        "relative_diff_pct": -2.77,
+        "p_value": 0.4854,
+        "significant": false,
+        "ci_low": -0.0387,
+        "ci_high": 0.0006,
+        "cohens_d": -0.3249,
+        "n_samples": 5,
+        "verdict": "NO_CHANGE",
+        "recommendation": "Difference of -0.0150 (-2.8%) is not statistically significant (p=0.4854). Cannot distinguish from noise. INCONCLUSIVE."
+      }
+    }
+  }
+}

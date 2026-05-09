@@ -1,0 +1,91 @@
+{
+  "insurance": {
+    "score_field": "intent_score",
+    "total_cases": 10,
+    "candidate_worse": 10,
+    "candidate_better": 0,
+    "tied": 0,
+    "cases": [
+      {
+        "case_id": "ins_001",
+        "outcome": "CANDIDATE_WORSE",
+        "baseline_score": 1.0,
+        "candidate_score": 0.0,
+        "score_drop": -1.0,
+        "reason": "baseline correctly predicted 'travel_insurance', candidate predicted '<parse_error>' (wrong)"
+      },
+      {
+        "case_id": "ins_002",
+        "outcome": "CANDIDATE_WORSE",
+        "baseline_score": 1.0,
+        "candidate_score": 0.0,
+        "score_drop": -1.0,
+        "reason": "baseline correctly predicted 'no_insurance', candidate predicted '<parse_error>' (wrong)"
+      },
+      {
+        "case_id": "ins_003",
+        "outcome": "CANDIDATE_WORSE",
+        "baseline_score": 1.0,
+        "candidate_score": 0.0,
+        "score_drop": -1.0,
+        "reason": "baseline correctly predicted 'health_insurance', candidate predicted '<parse_error>' (wrong)"
+      },
+      {
+        "case_id": "ins_004",
+        "outcome": "CANDIDATE_WORSE",
+        "baseline_score": 1.0,
+        "candidate_score": 0.0,
+        "score_drop": -1.0,
+        "reason": "baseline correctly predicted 'device_protection', candidate predicted '<parse_error>' (wrong)"
+      },
+      {
+        "case_id": "ins_005",
+        "outcome": "CANDIDATE_WORSE",
+        "baseline_score": 1.0,
+        "candidate_score": 0.0,
+        "score_drop": -1.0,
+        "reason": "baseline correctly predicted 'no_insurance', candidate predicted '<parse_error>' (wrong)"
+      },
+      {
+        "case_id": "ins_006",
+        "outcome": "CANDIDATE_WORSE",
+        "baseline_score": 1.0,
+        "candidate_score": 0.0,
+        "score_drop": -1.0,
+        "reason": "baseline correctly predicted 'travel_insurance', candidate predicted '<parse_error>' (wrong)"
+      },
+      {
+        "case_id": "ins_007",
+        "outcome": "CANDIDATE_WORSE",
+        "baseline_score": 1.0,
+        "candidate_score": 0.0,
+        "score_drop": -1.0,
+        "reason": "baseline correctly predicted 'device_protection', candidate predicted '<parse_error>' (wrong)"
+      },
+      {
+        "case_id": "ins_008",
+        "outcome": "CANDIDATE_WORSE",
+        "baseline_score": 0.985,
+        "candidate_score": 0.0,
+        "score_drop": -0.985,
+        "reason": "baseline correctly predicted 'no_insurance', candidate predicted '<parse_error>' (wrong)"
+      },
+      {
+        "case_id": "ins_009",
+        "outcome": "CANDIDATE_WORSE",
+        "baseline_score": 1.0,
+        "candidate_score": 0.0,
+        "score_drop": -1.0,
+        "reason": "baseline correctly predicted 'loan_protection', candidate predicted '<parse_error>' (wrong)"
+      },
+      {
+        "case_id": "ins_010",
+        "outcome": "CANDIDATE_WORSE",
+        "baseline_score": 1.0,
+        "candidate_score": 0.0,
+        "score_drop": -1.0,
+        "reason": "baseline correctly predicted 'no_insurance', candidate predicted '<parse_error>' (wrong)"
+      }
+    ]
+  }
+}
